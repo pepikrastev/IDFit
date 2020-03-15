@@ -16,7 +16,23 @@ namespace IDFit.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+
+            this.Trainings = new List<Training>();
         }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public int? Age { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        public int? DietId { get; set; }
+
+        public virtual Diet Diet { get; set; }
+
+        public virtual ICollection<Training> Trainings { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }
