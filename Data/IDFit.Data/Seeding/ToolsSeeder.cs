@@ -26,7 +26,7 @@
                 await dbContext.Tools.AddAsync(new Tool
                 {
                     Name = $"Dumbbell {kg += 5}",
-                    Details = $"Dumbbell with weight{kg}kg",
+                    Details = $"Dumbbell with weight {kg}kg",
                 });
             }
         }

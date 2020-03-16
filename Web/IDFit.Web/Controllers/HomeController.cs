@@ -1,14 +1,18 @@
 ﻿namespace IDFit.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
     using IDFit.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
-        public IActionResult Index()
+        public HomeController()
+        {
+        }
+
+        public async Task<IActionResult> Index()
         {
             return this.View();
         }
