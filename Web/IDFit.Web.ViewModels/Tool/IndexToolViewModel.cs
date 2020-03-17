@@ -1,6 +1,9 @@
 ﻿namespace IDFit.Web.ViewModels.Tool
 {
-    public class IndexToolViewModel
+    using IDFit.Data.Models;
+    using IDFit.Services.Mapping;
+
+    public class IndexToolViewModel : IMapFrom<Tool>
     {
         public string Name { get; set; }
 

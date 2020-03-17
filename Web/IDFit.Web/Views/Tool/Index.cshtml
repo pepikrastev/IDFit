@@ -9,13 +9,17 @@
 
 </div>
 
-@foreach (var tool in Model.Tools)
-{
-    <div class="media">
-        <img src="@tool.ImageUrl" width="100" class="mr-3" alt="@tool.Name">
-        <div class="media-body">
-            <h5 class="mt-0"><a href="@tool.Url">@tool.Name</a></h5>
-            @tool.Details
+<div class="row">
+
+    @foreach (var tool in Model.Tools)
+    {
+        <div class="col-md-4 media">
+            <img src="@tool.ImageUrl" width="100" class="mr-3" alt="@tool.Name">
+            <div class="media-body">
+                <h5 class="mt-0">@*<a href="@tool.Url">*@@tool.Name@*</a>*@</h5>
+                @tool.Details
+            </div>
         </div>
-    </div>
-}
+    }
+
+</div>
