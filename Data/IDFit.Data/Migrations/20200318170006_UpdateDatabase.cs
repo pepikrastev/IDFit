@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IDFit.Data.Migrations
 {
-    public partial class AddInitialModels : Migration
+    public partial class UpdateDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,6 +38,10 @@ namespace IDFit.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     StartTime = table.Column<DateTime>(nullable: false),
                     EndTime = table.Column<DateTime>(nullable: false)
@@ -53,6 +57,10 @@ namespace IDFit.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     TrainingTime = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
@@ -75,6 +83,10 @@ namespace IDFit.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Quantity = table.Column<int>(nullable: false),
                     Weight = table.Column<double>(nullable: false),
@@ -97,6 +109,10 @@ namespace IDFit.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     TrainingId = table.Column<int>(nullable: true)
@@ -118,6 +134,10 @@ namespace IDFit.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: true),
                     Details = table.Column<string>(nullable: true),
@@ -140,6 +160,16 @@ namespace IDFit.Data.Migrations
                 column: "DietId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Diets_IsDeleted",
+                table: "Diets",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Exercises_IsDeleted",
+                table: "Exercises",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Exercises_TrainingId",
                 table: "Exercises",
                 column: "TrainingId");
@@ -150,9 +180,24 @@ namespace IDFit.Data.Migrations
                 column: "DietId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Foods_IsDeleted",
+                table: "Foods",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tools_ExerciseId",
                 table: "Tools",
                 column: "ExerciseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tools_IsDeleted",
+                table: "Tools",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trainings_IsDeleted",
+                table: "Trainings",
+                column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trainings_UserId",

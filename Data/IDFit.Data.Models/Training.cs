@@ -1,17 +1,15 @@
 ﻿namespace IDFit.Data.Models
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
 
-    public class Training
+    using IDFit.Data.Common.Models;
+
+    public class Training : BaseDeletableModel<int>
     {
         public Training()
         {
             this.Exercises = new List<Exercise>();
         }
-
-        public int Id { get; set; }
 
         public string Name { get; set; }
 

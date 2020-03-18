@@ -4,15 +4,15 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class Diet
+    using IDFit.Data.Common.Models;
+
+    public class Diet : BaseDeletableModel<int>
     {
         public Diet()
         {
             this.Foods = new List<Food>();
             this.Users = new HashSet<ApplicationUser>();
         }
-
-        public int Id { get; set; }
 
         public string Name { get; set; }
 

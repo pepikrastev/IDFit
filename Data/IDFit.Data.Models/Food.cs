@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class Food
-    {
-        public int Id { get; set; }
+    using IDFit.Data.Common.Models;
 
+    public class Food : BaseDeletableModel<int>
+    {
         public string Name { get; set; }
 
         public int Quantity { get; set; }

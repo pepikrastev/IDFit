@@ -4,14 +4,14 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class Exercise
+    using IDFit.Data.Common.Models;
+
+    public class Exercise : BaseDeletableModel<int>
     {
         public Exercise()
         {
             this.Tools = new List<Tool>();
         }
-
-        public int Id { get; set; }
 
         public string Name { get; set; }
 

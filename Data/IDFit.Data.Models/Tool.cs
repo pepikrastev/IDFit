@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class Tool
-    {
-        public int Id { get; set; }
+    using IDFit.Data.Common.Models;
 
+    public class Tool : BaseDeletableModel<int>
+    {
         public string Name { get; set; }
 
         public string ImageUrl { get; set; }

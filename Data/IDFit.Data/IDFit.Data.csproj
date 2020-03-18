@@ -13,6 +13,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200315200825_AddInitialModels.cs" />
     <Compile Remove="Migrations\20200315200825_AddInitialModels.Designer.cs" />
+    <Compile Remove="Migrations\20200315203349_AddInitialModels.cs" />
+    <Compile Remove="Migrations\20200315203349_AddInitialModels.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
