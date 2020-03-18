@@ -31,6 +31,7 @@
                               // my seeder
                               new FoodsSeeder(),
                               new ToolsSeeder(),
+                              new UsersRoolesSeeder(),
                           };
 
             foreach (var seeder in seeders)
