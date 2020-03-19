@@ -1,17 +1,15 @@
-﻿namespace IDFit.Web.Areas.Administration.Controllers
+﻿namespace IDFit.Web.Areas.Coach.Controllers
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using IDFit.Common;
+
     using IDFit.Web.Controllers;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Area("Administration")]
-    [Authorize(Roles = GlobalConstants.CoachRoleName)]
-    public class CoachesController : BaseController
+    [Area("Coach")]
+    public class TestController : BaseController
     {
         public IActionResult Index()
         {
