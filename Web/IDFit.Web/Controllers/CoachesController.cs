@@ -28,10 +28,16 @@
         public IActionResult All()
         {
             var viewModel = new AllCoachesViewModel();
-            var coaches = this.coachesService.GetAll<CoachViewModel>();
+            var coaches = this.coachesService.GetAllCoaches<CoachViewModel>();
             viewModel.Coaches = coaches;
 
             return this.View(viewModel);
+        }
+
+        public IActionResult Coach(string name)
+        {
+            
+            return this.View();
         }
     }
 }

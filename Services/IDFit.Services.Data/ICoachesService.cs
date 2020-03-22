@@ -6,5 +6,7 @@
     public interface ICoachesService
     {
         IEnumerable<T> GetAll<T>(int? count = null);
+
+        IEnumerable<T> GetAllCoaches<T>();
     }
 }

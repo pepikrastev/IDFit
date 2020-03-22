@@ -22,15 +22,25 @@
 
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
+            IQueryable<ApplicationUser> query = this.userRepository
+                .All()
+                .OrderBy(x => x.FirstName);
+
+            if (count.HasValue)
+            {
+                query = query.Take(count.Value);
+            }
+
+            return query.To<T>().ToList();
+        }
+
+        public IEnumerable<T> GetAllCoaches<T>()
+        {
             var role = this.db.Roles.First(x => x.Name == GlobalConstants.CoachRoleName);
 
             IQueryable<ApplicationUser> query = this.userRepository.All()
                 .Where(x => x.Roles.Any(r => r.RoleId == role.Id))
                 .OrderBy(x => x.FirstName);
-            if (count.HasValue)
-            {
-                query = query.Take(count.Value);
-            }
 
             return query.To<T>().ToList();
         }
