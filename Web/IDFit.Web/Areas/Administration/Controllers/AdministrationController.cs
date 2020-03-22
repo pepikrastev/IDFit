@@ -7,10 +7,9 @@
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-    //[Authorize(Roles = GlobalConstants.CoachRoleName)]
+    // [Authorize(Roles = GlobalConstants.CoachRoleName)]
 
     [Area("Administration")]
-    //[Area("Coaches")]
     public class AdministrationController : BaseController
     {
     }

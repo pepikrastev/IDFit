@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using IDFit.Common;
     using IDFit.Web.Controllers;
     using Microsoft.AspNetCore.Authorization;

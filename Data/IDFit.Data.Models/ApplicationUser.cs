@@ -30,6 +30,8 @@ namespace IDFit.Data.Models
 
         public int? DietId { get; set; }
 
+        public string Description { get; set; }
+
         public virtual Diet Diet { get; set; }
 
         public virtual ICollection<Training> Trainings { get; set; }

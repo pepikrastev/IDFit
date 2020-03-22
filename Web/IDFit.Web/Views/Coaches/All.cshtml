@@ -1,0 +1,34 @@
+﻿@using IDFit.Common
+@model IDFit.Web.ViewModels.Coaches.AllCoachesViewModel
+@{
+    this.ViewData["Title"] = $"Our Coaches!";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@this.ViewData["Title"]</h1>
+</div>
+
+<div class="row">
+    @foreach (var coach in Model.Coaches)
+    {
+        @*<div class="col-md-4 media">
+            <img src="@coach.ImageUrl" width="100" class="mr-3" alt="@coach.UserName">
+            <div class="media-body">
+                <h5 class="mt-0">Name : @coach.FirstName @coach.LastName</h5>
+                @coach.Description
+                <h5 class="mt-0">Age : @coach.Age</h5>
+                <h5 class="mt-0">Phone : @coach.PhoneNumber</h5>
+                <h5 class="mt-0">@coach.CreatedOn</h5>
+            </div>
+        </div>*@
+
+        <div class="card" style="width: 18rem;">
+            <img src="@coach.ImageUrl" class="card-img-top" alt="@coach.UserName">
+            <div class="card-body">
+                <h5 class="card-title">@coach.FirstName @coach.LastName </h5>
+                <p class="card-text">@coach.Description</p>
+                <a href="@coach.Url" class="btn btn-primary">Trainer</a>
+            </div>
+        </div>
+    }
+</div>

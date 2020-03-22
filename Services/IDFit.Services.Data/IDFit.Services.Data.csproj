@@ -1,7 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <!--for adding the db in services + references to IDFit.Data-->
+    <!--<TargetFramework>netstandard2.1</TargetFramework>-->
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
@@ -21,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\IDFit.Data.Common\IDFit.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\IDFit.Data.Models\IDFit.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\IDFit.Data\IDFit.Data.csproj" />
     <ProjectReference Include="..\IDFit.Services.Mapping\IDFit.Services.Mapping.csproj" />
   </ItemGroup>
 
