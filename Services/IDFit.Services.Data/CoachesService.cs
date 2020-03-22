@@ -20,6 +20,16 @@
             this.db = db;
         }
 
+        public T GetCoach<T>(string name)
+        {
+            var user = this.userRepository.All()
+                 .Where(x => x.FirstName == name)
+                 .To<T>()
+                 .FirstOrDefault();
+
+            return user;
+        }
+
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
             IQueryable<ApplicationUser> query = this.userRepository

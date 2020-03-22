@@ -24,7 +24,6 @@
             this.coachesService = coachesService;
         }
 
-        [Authorize]
         public IActionResult All()
         {
             var viewModel = new AllCoachesViewModel();
@@ -34,10 +33,11 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         public IActionResult Coach(string name)
         {
-            
-            return this.View();
+            var viewModel = this.coachesService.GetCoach<CoachViewModel>(name);
+            return this.View(viewModel);
         }
     }
 }

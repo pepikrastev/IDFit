@@ -1,11 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace IDFit.Web.Views.Coaches
-{
-    public class Coach
-    {
-    }
+﻿@using IDFit.Common
+@model IDFit.Web.ViewModels.Coaches.CoachViewModel
+@{
+    this.ViewData["Title"] = $"Coach!";
 }
+
+@*<div class="text-center">
+    <h1 class="display-4">@Model.FirstName @Model.LastName</h1>
+</div>*@
+
+<img src="@Model.ImageUrl" class="center" alt="...">
+<div class="card-body">
+    <center><h5 class="card-title">@Model.FirstName @Model.LastName</h5></center>
+    <center><p class="card-text">@Model.Description</p></center>
+</div>
+<ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Age
+        <span class="badge badge-primary badge-pill">@Model.Age</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Phone Number
+        <span class="badge badge-primary badge-pill">@Model.PhoneNumber</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Email Adrees
+        <span class="badge badge-primary badge-pill">@Model.UserName</span>
+    </li>
+</ul>
+<center>
+    <div class="card-body">
+        <a class="btn btn-primary" href="#" role="button">Became My Trainer</a>
+
+        <a class="btn btn-danger" href="#" role="button">Stop To Be My Trainer</a>
+    </div>
+</center>
