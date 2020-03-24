@@ -1,13 +1,14 @@
 ﻿namespace IDFit.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     using IDFit.Common;
     using IDFit.Data;
     using IDFit.Data.Common.Repositories;
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class CoachesService : ICoachesService
     {
