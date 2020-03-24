@@ -60,6 +60,11 @@
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
+            builder.Entity<ApplicationUser>()
+                .HasOne(x => x.Coach)
+                .WithMany(x => x.TrainedPeople)
+                .HasForeignKey(x => x.CoachId);
+
             this.ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);

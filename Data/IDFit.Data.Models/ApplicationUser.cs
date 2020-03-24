@@ -18,6 +18,7 @@ namespace IDFit.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
 
             this.Trainings = new List<Training>();
+            this.TrainedPeople = new List<ApplicationUser>();
         }
 
         public string FirstName { get; set; }
@@ -28,13 +29,19 @@ namespace IDFit.Data.Models
 
         public string ImageUrl { get; set; }
 
-        public int? DietId { get; set; }
-
         public string Description { get; set; }
 
+        public int? DietId { get; set; }
         public virtual Diet Diet { get; set; }
 
         public virtual ICollection<Training> Trainings { get; set; }
+
+        // if user is user
+        public string CoachId { get; set; }
+        public virtual ApplicationUser Coach { get; set; }
+
+        // if user is coach
+        public IEnumerable<ApplicationUser> TrainedPeople { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

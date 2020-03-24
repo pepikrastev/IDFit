@@ -71,6 +71,9 @@ namespace IDFit.Data.Migrations
                     b.Property<int?>("Age")
                         .HasColumnType("int");
 
+                    b.Property<string>("CoachId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -143,6 +146,8 @@ namespace IDFit.Data.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CoachId");
 
                     b.HasIndex("DietId");
 
@@ -489,6 +494,10 @@ namespace IDFit.Data.Migrations
 
             modelBuilder.Entity("IDFit.Data.Models.ApplicationUser", b =>
                 {
+                    b.HasOne("IDFit.Data.Models.ApplicationUser", "Coach")
+                        .WithMany("TrainedPeople")
+                        .HasForeignKey("CoachId");
+
                     b.HasOne("IDFit.Data.Models.Diet", "Diet")
                         .WithMany("Users")
                         .HasForeignKey("DietId");

@@ -15,6 +15,10 @@
     <Compile Remove="Migrations\20200315200825_AddInitialModels.Designer.cs" />
     <Compile Remove="Migrations\20200315203349_AddInitialModels.cs" />
     <Compile Remove="Migrations\20200315203349_AddInitialModels.Designer.cs" />
+    <Compile Remove="Migrations\20200324162526_UpdateUsers.cs" />
+    <Compile Remove="Migrations\20200324162526_UpdateUsers.Designer.cs" />
+    <Compile Remove="Migrations\20200324163338_UpdateUsers.cs" />
+    <Compile Remove="Migrations\20200324163338_UpdateUsers.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
