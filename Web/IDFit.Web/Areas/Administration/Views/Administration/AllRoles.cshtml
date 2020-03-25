@@ -1,0 +1,39 @@
+﻿@model IEnumerable<IDFit.Data.Models.ApplicationRole>
+@{
+    this.ViewData["Title"] = "All Roles";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+
+@if (Model.Any())
+{
+    <a class="btn btn-primary mb-3" style="width:auto" asp-area="Administration" asp-controller="Administration" asp-action="CreateRole">Create New Role</a>
+
+    foreach (var role in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                Role Id: @role.Id
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Role Name: @role.Name</h5>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn btn-success">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            There are no roles for now
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Create role with the button below</h5>
+            <a class="btn btn-primary mb-3" style="width:auto" asp-area="Administration" asp-controller="Administration" asp-action="CreateRole">Create Role</a>
+        </div>
+    </div>
+}

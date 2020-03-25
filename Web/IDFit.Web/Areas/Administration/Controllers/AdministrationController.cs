@@ -1,9 +1,9 @@
 ﻿namespace IDFit.Web.Areas.Administration.Controllers
 {
-    using System.Linq;
+    using System.Threading.Tasks;
 
     using IDFit.Common;
-    using IDFit.Data;
+    using IDFit.Data.Models;
     using IDFit.Web.Controllers;
     using IDFit.Web.ViewModels.Administration.Administration;
     using Microsoft.AspNetCore.Authorization;
@@ -16,45 +16,47 @@
     [Area("Administration")]
     public class AdministrationController : BaseController
     {
-        private readonly ApplicationDbContext db;
+        private readonly RoleManager<ApplicationRole> roleManager;
 
-        public AdministrationController(ApplicationDbContext db)
+        // RoleManager<IdentityUser> roleManager - is not working !!
+        public AdministrationController(RoleManager<ApplicationRole> roleManager)
         {
-            this.db = db;
+            this.roleManager = roleManager;
         }
 
-        public IActionResult CreateCoach()
+        [HttpGet]
+        public IActionResult CreateRole()
         {
-            var viewModel = new AllUsersViewModel();
-            var role = this.db.Roles.FirstOrDefault(x => x.Name == GlobalConstants.CoachRoleName);
-            var users = this.db.Users
-                .Where(x => x.Roles.Any() == false)
-                .Select(x => new UsersInfoViewModel
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRole(CreateRoleViewModel viewModel)
+        {
+            if (this.ModelState.IsValid)
+            {
+                ApplicationRole applicationRole = new ApplicationRole
                 {
-                    Id = x.Id,
-                    UserName = x.UserName,
-                    ImageUrl = x.ImageUrl,
-                });
-            viewModel.Users = users;
+                    Name = viewModel.RoleName,
+                };
+
+                IdentityResult result = await this.roleManager.CreateAsync(applicationRole);
+
+                if (result.Succeeded)
+                {
+                    return this.RedirectToAction("AllRoles", "Administration");
+                }
+            }
 
             return this.View(viewModel);
         }
 
-        [HttpPost]
-        public IActionResult CreateCoach(string username)
+        [HttpGet]
+        public IActionResult AllRoles()
         {
-            var user = this.db.Users.FirstOrDefault(x => x.UserName == username);
-            var role = this.db.Roles.FirstOrDefault(x => x.Name == GlobalConstants.CoachRoleName);
+            var roles = this.roleManager.Roles;
 
-            this.db.UserRoles.Add(new IdentityUserRole<string>
-            {
-                RoleId = role.Id,
-                UserId = user.Id,
-            });
-
-            this.db.SaveChanges();
-
-            return this.Redirect("/");
+            return this.View(roles);
         }
     }
 }
