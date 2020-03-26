@@ -17,11 +17,13 @@
     public class AdministrationController : BaseController
     {
         private readonly RoleManager<ApplicationRole> roleManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
         // RoleManager<IdentityUser> roleManager - is not working !!
-        public AdministrationController(RoleManager<ApplicationRole> roleManager)
+        public AdministrationController(RoleManager<ApplicationRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             this.roleManager = roleManager;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -57,6 +59,56 @@
             var roles = this.roleManager.Roles;
 
             return this.View(roles);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditRole(string id)
+        {
+            var role = await this.roleManager.FindByIdAsync(id);
+
+            if (role == null)
+            {
+                return this.RedirectToAction("Error");
+            }
+
+            var model = new EditRoleViewModel
+            {
+                Id = role.Id,
+                RoleName = role.Name,
+            };
+
+            foreach (var user in this.userManager.Users)
+            {
+                if (await this.userManager.IsInRoleAsync(user, role.Name))
+                {
+                    model.Users.Add(user.UserName);
+                }
+            }
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditRole(EditRoleViewModel model)
+        {
+            var role = await this.roleManager.FindByIdAsync(model.Id);
+
+            if (role == null)
+            {
+                return this.RedirectToAction("Error");
+            }
+            else
+            {
+                role.Name = model.RoleName;
+                var result = await this.roleManager.UpdateAsync(role);
+
+                if (result.Succeeded)
+                {
+                    return this.RedirectToAction("AllRoles");
+                }
+
+                return this.View(model);
+            }
         }
     }
 }
