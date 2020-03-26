@@ -27,6 +27,7 @@
                 {
                     Name = $"Dumbbell {kg += 5}",
                     Details = $"Dumbbell with weight {kg}kg",
+                    ImageUrl = "https://cdn2.coachmag.co.uk/sites/coachmag/files/styles/16x9_480/public/shutterstock_151938761.jpg?itok=qXH_U7PM&timestamp=1417110661",
                 });
             }
         }

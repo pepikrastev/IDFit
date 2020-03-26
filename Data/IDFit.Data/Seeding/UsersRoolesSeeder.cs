@@ -26,15 +26,17 @@
 
         private async Task UserToRoleAsync(RoleManager<ApplicationRole> roleManager, UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext)
         {
-            var user = await userManager.FindByNameAsync(GlobalConstants.CoachUserName);
+            var user = await userManager.FindByNameAsync(GlobalConstants.AdministratorUserName);
 
+            // only first time have to be - if(user == null)
             if (user != null)
             {
                 return;
             }
 
-            var role = await roleManager.FindByNameAsync(GlobalConstants.CoachRoleName);
+            var role = await roleManager.FindByNameAsync(GlobalConstants.AdministratorRoleName);
 
+            // only first time have to be - if(role == null)
             if (role != null)
             {
                 return;
@@ -51,7 +53,7 @@
 
         private async Task SeedUserAsync(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
-            var user = await userManager.FindByNameAsync(GlobalConstants.CoachUserName);
+            var user = await userManager.FindByNameAsync(GlobalConstants.AdministratorUserName);
 
             if (user != null)
             {
@@ -62,11 +64,11 @@
                     new ApplicationUser
                     {
                         Id = Guid.NewGuid().ToString(),
-                        UserName = GlobalConstants.CoachUserName,
-                        FirstName = "Krum",
-                        LastName = "Asparuh",
+                        UserName = GlobalConstants.AdministratorUserName,
+                        FirstName = "Pepi",
+                        LastName = "Hristov",
                         Age = 25,
-                        Email = GlobalConstants.CoachUserName,
+                        Email = GlobalConstants.AdministratorUserName,
                         EmailConfirmed = true,
                         PhoneNumber = "1234567890",
                     },
