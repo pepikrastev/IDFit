@@ -8,6 +8,8 @@
 
     public interface IUsersService
     {
-        T GetUser<T>(string username);
+        T GetUserByUsername<T>(string username);
+
+        T GetUserById<T>(string id);
     }
 }

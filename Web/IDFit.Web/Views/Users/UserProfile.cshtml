@@ -25,7 +25,8 @@
 
 <center>
     <div class="card-body">
-        <a class="btn btn-outline-danger" href="#" role="button">Edit Your Profil</a>
+        <a class="btn btn-outline-danger" asp-action="EditUser" asp-controller="Users" asp-route-id="@Model.Id" role="button">Edit Your Profil</a>
+
         @if (!User.IsInRole("Coach"))
         {
             <a class="btn btn-outline-primary" href="#" role="button">See Your Diet</a>
@@ -46,7 +47,7 @@
                 <h5 class="card-title">@persoUsername</h5>
             }
             <div class="card-footer">
-                <a asp-action="EditUsersTrainings" asp-controller="CoachesController" class="btn  btn-outline-primary" style="width:auto">Edit Users Trainings</a>
+                <a asp-action="EditUsersTrainings" asp-controller="Coaches" class="btn  btn-outline-primary" style="width:auto">Edit Users Trainings</a>
             </div>
         }
         else
@@ -60,7 +61,7 @@
             }
             <center>
                 <div class="card-footer">
-                    <a asp-action="MyTrainings" asp-controller="UsersController" class="btn  btn-outline-primary" style="width:auto">View My Trainings</a>
+                    <a asp-action="MyTrainings" asp-controller="Users" class="btn  btn-outline-primary" style="width:auto">View My Trainings</a>
                 </div>
             </center>
         }

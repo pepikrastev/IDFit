@@ -13,20 +13,34 @@
     public class UsersService : IUsersService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public UsersService(IDeletableEntityRepository<ApplicationUser> userRepository)
+        public UsersService(IDeletableEntityRepository<ApplicationUser> userRepository, UserManager<ApplicationUser> userManager)
         {
             this.userRepository = userRepository;
+            this.userManager = userManager;
         }
 
-        public T GetUser<T>(string username)
+        public T GetUserById<T>(string id)
         {
-            var user = this.userRepository.All()
+            var model = this.userRepository.All()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefault();
+
+            return model;
+        }
+
+        public T GetUserByUsername<T>(string username)
+        {
+            var user = this.userManager.FindByNameAsync(username);
+
+            var model = this.userRepository.All()
                  .Where(x => x.UserName == username)
                  .To<T>()
                  .FirstOrDefault();
 
-            return user;
+            return model;
         }
     }
 }
