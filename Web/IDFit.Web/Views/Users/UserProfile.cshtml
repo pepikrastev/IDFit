@@ -1,0 +1,69 @@
+﻿@model IDFit.Web.ViewModels.Users.UserProfilViewModel
+@{
+    this.ViewData["Title"] = "Your's Page";
+}
+
+<img src="@Model.ImageUrl" class="center" alt="...">
+<div class="card-body">
+    <center><h5 class="card-title">@Model.FirstName @Model.LastName</h5></center>
+    <center><p class="card-text">@Model.Description</p></center>
+</div>
+<ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Age
+        <span class="badge badge-primary badge-pill">@Model.Age</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Phone Number
+        <span class="badge badge-primary badge-pill">@Model.PhoneNumber</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Email Adrees
+        <span class="badge badge-primary badge-pill">@Model.UserName</span>
+    </li>
+</ul>
+
+<center>
+    <div class="card-body">
+        <a class="btn btn-outline-danger" href="#" role="button">Edit Your Profil</a>
+        @if (!User.IsInRole("Coach"))
+        {
+            <a class="btn btn-outline-primary" href="#" role="button">See Your Diet</a>
+        }
+    </div>
+</center>
+
+<div class="card">
+    <div class="card-body">
+        @if (User.IsInRole("Coach"))
+        {
+            <div class="card-header">
+                <h3>People who I am training</h3>
+            </div>
+
+            foreach (var persoUsername in Model.TrainedPeople)
+            {
+                <h5 class="card-title">@persoUsername</h5>
+            }
+            <div class="card-footer">
+                <a asp-action="EditUsersTrainings" asp-controller="CoachesController" class="btn  btn-outline-primary" style="width:auto">Edit Users Trainings</a>
+            </div>
+        }
+        else
+        {
+            <div class="card-header">
+                <h3>My training list</h3>
+            </div>
+            foreach (var training in Model.Trainings)
+            {
+                <h5 class="card-title">@training</h5>
+            }
+            <center>
+                <div class="card-footer">
+                    <a asp-action="MyTrainings" asp-controller="UsersController" class="btn  btn-outline-primary" style="width:auto">View My Trainings</a>
+                </div>
+            </center>
+        }
+    </div>
+
+</div>
