@@ -19,11 +19,12 @@
     {
         private readonly ICoachesService coachesService;
 
-        public CoachesController( ICoachesService coachesService)
+        public CoachesController(ICoachesService coachesService)
         {
             this.coachesService = coachesService;
         }
 
+        [HttpGet]
         public IActionResult All()
         {
             var viewModel = new AllCoachesViewModel();
@@ -33,6 +34,7 @@
             return this.View(viewModel);
         }
 
+        [HttpGet]
         [Authorize]
         public IActionResult Coach(string name)
         {

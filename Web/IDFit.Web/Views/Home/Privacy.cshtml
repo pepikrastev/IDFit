@@ -7,6 +7,10 @@
 
 @if (User.IsInRole("Coach"))
 {
+
+    <div>
+        <a asp-area="" asp-controller="Foods" asp-action="AllFoods">See list of foods</a>
+    </div>
     <div>
         <a asp-area="Coach" asp-controller="Test" asp-action="Index">Go Coach Area Test Controller</a>
     </div>

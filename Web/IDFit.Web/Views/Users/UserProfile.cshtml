@@ -2,12 +2,18 @@
 @{
     this.ViewData["Title"] = "Your's Page";
 }
-
 <img src="@Model.ImageUrl" class="center" alt="...">
+@if (User.IsInRole("Coach"))
+{
+    <center>
+        <span class="badge badge-warning">Coach</span>
+    </center>
+}
 <div class="card-body">
     <center><h5 class="card-title">@Model.FirstName @Model.LastName</h5></center>
     <center><p class="card-text">@Model.Description</p></center>
 </div>
+
 <ul class="list-group">
     <li class="list-group-item d-flex justify-content-between align-items-center">
         Age
