@@ -198,5 +198,31 @@
 
             return this.RedirectToAction("EditRole", new { Id = roleId });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteRole(string id)
+        {
+            var role = await this.roleManager.FindByIdAsync(id);
+
+            if (role == null)
+            {
+                this.ViewBag.ErrorMassage = $"Role with {id} cannot be found";
+                return this.View("NotFound");
+            }
+
+            var result = await this.roleManager.DeleteAsync(role);
+
+            if (result.Succeeded)
+            {
+                return this.RedirectToAction("AllRoles");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                this.ModelState.AddModelError(" ", error.Description);
+            }
+
+            return this.View("AllRoles");
+        }
     }
 }

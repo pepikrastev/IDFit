@@ -10,8 +10,6 @@
 
         T GetFoodById<T>(int id);
 
-        public int AddFoodInDb();
-
-        public Food GetFood(int id);
+        int EditFood(int id, string name, int quantity, double weight);
     }
 }

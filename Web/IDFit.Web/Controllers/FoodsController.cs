@@ -37,14 +37,8 @@
         [HttpPost]
         public IActionResult EditFood(FoodViewModel viewModel)
         {
-            // var food = this.foodsService.GetFoodById<Food>(viewModel.Id);
-            var food = this.foodsService.GetFood(viewModel.Id);
+            var result = this.foodsService.EditFood(viewModel.Id, viewModel.Name, viewModel.Quantity, viewModel.Weight);
 
-            food.Name = viewModel.Name;
-            food.Quantity = viewModel.Quantity;
-            food.Weight = viewModel.Weight;
-
-            var result = this.foodsService.AddFoodInDb();
             if (result <= -1)
             {
                 return this.View(viewModel);

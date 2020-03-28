@@ -18,8 +18,16 @@
             this.db = db;
         }
 
-        public int AddFoodInDb()
+        public int EditFood(int id, string name, int quantity, double weight)
         {
+            var food = this.foodsRepository.All()
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+
+            food.Name = name;
+            food.Quantity = quantity;
+            food.Weight = weight;
+
             return this.db.SaveChanges();
         }
 
@@ -30,12 +38,6 @@
                 .OrderBy(x => x.Name);
 
             return query.To<T>().ToList();
-        }
-
-        public Food GetFood(int id)
-        {
-            var food = this.db.Foods.FirstOrDefault(x => x.Id == id);
-            return food;
         }
 
         public T GetFoodById<T>(int id)
