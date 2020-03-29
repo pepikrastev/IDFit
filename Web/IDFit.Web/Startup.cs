@@ -9,6 +9,7 @@
     using IDFit.Data.Repositories;
     using IDFit.Data.Seeding;
     using IDFit.Services.Data;
+    using IDFit.Services.Data.Diets;
     using IDFit.Services.Data.Foods;
     using IDFit.Services.Mapping;
     using IDFit.Services.Messaging;
@@ -68,6 +69,7 @@
             services.AddTransient<ICoachesService, CoachesService>();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IFoodsService, FoodsService>();
+            services.AddTransient<IDietsService, DietsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
