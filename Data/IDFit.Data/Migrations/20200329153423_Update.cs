@@ -2,10 +2,18 @@
 
 namespace IDFit.Data.Migrations
 {
-    public partial class UpdateUsers : Migration
+    public partial class Update : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
+                table: "Foods",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)",
+                oldNullable: true);
+
             migrationBuilder.AddColumn<string>(
                 name: "CoachId",
                 table: "AspNetUsers",
@@ -38,6 +46,13 @@ namespace IDFit.Data.Migrations
             migrationBuilder.DropColumn(
                 name: "CoachId",
                 table: "AspNetUsers");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
+                table: "Foods",
+                type: "nvarchar(max)",
+                nullable: true,
+                oldClrType: typeof(string));
         }
     }
 }

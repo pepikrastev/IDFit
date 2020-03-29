@@ -18,6 +18,28 @@
             this.db = db;
         }
 
+        public int CreateFood(string name, int quantity, double weight)
+        {
+            var food = new Food
+            {
+                Name = name,
+                Weight = weight,
+                Quantity = quantity,
+            };
+
+            this.db.Foods.Add(food);
+            return this.db.SaveChanges();
+        }
+
+        public int DeleteFood(int id)
+        {
+            var food = this.foodsRepository.All()
+                 .FirstOrDefault(x => x.Id == id);
+
+            this.db.Foods.Remove(food);
+            return this.db.SaveChanges();
+        }
+
         public int EditFood(int id, string name, int quantity, double weight)
         {
             var food = this.foodsRepository.All()

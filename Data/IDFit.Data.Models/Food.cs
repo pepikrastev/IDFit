@@ -2,12 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     using IDFit.Data.Common.Models;
 
     public class Food : BaseDeletableModel<int>
     {
+        [Required]
         public string Name { get; set; }
 
         public int Quantity { get; set; }

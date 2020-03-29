@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IDFit.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200324164747_UpdateUsers")]
-    partial class UpdateUsers
+    [Migration("20200329153423_Update")]
+    partial class Update
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -261,6 +261,7 @@ namespace IDFit.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")

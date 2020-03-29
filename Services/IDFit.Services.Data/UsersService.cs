@@ -21,6 +21,14 @@
             this.userManager = userManager;
         }
 
+        public IEnumerable<T> GetAllUsers<T>()
+        {
+            IQueryable<ApplicationUser> query = this.userRepository.All()
+               .OrderBy(x => x.UserName);
+
+            return query.To<T>().ToList();
+        }
+
         public T GetUserById<T>(string id)
         {
             var model = this.userRepository.All()

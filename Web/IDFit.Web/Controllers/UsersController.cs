@@ -1,7 +1,7 @@
 ﻿namespace IDFit.Web.Controllers
 {
     using System.Threading.Tasks;
-
+    using IDFit.Common;
     using IDFit.Data.Models;
     using IDFit.Services.Data;
     using IDFit.Web.ViewModels.Users;
@@ -19,6 +19,18 @@
         {
             this.userManager = userManager;
             this.usersService = usersService;
+        }
+
+        // [Authorize(Roles = $"{GlobalConstants.AdministratorRoleName}, {GlobalConstants.CoachRoleName}")]
+        [HttpGet]
+        [Authorize(Roles = "Administrator, Coach")]
+        public IActionResult AllUsers()
+        {
+            var model = new AllUsersViewModel();
+            var users = this.usersService.GetAllUsers<EditUserViewModel>();
+            model.Users = users;
+
+            return this.View(model);
         }
 
         [HttpGet]
@@ -64,6 +76,12 @@
         public IActionResult EditUser(string id)
         {
             var model = this.usersService.GetUserById<EditUserViewModel>(id);
+            var userId = this.userManager.GetUserId(this.HttpContext.User);
+
+            if (model.Id != userId)
+            {
+                return this.RedirectToAction("Error");
+            }
 
             return this.View(model);
         }

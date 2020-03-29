@@ -11,5 +11,7 @@
         T GetUserByUsername<T>(string username);
 
         T GetUserById<T>(string id);
+
+        IEnumerable<T> GetAllUsers<T>();
     }
 }

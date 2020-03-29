@@ -41,30 +41,25 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Coaches" asp-action="All">Coaches</a>
                         </li>
 
-                        @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        @if (User.IsInRole(GlobalConstants.AdministratorRoleName) || User.IsInRole(GlobalConstants.CoachRoleName))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Manage
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="Administration" asp-controller="Administration" asp-action="AllRoles">Role</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Coaches" asp-action="All">Users</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else</a>
-                                </div>
-                            </li>
+                                    @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                    {
+                                        <a class="dropdown-item" asp-area="Administration" asp-controller="Administration" asp-action="AllRoles">Role</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Users" asp-action="AllUsers">Users</a>
+                                    }
+                                    else if (User.IsInRole(GlobalConstants.CoachRoleName))
+                                    {
+                                        <a class="dropdown-item" asp-area="" asp-controller="Foods" asp-action="AllFoods">Foods</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Users" asp-action="AllUsers">Users</a>
 
-                        }
-                        @if (User.IsInRole("Coach"))
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    ToDo
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Foods" asp-action="AllFoods">Foods</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Coaches" asp-action="All">Users</a>
+                                    }
+
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Something else</a>
                                 </div>
@@ -72,8 +67,8 @@
 
                         }
                         @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </li>*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>*@
                     </ul>
                 </div>
             </div>

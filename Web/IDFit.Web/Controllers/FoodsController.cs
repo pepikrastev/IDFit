@@ -1,5 +1,7 @@
 ﻿namespace IDFit.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using IDFit.Common;
     using IDFit.Data.Models;
     using IDFit.Services.Data.Foods;
@@ -15,6 +17,40 @@
         public FoodsController(IFoodsService foodsService)
         {
             this.foodsService = foodsService;
+        }
+
+        [HttpPost]
+        public IActionResult DeleteFood(int id)
+        {
+            var result = this.foodsService.DeleteFood(id);
+
+            if (result <= -1)
+            {
+                return this.RedirectToAction("/");
+            }
+
+            return this.RedirectToAction("AllFoods");
+        }
+
+        [HttpGet]
+        public IActionResult CreateFood()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateFood(FoodViewModel viewModel)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var resutl = this.foodsService.CreateFood(viewModel.Name, viewModel.Quantity, viewModel.Weight);
+
+                if (resutl > -1)
+                {
+                    return this.RedirectToAction("AllFoods", "Foods");
+                }
+            }
+            return this.View(viewModel);
         }
 
         [HttpGet]

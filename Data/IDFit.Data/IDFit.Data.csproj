@@ -19,6 +19,10 @@
     <Compile Remove="Migrations\20200324162526_UpdateUsers.Designer.cs" />
     <Compile Remove="Migrations\20200324163338_UpdateUsers.cs" />
     <Compile Remove="Migrations\20200324163338_UpdateUsers.Designer.cs" />
+    <Compile Remove="Migrations\20200324164747_UpdateUsers.cs" />
+    <Compile Remove="Migrations\20200324164747_UpdateUsers.Designer.cs" />
+    <Compile Remove="Migrations\20200329153004_Update.cs" />
+    <Compile Remove="Migrations\20200329153004_Update.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

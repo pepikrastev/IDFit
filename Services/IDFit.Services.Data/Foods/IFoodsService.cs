@@ -11,5 +11,9 @@
         T GetFoodById<T>(int id);
 
         int EditFood(int id, string name, int quantity, double weight);
+
+        int CreateFood(string name, int quantity, double weight);
+
+        int DeleteFood(int id);
     }
 }
