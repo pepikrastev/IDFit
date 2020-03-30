@@ -1,6 +1,6 @@
 ﻿@model IDFit.Web.ViewModels.Diets.CreateDietViewModel
 @{
-    this.ViewData["Title"] = $"Create Food";
+    this.ViewData["Title"] = $"Create Diet";
 }
 
 <h1>@this.ViewData["Title"]</h1>
@@ -24,7 +24,7 @@
                 <input asp-for="@Model.EndTime" class="form-control" />
                 <span asp-validation-for="@Model.EndTime" class="text-danger"></span>
             </div>
-            <button style="width:auto" type="submit" class="btn btn-primary">Create Food</button>
+            <button style="width:auto" type="submit" class="btn btn-primary">Create Diet</button>
             <a asp-action="AllDiets" class="btn btn-dark">Cancel</a>
         </form>
     </div>

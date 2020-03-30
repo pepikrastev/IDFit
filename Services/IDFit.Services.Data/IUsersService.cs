@@ -13,5 +13,7 @@
         T GetUserById<T>(string id);
 
         IEnumerable<T> GetAllUsers<T>();
+
+        ApplicationUser GetUserById(string id);
     }
 }

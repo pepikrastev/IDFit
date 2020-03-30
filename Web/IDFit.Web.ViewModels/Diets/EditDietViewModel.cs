@@ -3,13 +3,18 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
 
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
 
-    public class CreateDietViewModel : IMapFrom<Diet>, IMapTo<Diet>
+    public class EditDietViewModel : IMapFrom<Diet>, IMapTo<Diet>
     {
+        public EditDietViewModel()
+        {
+            this.FoodsName = new List<string>();
+            this.UsersUsersname = new List<string>();
+        }
+
         public int Id { get; set; }
 
         [Required]
@@ -22,5 +27,9 @@
         public DateTime EndTime { get; set; }
 
         public int Days => (this.EndTime - this.StartTime).Days;
+
+        public IEnumerable<string> FoodsName { get; set; }
+
+        public IEnumerable<string> UsersUsersname { get; set; }
     }
 }

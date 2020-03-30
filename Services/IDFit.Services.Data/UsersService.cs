@@ -39,6 +39,14 @@
             return model;
         }
 
+        public ApplicationUser GetUserById(string id)
+        {
+            var user = this.userRepository.All()
+                 .FirstOrDefault(x => x.Id == id);
+
+            return user;
+        }
+
         public T GetUserByUsername<T>(string username)
         {
             var user = this.userManager.FindByNameAsync(username);
