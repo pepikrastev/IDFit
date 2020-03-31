@@ -21,10 +21,20 @@
             this.db = db;
         }
 
-        public T GetCoach<T>(string name)
+        public T GetCoachByName<T>(string name)
         {
             var user = this.userRepository.All()
                  .Where(x => x.FirstName == name)
+                 .To<T>()
+                 .FirstOrDefault();
+
+            return user;
+        }
+
+        public T GetCoachById<T>(string id)
+        {
+            var user = this.userRepository.All()
+                 .Where(x => x.Id == id)
                  .To<T>()
                  .FirstOrDefault();
 

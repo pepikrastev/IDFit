@@ -16,7 +16,8 @@
             <div class="card-body">
                 <h5 class="card-title">@coach.FirstName @coach.LastName </h5>
                 <p class="card-text">@coach.Description</p>
-                <a href="@coach.Url" class="btn btn-primary">Trainer</a>
+                <a asp-controller="Coaches" asp-action="Coach" asp-route-id="@coach.Id" class="btn btn-primary">Trainer</a>
+                @*<a href="@coach.Url" asp-controller="Coaches" asp-action="Coach" asp-route-id="@coach.Id" class="btn btn-primary">Trainer</a>*@
             </div>
         </div>
     }

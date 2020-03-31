@@ -30,11 +30,6 @@
             return this.db.SaveChanges();
         }
 
-        public int DbSaveChanges()
-        {
-           return this.db.SaveChanges();
-        }
-
         public int CreateDiet(string name, DateTime startTime, DateTime endTime)
         {
             var diet = new Diet

@@ -19,7 +19,5 @@
         Diet GetDietById(int id);
 
         int AddDietInDb(Diet diet, string name, DateTime startTime, DateTime endTime);
-
-        int DbSaveChanges();
     }
 }

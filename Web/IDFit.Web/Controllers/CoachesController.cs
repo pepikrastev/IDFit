@@ -36,9 +36,14 @@
 
         [HttpGet]
         [Authorize]
-        public IActionResult Coach(string name)
+        public IActionResult Coach(string id)
         {
-            var viewModel = this.coachesService.GetCoach<CoachViewModel>(name);
+            var viewModel = this.coachesService.GetCoachById<CoachViewModel>(id);
+            if (viewModel == null)
+            {
+                return this.RedirectToAction("Error");
+            }
+
             return this.View(viewModel);
         }
     }

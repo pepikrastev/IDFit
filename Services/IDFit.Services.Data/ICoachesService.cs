@@ -9,6 +9,8 @@
 
         IEnumerable<T> GetAllCoaches<T>();
 
-        T GetCoach<T>(string name);
+        T GetCoachByName<T>(string name);
+
+        T GetCoachById<T>(string id);
     }
 }

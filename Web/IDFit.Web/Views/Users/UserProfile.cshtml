@@ -70,6 +70,14 @@
                     <a asp-action="MyTrainings" asp-controller="Users" class="btn  btn-outline-primary" style="width:auto">View My Trainings</a>
                 </div>
             </center>
+
+            @if (@Model.CoachId != null)
+            {
+                <div class="card-header">
+                    <a asp-action="Coach" asp-controller="Coaches" asp-route-id="@Model.CoachId" class="btn  btn-outline-primary" style="width:auto">See My Coach</a>
+                </div>
+            }
+
         }
     </div>
 

@@ -15,5 +15,7 @@
         IEnumerable<T> GetAllUsers<T>();
 
         ApplicationUser GetUserById(string id);
+
+        int AddCoach(string coachId, ApplicationUser user);
     }
 }

@@ -117,5 +117,20 @@
 
             return this.View(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCoachToUser(string coachId)
+        {
+            var user = await this.userManager.GetUserAsync(this.HttpContext.User);
+
+            var result = this.usersService.AddCoach(coachId, user);
+
+            if (result > -1)
+            {
+                return this.RedirectToAction("UserProfile");
+            }
+
+            return this.RedirectToAction("Error");
+        }
     }
 }

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-
+    using IDFit.Data;
     using IDFit.Data.Common.Repositories;
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
@@ -14,11 +14,25 @@
     {
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly ApplicationDbContext db;
 
-        public UsersService(IDeletableEntityRepository<ApplicationUser> userRepository, UserManager<ApplicationUser> userManager)
+        public UsersService(IDeletableEntityRepository<ApplicationUser> userRepository, UserManager<ApplicationUser> userManager, ApplicationDbContext db)
         {
             this.userRepository = userRepository;
             this.userManager = userManager;
+            this.db = db;
+        }
+
+        public int AddCoach(string coachId, ApplicationUser user)
+        {
+            var coach = this.userRepository.All()
+                  .FirstOrDefault(x => x.Id == coachId);
+
+            coach.TrainedPeople.ToList().Add(user);
+
+            user.CoachId = coachId;
+
+            return this.db.SaveChanges();
         }
 
         public IEnumerable<T> GetAllUsers<T>()
