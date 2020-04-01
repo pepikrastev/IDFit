@@ -38,6 +38,7 @@
         {
             // var user = await this.userManager.FindByNameAsync(name);
             var user = await this.userManager.GetUserAsync(this.HttpContext.User);
+
             if (user == null)
             {
                 return this.RedirectToAction("Error");
@@ -59,14 +60,31 @@
                 DietId = user.DietId,
             };
 
-            foreach (var training in user.Trainings)
+            var coach = await this.userManager.FindByIdAsync(user.CoachId);
+            if (user.CoachId != null)
             {
-                model.Trainings.Add(training.Name);
+                model.CoachUserName = coach.UserName;
             }
 
-            foreach (var person in user.TrainedPeople)
+            if (await this.userManager.IsInRoleAsync(user, GlobalConstants.CoachRoleName))
             {
-                model.Trainings.Add(person.UserName);
+                var allUsersWithCoach = this.usersService.GetAllUsersWithCoach<UserWithCoachViewModel>();
+
+                foreach (var person in allUsersWithCoach)
+                {
+                    model.TrainedPeople.Add(new UserWithCoachViewModel
+                    {
+                        Id = person.Id,
+                        UserName = person.UserName,
+                    });
+                }
+            }
+            else
+            {
+                foreach (var training in user.Trainings)
+                {
+                    model.Trainings.Add(training.Name);
+                }
             }
 
             return this.View(model);

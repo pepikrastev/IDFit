@@ -12,7 +12,7 @@
         public UserProfilViewModel()
         {
             this.Trainings = new List<string>();
-            this.TrainedPeople = new List<string>();
+            this.TrainedPeople = new List<UserWithCoachViewModel>();
         }
 
         public string Id { get; set; }
@@ -37,7 +37,8 @@
 
         public string CoachId { get; set; }
 
-        // if user is user
-        public List<string> TrainedPeople { get; set; }
+        public string CoachUserName { get; set; }
+
+        public List<UserWithCoachViewModel> TrainedPeople { get; set; }
     }
 }

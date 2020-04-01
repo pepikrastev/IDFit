@@ -44,17 +44,20 @@
     <div class="card-body">
         @if (User.IsInRole("Coach"))
         {
-            <div class="card-header">
+            <div class="card-header" style="background-color:lightblue">
                 <h3>People who I am training</h3>
             </div>
 
-            foreach (var persoUsername in Model.TrainedPeople)
+            foreach (var person in Model.TrainedPeople)
             {
-                <h5 class="card-title">@persoUsername</h5>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-light">
+                        @person.UserName
+                        <a asp-action="EditUsersTrainings" asp-controller="Coaches" class="badge badge-primary badge-pill" style="width:auto">See User</a>
+                    </li>
+                </ul>
             }
-            <div class="card-footer">
-                <a asp-action="EditUsersTrainings" asp-controller="Coaches" class="btn  btn-outline-primary" style="width:auto">Edit Users Trainings</a>
-            </div>
+
         }
         else
         {
@@ -74,7 +77,7 @@
             @if (@Model.CoachId != null)
             {
                 <div class="card-header">
-                    <a asp-action="Coach" asp-controller="Coaches" asp-route-id="@Model.CoachId" class="btn  btn-outline-primary" style="width:auto">See My Coach</a>
+                    <a asp-action="Coach" asp-controller="Coaches" asp-route-id="@Model.CoachId" class="btn  btn-outline-primary" style="width:auto">My Coach @Model.CoachUserName</a>
                 </div>
             }
 

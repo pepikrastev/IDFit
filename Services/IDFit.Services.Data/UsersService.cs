@@ -28,9 +28,12 @@
             var coach = this.userRepository.All()
                   .FirstOrDefault(x => x.Id == coachId);
 
-            coach.TrainedPeople.ToList().Add(user);
-
+            user.Coach = coach;
             user.CoachId = coachId;
+            coach.TrainedPeople.ToHashSet().Add(user);
+
+            this.db.Users.Update(user);
+            this.db.Users.Update(coach);
 
             return this.db.SaveChanges();
         }
@@ -38,6 +41,15 @@
         public IEnumerable<T> GetAllUsers<T>()
         {
             IQueryable<ApplicationUser> query = this.userRepository.All()
+               .OrderBy(x => x.UserName);
+
+            return query.To<T>().ToList();
+        }
+
+        public IEnumerable<T> GetAllUsersWithCoach<T>()
+        {
+            IQueryable<ApplicationUser> query = this.userRepository.All()
+                .Where(x => x.CoachId != null)
                .OrderBy(x => x.UserName);
 
             return query.To<T>().ToList();
