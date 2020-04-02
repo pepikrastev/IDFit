@@ -23,7 +23,7 @@
             this.db = db;
         }
 
-        public int AddCoach(string coachId, ApplicationUser user)
+        public int AddUserToCoach(string coachId, ApplicationUser user)
         {
             var coach = this.userRepository.All()
                   .FirstOrDefault(x => x.Id == coachId);
@@ -38,6 +38,27 @@
             return this.db.SaveChanges();
         }
 
+        public void EditUserProperty(ApplicationUser user)
+        {
+            var coaches = this.userRepository.All();
+
+            foreach (var coach in coaches)
+            {
+                if (coach.TrainedPeople.Contains(user))
+                {
+                    coach.TrainedPeople.ToList().Remove(user);
+                }
+            }
+
+            user.Coach = null;
+            user.CoachId = null;
+            user.Trainings = null;
+
+            this.db.Users.Update(user);
+
+            this.db.SaveChanges();
+        }
+
         public IEnumerable<T> GetAllUsers<T>()
         {
             IQueryable<ApplicationUser> query = this.userRepository.All()
@@ -46,10 +67,11 @@
             return query.To<T>().ToList();
         }
 
-        public IEnumerable<T> GetAllUsersWithCoach<T>()
+        public IEnumerable<T> GetAllUsersWithCoach<T>(string id)
         {
+
             IQueryable<ApplicationUser> query = this.userRepository.All()
-                .Where(x => x.CoachId != null)
+                .Where(x => x.CoachId == id && !x.Roles.Any())
                .OrderBy(x => x.UserName);
 
             return query.To<T>().ToList();

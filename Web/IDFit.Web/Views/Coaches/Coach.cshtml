@@ -8,8 +8,10 @@
         <h1 class="display-4">@Model.FirstName @Model.LastName</h1>
     </div>*@
 
-
-<img src="@Model.ImageUrl" class="center" alt="...">
+@if (Model.ImageUrl != null)
+{
+    <img src="@Model.ImageUrl" class="center" alt="...">
+}
 <div class="card-body">
     <center><h5 class="card-title">@Model.FirstName @Model.LastName</h5></center>
     <center><p class="card-text">@Model.Description</p></center>
@@ -32,6 +34,7 @@
 <center>
     @if (!User.IsInRole(GlobalConstants.CoachRoleName) && !User.IsInRole(GlobalConstants.AdministratorRoleName))
     {
+        
         <form asp-controller="Users" asp-action="RemoveCoachFromUser" asp-route-coachId="@Model.Id" method="post" class="mt-3">
             <button type="submit" class="btn btn-danger">Remove My Trainer</button>
         </form>
@@ -42,6 +45,6 @@
     }
     else
     {
-        <h3 class="btn-outline-info">You!</h3>
+        
     }
 </center>

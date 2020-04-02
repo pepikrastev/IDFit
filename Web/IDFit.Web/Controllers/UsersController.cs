@@ -60,17 +60,14 @@
                 DietId = user.DietId,
             };
 
-            var coach = await this.userManager.FindByIdAsync(user.CoachId);
-            if (user.CoachId != null)
-            {
-                model.CoachUserName = coach.UserName;
-            }
-
             if (await this.userManager.IsInRoleAsync(user, GlobalConstants.CoachRoleName))
             {
-                var allUsersWithCoach = this.usersService.GetAllUsersWithCoach<UserWithCoachViewModel>();
+                // user it is coach
+                model.CoachId = null;
 
-                foreach (var person in allUsersWithCoach)
+                var allUsersWithThatCoach = this.usersService.GetAllUsersWithCoach<UserWithCoachViewModel>(user.Id);
+
+                foreach (var person in allUsersWithThatCoach)
                 {
                     model.TrainedPeople.Add(new UserWithCoachViewModel
                     {
@@ -81,6 +78,13 @@
             }
             else
             {
+                // user is not coach
+                if (user.CoachId != null)
+                {
+                    var coach = await this.userManager.FindByIdAsync(user.CoachId);
+                    model.CoachUserName = coach.UserName;
+                }
+
                 foreach (var training in user.Trainings)
                 {
                     model.Trainings.Add(training.Name);
@@ -141,7 +145,15 @@
         {
             var user = await this.userManager.GetUserAsync(this.HttpContext.User);
 
-            var result = this.usersService.AddCoach(coachId, user);
+            if (await this.userManager.IsInRoleAsync(user, GlobalConstants.CoachRoleName))
+            {
+                this.usersService.EditUserProperty(user);
+
+                // TODO: massage with viewData - you are allready a coach
+                return this.RedirectToAction("UserProfile");
+            }
+
+            var result = this.usersService.AddUserToCoach(coachId, user);
 
             if (result > -1)
             {

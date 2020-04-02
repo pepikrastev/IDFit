@@ -11,14 +11,18 @@
 <div class="row">
     @foreach (var coach in Model.Coaches)
     {
-        <div class="card" style="width: 18rem;">
-            <img src="@coach.ImageUrl" class="card-img-top" alt="@coach.UserName">
-            <div class="card-body">
-                <h5 class="card-title">@coach.FirstName @coach.LastName </h5>
-                <p class="card-text">@coach.Description</p>
-                <a asp-controller="Coaches" asp-action="Coach" asp-route-id="@coach.Id" class="btn btn-primary">Trainer</a>
-                @*<a href="@coach.Url" asp-controller="Coaches" asp-action="Coach" asp-route-id="@coach.Id" class="btn btn-primary">Trainer</a>*@
-            </div>
-        </div>
+    <div class="card" style="width: 18rem;">
+        @if (coach.ImageUrl != null)
+        {
+            <img src="@coach.ImageUrl" class="card-img-top">
+        }
+    <div class="card-body">
+        <h5 class="card-title">@coach.FirstName @coach.LastName </h5>
+        <p class="card-text">@coach.UserName</p>
+        <p class="card-text">@coach.Description</p>
+        <a asp-controller="Coaches" asp-action="Coach" asp-route-id="@coach.Id" class="btn btn-primary">Trainer</a>
+        @*<a href="@coach.Url" asp-controller="Coaches" asp-action="Coach" asp-route-id="@coach.Id" class="btn btn-primary">Trainer</a>*@
+    </div>
+    </div>
     }
 </div>

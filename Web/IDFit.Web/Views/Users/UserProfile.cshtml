@@ -2,7 +2,11 @@
 @{
     this.ViewData["Title"] = "Your's Page";
 }
-<img src="@Model.ImageUrl" class="center" alt="...">
+
+@if (Model.ImageUrl != null)
+{
+    <img src="@Model.ImageUrl" class="center" alt="...">
+}
 @if (User.IsInRole("Coach"))
 {
     <center>
@@ -31,11 +35,19 @@
 
 <center>
     <div class="card-body">
-        <a class="btn btn-outline-danger" asp-action="EditUser" asp-controller="Users" asp-route-id="@Model.Id" role="button">Edit Your Profil</a>
+        <a class="btn btn-outline-primary" asp-action="EditUser" asp-controller="Users" asp-route-id="@Model.Id" role="button">Edit Your Profil</a>
 
-        @if (!User.IsInRole("Coach"))
+        @if (!User.IsInRole("Coach") && !User.IsInRole("Administrator"))
         {
             <a class="btn btn-outline-primary" href="#" role="button">See Your Diet</a>
+            @if (@Model.CoachId != null)
+            {
+                <a asp-action="Coach" asp-controller="Coaches" asp-route-id="@Model.CoachId" class="btn  btn-outline-success" style="width:auto">My Coach : @Model.CoachUserName</a>
+            }
+            else
+            {
+                <a asp-action="All" asp-controller="Coaches" class="btn  btn-outline-success" style="width:auto">Find Coach</a>
+            }
         }
     </div>
 </center>
@@ -44,44 +56,40 @@
     <div class="card-body">
         @if (User.IsInRole("Coach"))
         {
-            <div class="card-header" style="background-color:lightblue">
-                <h3>People who I am training</h3>
-            </div>
-
-            foreach (var person in Model.TrainedPeople)
+            @if (User.IsInRole("Coach"))
             {
-                <ul class="list-group">
-                    <li class="list-group-item list-group-item-light">
-                        @person.UserName
-                        <a asp-action="EditUsersTrainings" asp-controller="Coaches" class="badge badge-primary badge-pill" style="width:auto">See User</a>
-                    </li>
-                </ul>
+                <div class="card-header" style="background-color:lightblue">
+                    <h3>People who I am training</h3>
+                </div>
+                foreach (var person in Model.TrainedPeople)
+                {
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-light">
+                            @person.UserName
+                            <a asp-action="EditUsersTrainings" asp-controller="Coaches" class="badge badge-primary badge-pill" style="width:auto">See User</a>
+                        </li>
+                    </ul>
+                }
             }
-
         }
         else
         {
-            <div class="card-header">
-                <h3>My training list</h3>
-            </div>
-            foreach (var training in Model.Trainings)
-            {
-                <h5 class="card-title">@training</h5>
-            }
-            <center>
-                <div class="card-footer">
-                    <a asp-action="MyTrainings" asp-controller="Users" class="btn  btn-outline-primary" style="width:auto">View My Trainings</a>
-                </div>
-            </center>
-
-            @if (@Model.CoachId != null)
+            @if (!User.IsInRole("Administrator"))
             {
                 <div class="card-header">
-                    <a asp-action="Coach" asp-controller="Coaches" asp-route-id="@Model.CoachId" class="btn  btn-outline-primary" style="width:auto">My Coach @Model.CoachUserName</a>
+                    <h3>My training list</h3>
                 </div>
+                foreach (var training in Model.Trainings)
+                {
+                    <h5 class="card-title">@training</h5>
+                }
+                <center>
+                    <div class="card-footer">
+                        <a asp-action="MyTrainings" asp-controller="Users" class="btn  btn-outline-primary" style="width:auto">View My Trainings</a>
+                    </div>
+                </center>
             }
-
+           
         }
     </div>
-
 </div>
