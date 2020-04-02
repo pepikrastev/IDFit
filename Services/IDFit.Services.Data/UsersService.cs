@@ -55,7 +55,7 @@
             user.Trainings = null;
 
             this.db.Users.Update(user);
-
+            this.db.Users.UpdateRange(coaches);
             this.db.SaveChanges();
         }
 
@@ -105,6 +105,23 @@
                  .FirstOrDefault();
 
             return model;
+        }
+
+        public int RemoveUserFromCoach(ApplicationUser user, ApplicationUser coach)
+        {
+            // remove from user
+            user.Coach = null;
+            user.CoachId = null;
+
+            // remove from coach
+            if (coach.TrainedPeople.Contains(user))
+            {
+                coach.TrainedPeople.ToList().Remove(user);
+            }
+
+            this.db.Users.Update(user);
+            this.db.Users.Update(coach);
+            return this.db.SaveChanges();
         }
     }
 }

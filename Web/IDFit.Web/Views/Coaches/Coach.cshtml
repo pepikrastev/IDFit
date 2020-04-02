@@ -1,6 +1,7 @@
 ﻿@using IDFit.Common
 @model IDFit.Web.ViewModels.Coaches.CoachViewModel
 @{
+    var userCoachId = ViewBag.userCoachId;
     this.ViewData["Title"] = $"Coach!";
 }
 
@@ -34,17 +35,21 @@
 <center>
     @if (!User.IsInRole(GlobalConstants.CoachRoleName) && !User.IsInRole(GlobalConstants.AdministratorRoleName))
     {
-        
-        <form asp-controller="Users" asp-action="RemoveCoachFromUser" asp-route-coachId="@Model.Id" method="post" class="mt-3">
-            <button type="submit" class="btn btn-danger">Remove My Trainer</button>
-        </form>
-
-        <form asp-controller="Users" asp-action="AddCoachToUser" asp-route-coachId="@Model.Id" method="post" class="mt-3">
-            <button type="submit" class="btn btn-primary">Became My Trainer</button>
-        </form>
+        @if (userCoachId == Model.Id)
+        {
+            <form asp-controller="Users" asp-action="RemoveCoachFromUser" asp-route-coachId="@Model.Id" method="post" class="mt-3">
+                <button type="submit" class="btn btn-danger">Remove My Trainer</button>
+            </form>
+        }
+        else
+        {
+            <form asp-controller="Users" asp-action="AddCoachToUser" asp-route-coachId="@Model.Id" method="post" class="mt-3">
+                <button type="submit" class="btn btn-primary">Became My Trainer</button>
+            </form>
+        }
     }
     else
     {
-        
+
     }
 </center>

@@ -13,15 +13,18 @@
     using IDFit.Services.Mapping;
     using IDFit.Web.ViewModels.Coaches;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class CoachesController : Controller
     {
         private readonly ICoachesService coachesService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public CoachesController(ICoachesService coachesService)
+        public CoachesController(ICoachesService coachesService, UserManager<ApplicationUser> userManager)
         {
             this.coachesService = coachesService;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -36,8 +39,12 @@
 
         [HttpGet]
         [Authorize]
-        public IActionResult Coach(string id)
+        public async Task<IActionResult> Coach(string id)
         {
+            // take user.CoachId for buttons to users to pick or remove coach
+            var user = await this.userManager.GetUserAsync(this.HttpContext.User);
+            this.ViewBag.userCoachId = user.CoachId;
+
             var viewModel = this.coachesService.GetCoachById<CoachViewModel>(id);
             if (viewModel == null)
             {

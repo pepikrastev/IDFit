@@ -16,10 +16,12 @@
 
         ApplicationUser GetUserById(string id);
 
-        int AddUserToCoach(string coachId, ApplicationUser user);
-
         IEnumerable<T> GetAllUsersWithCoach<T>(string id);
 
         void EditUserProperty(ApplicationUser user);
+
+        int AddUserToCoach(string coachId, ApplicationUser user);
+
+        int RemoveUserFromCoach(ApplicationUser user, ApplicationUser coach);
     }
 }

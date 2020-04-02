@@ -162,5 +162,27 @@
 
             return this.RedirectToAction("Error");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveCoachFromUser(string coachId)
+        {
+            var user = await this.userManager.GetUserAsync(this.HttpContext.User);
+            if (await this.userManager.IsInRoleAsync(user, GlobalConstants.CoachRoleName))
+            {
+                this.usersService.EditUserProperty(user);
+                return this.RedirectToAction("UserProfile");
+            }
+
+            var coach = await this.userManager.FindByIdAsync(coachId);
+
+            var result = this.usersService.RemoveUserFromCoach(user, coach);
+
+            if (result > -1)
+            {
+                return this.RedirectToAction("UserProfile");
+            }
+
+            return this.RedirectToAction("Error");
+        }
     }
 }
