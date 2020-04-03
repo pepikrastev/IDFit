@@ -1,0 +1,63 @@
+﻿@model IDFit.Web.ViewModels.Coaches.CoachViewModel
+@{
+    this.ViewData["Title"] = $"Update your user";
+    var photoPath = "~/images/noimage.jpg";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2 col-md-2">
+            <img src="@photoPath" alt="" class="img-rounded img-responsive" asp-append-version="true" />
+        </div>
+        <div class="col-sm-4 col-md-4">
+            <blockquote>
+                <p>Bruce Wayne</p> <small><cite title="Source Title">UserName<i class="glyphicon glyphicon-map-marker"></i></cite></small>
+            </blockquote>
+            <p>
+                <i class="glyphicon glyphicon-envelope"></i> Age
+                <br /> <i class="glyphicon glyphicon-globe"></i> Description
+                <br /> <i class="glyphicon glyphicon-gift"></i> Coach: CoachName
+            </p>
+        </div>
+
+
+        <div class="col-sm-2 col-md-4">
+            <center>
+                <a class="btn btn-primary badge-pill">Edit Diet</a>
+            </center>
+            <p>
+                <i></i> Diet Name
+                <br /> <i style="color:blue">30</i>  <i></i> Days Left
+            </p>
+            
+        </div>
+    </div>
+
+    <br />
+    <div class="card-body">
+        <a class="btn btn-primary badge-pill">Add Training</a>
+        <br />
+        <br />
+        <div class="card-header" style="background-color:lightblue">
+            <center>
+                <h3>User Trainings</h3>
+            </center>
+        </div>
+
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-light">
+                some
+                <span>
+                    <a asp-controller="Coaches" asp-action="CoachUpdateHisUser" class="badge badge-primary badge-pill" style="width:auto">Update</a>
+                </span>
+            </li>
+            <li class="list-group-item list-group-item-light">
+                some 2
+                <span>
+                    <a asp-controller="Coaches" asp-action="CoachUpdateHisUser" class="badge badge-primary badge-pill" style="width:auto">Update</a>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+</div>

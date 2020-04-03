@@ -16,6 +16,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     public class CoachesController : Controller
     {
         private readonly ICoachesService coachesService;
@@ -38,7 +39,6 @@
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> Coach(string id)
         {
             // take user.CoachId for buttons to users to pick or remove coach
@@ -52,6 +52,16 @@
             }
 
             return this.View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CoachUpdateHisUser(string userId)
+        {
+            var user = await this.userManager.FindByIdAsync(userId);
+
+            var usersCoach = await this.userManager.FindByIdAsync(user.CoachId);
+
+            return this.View();
         }
     }
 }

@@ -57,21 +57,21 @@
     <div class="card-body">
         @if (User.IsInRole("Coach"))
         {
-            @if (User.IsInRole("Coach"))
+            <div class="card-header" style="background-color:lightblue">
+                <h3>People who I am training</h3>
+            </div>
+            foreach (var person in Model.TrainedPeople)
             {
-                <div class="card-header" style="background-color:lightblue">
-                    <h3>People who I am training</h3>
-                </div>
-                foreach (var person in Model.TrainedPeople)
-                {
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-light">
-                            @person.UserName
-                            <a asp-action="EditUsersTrainings" asp-controller="Coaches" class="badge badge-primary badge-pill" style="width:auto">See User</a>
-                        </li>
-                    </ul>
-                }
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-light">
+                        @person.UserName
+                        <span>
+                            <a asp-controller="Coaches" asp-action="CoachUpdateHisUser" asp-route-userId="@person.Id" class="badge badge-primary badge-pill" style="width:auto">Update</a>
+                        </span>
+                    </li>
+                </ul>
             }
+
         }
         else
         {
