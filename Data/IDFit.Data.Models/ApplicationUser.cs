@@ -27,6 +27,7 @@ namespace IDFit.Data.Models
 
         public int? Age { get; set; }
 
+        // TODO change name to PhotoPath
         public string ImageUrl { get; set; }
 
         public string Description { get; set; }

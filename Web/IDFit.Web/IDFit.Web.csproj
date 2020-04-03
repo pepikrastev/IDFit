@@ -43,4 +43,8 @@
     <ProjectReference Include="..\IDFit.Web.Infrastructure\IDFit.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\IDFit.Web.ViewModels\IDFit.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
 </Project>

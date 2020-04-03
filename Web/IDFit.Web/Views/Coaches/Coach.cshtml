@@ -3,16 +3,17 @@
 @{
     var userCoachId = ViewBag.userCoachId;
     this.ViewData["Title"] = $"Coach!";
+    var photoPath = "~/images/" + (Model.ImageUrl ?? "noimage.jpg");
+
 }
 
-@*<div class="text-center">
-        <h1 class="display-4">@Model.FirstName @Model.LastName</h1>
-    </div>*@
+@*@if (Model.ImageUrl != null)
+    {*@
+<center>
+    <img src="@photoPath" height="200" width="200" alt="..." asp-append-version="true">
+</center>
+@*}*@
 
-@if (Model.ImageUrl != null)
-{
-    <img src="@Model.ImageUrl" class="center" alt="...">
-}
 <div class="card-body">
     <center><h5 class="card-title">@Model.FirstName @Model.LastName</h5></center>
     <center><p class="card-text">@Model.Description</p></center>

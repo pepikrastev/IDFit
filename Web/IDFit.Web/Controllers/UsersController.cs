@@ -1,11 +1,14 @@
 ﻿namespace IDFit.Web.Controllers
 {
+    using System;
+    using System.IO;
     using System.Threading.Tasks;
     using IDFit.Common;
     using IDFit.Data.Models;
     using IDFit.Services.Data;
     using IDFit.Web.ViewModels.Users;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -14,11 +17,13 @@
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUsersService usersService;
+        private readonly IHostingEnvironment hostingEnvironment;
 
-        public UsersController(UserManager<ApplicationUser> userManager, IUsersService usersService)
+        public UsersController(UserManager<ApplicationUser> userManager, IUsersService usersService, IHostingEnvironment hostingEnvironment)
         {
             this.userManager = userManager;
             this.usersService = usersService;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         // [Authorize(Roles = $"{GlobalConstants.AdministratorRoleName}, {GlobalConstants.CoachRoleName}")]
@@ -49,7 +54,7 @@
             var model = new UserProfilViewModel
             {
                 Id = user.Id,
-                ImageUrl = user.ImageUrl,
+                PhotoPath = user.ImageUrl,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Age = user.Age,
@@ -118,23 +123,35 @@
                 return this.RedirectToAction("Error");
             }
 
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.Age = model.Age;
-            user.Description = model.Description;
-            user.ImageUrl = model.ImageUrl;
-            user.PhoneNumber = model.PhoneNumber;
-
-            var result = await this.userManager.UpdateAsync(user);
-
-            if (result.Succeeded)
+            if (this.ModelState.IsValid)
             {
-                return this.RedirectToAction($"UserProfile");
-            }
+                string uniqueFileName = null;
+                if (model.Photo != null)
+                {
+                    string uploadsFolder = Path.Combine(this.hostingEnvironment.WebRootPath, "images");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
 
-            foreach (var error in result.Errors)
-            {
-                this.ModelState.AddModelError(" ", error.Description);
+                user.ImageUrl = uniqueFileName;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Age = model.Age;
+                user.Description = model.Description;
+                user.PhoneNumber = model.PhoneNumber;
+
+                var result = await this.userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return this.RedirectToAction($"UserProfile");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    this.ModelState.AddModelError(" ", error.Description);
+                }
             }
 
             return this.View(model);

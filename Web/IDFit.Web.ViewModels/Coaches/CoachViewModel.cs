@@ -21,6 +21,7 @@
 
         public string Description { get; set; }
 
+        // change to PhotoPath
         public string ImageUrl { get; set; }
 
         public string PhoneNumber { get; set; }

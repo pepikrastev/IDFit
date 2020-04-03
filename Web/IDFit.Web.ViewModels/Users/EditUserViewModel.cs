@@ -2,6 +2,7 @@
 {
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
+    using Microsoft.AspNetCore.Http;
 
     public class EditUserViewModel : IMapFrom<ApplicationUser>
     {
@@ -17,7 +18,7 @@
 
         public int? Age { get; set; }
 
-        public string ImageUrl { get; set; }
+        public IFormFile Photo { get; set; }
 
         public string Description { get; set; }
     }

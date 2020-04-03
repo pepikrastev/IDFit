@@ -1,17 +1,18 @@
 ﻿@model IDFit.Web.ViewModels.Users.UserProfilViewModel
 @{
     this.ViewData["Title"] = "Your's Page";
+    var photoPath = "~/images/" + (Model.PhotoPath ?? "noimage.jpg");
 }
 
-@if (Model.ImageUrl != null)
-{
-    <img src="@Model.ImageUrl" class="center" alt="...">
-}
+<center>
+    <img src="@photoPath" height="300" width="300" alt="..." asp-append-version="true">
+</center>
+
 @if (User.IsInRole("Coach"))
 {
-    <center>
+    <div>
         <span class="badge badge-warning">Coach</span>
-    </center>
+    </div>
 }
 <div class="card-body">
     <center><h5 class="card-title">@Model.FirstName @Model.LastName</h5></center>
@@ -89,7 +90,7 @@
                     </div>
                 </center>
             }
-           
+
         }
     </div>
 </div>
