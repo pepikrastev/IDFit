@@ -1,5 +1,6 @@
 ﻿namespace IDFit.Services.Data
 {
+    using IDFit.Data.Models;
     using System.Collections.Generic;
     using System.Text;
 
@@ -12,5 +13,7 @@
         T GetCoachByName<T>(string name);
 
         T GetCoachById<T>(string id);
+
+        int AddDiet(Diet diet, ApplicationUser user);
     }
 }

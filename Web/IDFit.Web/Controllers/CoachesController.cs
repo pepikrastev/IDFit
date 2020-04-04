@@ -10,8 +10,10 @@
     using IDFit.Data.Common.Repositories;
     using IDFit.Data.Models;
     using IDFit.Services.Data;
+    using IDFit.Services.Data.Diets;
     using IDFit.Services.Mapping;
     using IDFit.Web.ViewModels.Coaches;
+    using IDFit.Web.ViewModels.Diets;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -21,11 +23,15 @@
     {
         private readonly ICoachesService coachesService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IUsersService usersService;
+        private readonly IDietsService dietsService;
 
-        public CoachesController(ICoachesService coachesService, UserManager<ApplicationUser> userManager)
+        public CoachesController(ICoachesService coachesService, UserManager<ApplicationUser> userManager, IUsersService usersService, IDietsService dietsService)
         {
             this.coachesService = coachesService;
             this.userManager = userManager;
+            this.usersService = usersService;
+            this.dietsService = dietsService;
         }
 
         [HttpGet]
@@ -55,13 +61,55 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> CoachUpdateHisUser(string userId)
+        [Authorize(Roles = GlobalConstants.CoachRoleName)]
+        public IActionResult CoachUpdateHisUser(string userId)
         {
-            var user = await this.userManager.FindByIdAsync(userId);
+            var model = this.usersService.GetUserById<TrainedUserViewModel>(userId);
 
-            var usersCoach = await this.userManager.FindByIdAsync(user.CoachId);
+            if (model.CoachId == null)
+            {
+                return this.RedirectToAction("Error");
+            }
 
-            return this.View();
+            return this.View(model);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = GlobalConstants.CoachRoleName)]
+        public IActionResult AddDietToUser(string userId)
+        {
+            this.ViewBag.userId = userId;
+            var viewModel = new AllDietsViewModel();
+            var diets = this.dietsService.GetAllDiets<CreateDietViewModel>();
+            viewModel.Diets = diets;
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = GlobalConstants.CoachRoleName)]
+        public IActionResult AddDietToUser(int dietId, string userId)
+        {
+            var diet = this.dietsService.GetDietById(dietId);
+            if (diet == null)
+            {
+                return this.RedirectToAction("Error");
+            }
+
+            var user = this.usersService.GetUserById(userId);
+            if (diet == null)
+            {
+                return this.RedirectToAction("Error");
+            }
+
+            var result = this.coachesService.AddDiet(diet, user);
+
+            if (result < 0)
+            {
+                return this.RedirectToAction("Error");
+            }
+
+            return this.RedirectToAction("CoachUpdateHisUser", new { userId = user.Id });
         }
     }
 }

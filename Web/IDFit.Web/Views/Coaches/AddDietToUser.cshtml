@@ -1,0 +1,48 @@
+﻿@model IDFit.Web.ViewModels.Diets.AllDietsViewModel
+@{
+    this.ViewData["Title"] = $"All Diets";
+    var userId = this.ViewBag.userId;
+}
+
+<div class="text-center">
+    <h1 class="display-4">@this.ViewData["Title"]</h1>
+</div>
+<div class="card-body">
+    <a class="btn btn-primary" asp-controller="Diets" asp-action="CreateDiet" role="button">Add Diet</a>
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Start Day</th>
+                <th>End Day</th>
+                <th>Days</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        @foreach (var diet in Model.Diets)
+        {
+            <tbody>
+                <tr class="table-info">
+                    <td>@diet.Name</td>
+                    <td>@diet.StartTime.Date.ToShortDateString()</td>
+                    <td>@diet.EndTime.Date.ToShortDateString()</td>
+                    <td>@diet.Days</td>
+                    <td>
+                        <form asp-controller="Coaches" asp-action="AddDietToUser" asp-route-dietId="@diet.Id" asp-route-userId="@userId" method="post">
+                            <button type="submit" class="btn btn-primary">Add Diet</button>
+                            
+                            <form asp-controller="Coaches" asp-action="AddDietToUser" asp-route-dietId="@diet.Id" asp-route-userId="@userId" method="post">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+
+                        </form>
+
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>
+

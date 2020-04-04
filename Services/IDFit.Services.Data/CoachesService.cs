@@ -65,5 +65,17 @@
 
             return query.To<T>().ToList();
         }
+
+        public int AddDiet(Diet diet, ApplicationUser user)
+        {
+            user.Diet = diet;
+            user.DietId = diet.Id;
+            this.userRepository.Update(user);
+
+            diet.Users.Add(user);
+            this.db.Diets.Update(diet);
+
+            return this.db.SaveChanges();
+        }
     }
 }
