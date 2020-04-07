@@ -21,5 +21,7 @@
         public double Weight { get; set; }
 
         public int? DietId { get; set; }
+
+        public bool IsSelected { get; set; }
     }
 }

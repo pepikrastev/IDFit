@@ -39,4 +39,28 @@
             <a asp-action="AllDiets" class="btn btn-primary">Cancel</a>
         </div>
     </div>
+
+    <br />
+    <br />
+    <div class="card">
+        <div class="card-header">
+            <h3>Foods in this diet</h3>
+        </div>
+        <div class="card-body">
+            @if (Model.Foods.Any())
+            {
+                foreach (var food in Model.Foods)
+                {
+                    <h5 class="card-title">@food.Name</h5>
+                }
+            }
+            else
+            {
+                <h5 class="card-title">There is no foods in this diet at the moment</h5>
+            }
+        </div>
+        <div class="card-footer">
+            <a asp-action="AddFoodsInDiet" asp-controller="Diets" asp-route-dietId="@Model.Id" class="btn  btn-primary" style="width:auto">Add or remove foods</a>
+        </div>
+    </div>
 </form>

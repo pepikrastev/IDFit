@@ -18,6 +18,12 @@
 
         Diet GetDietById(int id);
 
-        int AddDietInDb(Diet diet, string name, DateTime startTime, DateTime endTime);
+        int EditDietInDb(Diet diet, string name, DateTime startTime, DateTime endTime);
+
+        IEnumerable<T> GetAllFoods<T>();
+
+        IEnumerable<Food> GetAllFoods();
+
+        void EditDietInDb(Diet diet);
     }
 }

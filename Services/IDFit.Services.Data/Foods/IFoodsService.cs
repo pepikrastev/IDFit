@@ -15,5 +15,7 @@
         int CreateFood(string name, int quantity, double weight);
 
         int DeleteFood(int id);
+
+        Food GetFoodById(int id);
     }
 }

@@ -72,5 +72,12 @@
 
             return food;
         }
+
+        public Food GetFoodById(int id)
+        {
+            return this.foodsRepository.All()
+                .Where(f => f.Id == id)
+                .FirstOrDefault();
+        }
     }
 }

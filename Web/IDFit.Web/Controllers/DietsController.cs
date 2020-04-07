@@ -1,13 +1,14 @@
-﻿namespace IDFit.Web.Controllers
+﻿
+namespace IDFit.Web.Controllers
 {
     using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     using IDFit.Common;
-    using IDFit.Data.Models;
-    using IDFit.Services.Data;
     using IDFit.Services.Data.Diets;
+    using IDFit.Services.Data.Foods;
+    using IDFit.Services.Mapping;
     using IDFit.Web.ViewModels.Diets;
+    using IDFit.Web.ViewModels.Foods;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,12 @@
     public class DietsController : Controller
     {
         private readonly IDietsService dietsService;
-       
-        public DietsController(IDietsService dietsService)
+        private readonly IFoodsService foodsService;
+
+        public DietsController(IDietsService dietsService, IFoodsService foodsService)
         {
             this.dietsService = dietsService;
+            this.foodsService = foodsService;
         }
 
         [HttpGet]
@@ -74,6 +77,7 @@
         public IActionResult EditDiet(int id)
         {
             var viewModel = this.dietsService.GetDietById<EditDietViewModel>(id);
+
             return this.View(viewModel);
         }
 
@@ -88,7 +92,7 @@
             }
             else
             {
-                var result = this.dietsService.AddDietInDb(diet, model.Name, model.StartTime, model.EndTime);
+                var result = this.dietsService.EditDietInDb(diet, model.Name, model.StartTime, model.EndTime);
                 if (result >= 0)
                 {
                     return this.RedirectToAction("AllDiets");
@@ -96,6 +100,77 @@
 
                 return this.View(model);
             }
+        }
+
+        [HttpGet]
+        public IActionResult AddFoodsInDiet(int dietId)
+        {
+            this.ViewBag.dietId = dietId;
+
+            var diet = this.dietsService.GetDietById(dietId);
+            if (diet == null)
+            {
+                this.ViewBag.ErrorMessage = $"Diet with id = {dietId} connot be found";
+                return this.View("NotFound");
+            }
+
+            var viewModel = new List<FoodViewModel>();
+            var foods = this.dietsService.GetAllFoods();
+
+            foreach (var food in foods)
+            {
+                var foodViewModel = new FoodViewModel
+                {
+                    Id = food.Id,
+                    Name = food.Name,
+                    DietId = food.DietId,
+                    Quantity = food.Quantity,
+                    Weight = food.Weight,
+                };
+
+                if (food.DietId == null)
+                {
+                    foodViewModel.IsSelected = false;
+                }
+                else
+                {
+                    foodViewModel.IsSelected = true;
+                }
+
+                viewModel.Add(foodViewModel);
+            }
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddFoodsInDiet(List<FoodViewModel> viewModel, int dietId)
+        {
+            var diet = this.dietsService.GetDietById(dietId);
+            if (diet == null)
+            {
+                this.ViewBag.ErrorMessage = $"Diet with id = {dietId} connot be found";
+                return this.View("NotFound");
+            }
+
+            for (int i = 0; i < viewModel.Count; i++)
+            {
+                var food = this.foodsService.GetFoodById(viewModel[i].Id);
+
+                if (viewModel[i].IsSelected)
+                {
+                    diet.Foods.Add(food);
+
+                }
+                else
+                {
+                    diet.Foods.Remove(food);
+                }
+            }
+
+            this.dietsService.EditDietInDb(diet);
+
+            return this.RedirectToAction("EditDiet", new { Id = dietId });
         }
     }
 }

@@ -14,14 +14,16 @@
     {
         private readonly IDeletableEntityRepository<Diet> dietsRepository;
         private readonly ApplicationDbContext db;
+        private readonly IDeletableEntityRepository<Food> foodsRepository;
 
-        public DietsService(IDeletableEntityRepository<Diet> dietsRepository, ApplicationDbContext db)
+        public DietsService(IDeletableEntityRepository<Diet> dietsRepository, ApplicationDbContext db, IDeletableEntityRepository<Food> foodsRepository)
         {
             this.dietsRepository = dietsRepository;
             this.db = db;
+            this.foodsRepository = foodsRepository;
         }
 
-        public int AddDietInDb(Diet diet, string name, DateTime startTime, DateTime endTime)
+        public int EditDietInDb(Diet diet, string name, DateTime startTime, DateTime endTime)
         {
             diet.Name = name;
             diet.StartTime = startTime;
@@ -58,6 +60,14 @@
             return query.To<T>().ToList();
         }
 
+        public IEnumerable<T> GetAllFoods<T>()
+        {
+            IQueryable<Food> query = this.foodsRepository
+                .All();
+
+            return query.To<T>().ToList();
+        }
+
         public T GetDietById<T>(int id)
         {
             var diet = this.dietsRepository.All()
@@ -74,5 +84,18 @@
                 .FirstOrDefault(x => x.Id == id);
         }
 
+        public IEnumerable<Food> GetAllFoods()
+        {
+            var foods = this.foodsRepository
+                   .All().ToList();
+
+            return foods;
+        }
+
+        public void EditDietInDb(Diet diet)
+        {
+            this.db.Diets.Update(diet);
+            this.db.SaveChanges();
+        }
     }
 }

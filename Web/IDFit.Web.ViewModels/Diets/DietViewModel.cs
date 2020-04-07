@@ -17,6 +17,6 @@
 
         public DateTime EndTime { get; set; }
 
-        public virtual ICollection<FoodViewModel> Foods { get; set; }
+        public ICollection<FoodViewModel> Foods { get; set; }
     }
 }
