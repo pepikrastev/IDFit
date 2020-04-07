@@ -9,6 +9,11 @@
 
     public class DietViewModel : IMapFrom<Diet>
     {
+        public DietViewModel()
+        {
+            this.Foods = new List<FoodViewModel>();
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }

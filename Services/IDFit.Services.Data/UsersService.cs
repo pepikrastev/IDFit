@@ -67,6 +67,11 @@
             return query.To<T>().ToList();
         }
 
+        public IEnumerable<ApplicationUser> GetAllUsers()
+        {
+            return this.userRepository.All().ToList();
+        }
+
         public IEnumerable<T> GetAllUsersWithCoach<T>(string id)
         {
 

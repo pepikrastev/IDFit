@@ -28,9 +28,9 @@
             <br />
             @if (Model.Diet != null)
             {
-                <p><a asp-controller="Coaches" asp-action="AddDietToUser" asp-route-userId="@Model.Id" class="btn-outline-primary">Edit</a></p>
+                <p><a asp-controller="Coaches" asp-action="AddDietToUser" asp-route-userId="@Model.Id" class="btn-outline-primary"><strong>Edit It</strong></a></p>
                 <p>
-                    <i></i>@Model.Diet.Name
+                    <i></i><strong style="color:blue">Diet Name:</strong> @Model.Diet.Name
                     <br /> <i style="color:blue">@(Model.Diet.EndTime.Day - DateTime.UtcNow.Day)</i>  <i></i> Days Left
                     <br /> <i style="color:blue">@Model.Diet.Foods.Count</i>  <i></i> FoodsCount
                 </p>

@@ -63,6 +63,24 @@
             return query.To<T>().ToList();
         }
 
+        public IEnumerable<Food> GetAllFoods()
+        {
+            var foods = this.foodsRepository
+                   .All().ToList();
+
+            return foods;
+        }
+
+        public IEnumerable<Food> GetAllFoodsForDiet(int dietId)
+        {
+            var foods = this.foodsRepository
+                  .All()
+                  .Where(f => f.DietId == dietId || f.DietId == null)
+                  .ToList();
+
+            return foods;
+        }
+
         public T GetFoodById<T>(int id)
         {
             var food = this.foodsRepository.All()

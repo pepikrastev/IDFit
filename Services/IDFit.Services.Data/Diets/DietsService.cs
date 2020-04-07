@@ -8,19 +8,22 @@
     using IDFit.Data;
     using IDFit.Data.Common.Repositories;
     using IDFit.Data.Models;
+    using IDFit.Services.Data.Foods;
     using IDFit.Services.Mapping;
 
     public class DietsService : IDietsService
     {
         private readonly IDeletableEntityRepository<Diet> dietsRepository;
         private readonly ApplicationDbContext db;
-        private readonly IDeletableEntityRepository<Food> foodsRepository;
+        private readonly IFoodsService foodsService;
+        private readonly IUsersService usersService;
 
-        public DietsService(IDeletableEntityRepository<Diet> dietsRepository, ApplicationDbContext db, IDeletableEntityRepository<Food> foodsRepository)
+        public DietsService(IDeletableEntityRepository<Diet> dietsRepository, ApplicationDbContext db, IFoodsService foodsService, IUsersService usersService)
         {
             this.dietsRepository = dietsRepository;
             this.db = db;
-            this.foodsRepository = foodsRepository;
+            this.foodsService = foodsService;
+            this.usersService = usersService;
         }
 
         public int EditDietInDb(Diet diet, string name, DateTime startTime, DateTime endTime)
@@ -50,6 +53,31 @@
             var diet = this.dietsRepository.All()
                 .FirstOrDefault(x => x.Id == id);
 
+            var users = this.usersService.GetAllUsers();
+            foreach (var user in users)
+            {
+                if (user.DietId != null)
+                {
+                    user.DietId = null;
+                    user.Diet = null;
+                    this.db.Users.Update(user);
+                }
+            }
+
+            var foods = this.foodsService.GetAllFoods();
+            foreach (var food in foods)
+            {
+                if (food.DietId != null)
+                {
+                    food.DietId = null;
+                    food.Diet = null;
+                    this.db.Foods.Update(food);
+                }
+            }
+
+            diet.Foods = null;
+            diet.Users = null;
+
             this.db.Diets.Remove(diet);
             return this.db.SaveChanges();
         }
@@ -57,14 +85,6 @@
         public IEnumerable<T> GetAllDiets<T>()
         {
             IQueryable<Diet> query = this.dietsRepository.All();
-            return query.To<T>().ToList();
-        }
-
-        public IEnumerable<T> GetAllFoods<T>()
-        {
-            IQueryable<Food> query = this.foodsRepository
-                .All();
-
             return query.To<T>().ToList();
         }
 
@@ -82,14 +102,6 @@
         {
             return this.dietsRepository.All()
                 .FirstOrDefault(x => x.Id == id);
-        }
-
-        public IEnumerable<Food> GetAllFoods()
-        {
-            var foods = this.foodsRepository
-                   .All().ToList();
-
-            return foods;
         }
 
         public void EditDietInDb(Diet diet)

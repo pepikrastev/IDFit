@@ -115,7 +115,7 @@ namespace IDFit.Web.Controllers
             }
 
             var viewModel = new List<FoodViewModel>();
-            var foods = this.dietsService.GetAllFoods();
+            var foods = this.foodsService.GetAllFoodsForDiet(diet.Id);
 
             foreach (var food in foods)
             {
@@ -132,7 +132,7 @@ namespace IDFit.Web.Controllers
                 {
                     foodViewModel.IsSelected = false;
                 }
-                else
+                else if(food.DietId == diet.Id)
                 {
                     foodViewModel.IsSelected = true;
                 }
@@ -157,10 +157,9 @@ namespace IDFit.Web.Controllers
             {
                 var food = this.foodsService.GetFoodById(viewModel[i].Id);
 
-                if (viewModel[i].IsSelected)
+                if (viewModel[i].IsSelected && viewModel[i].DietId == null)
                 {
                     diet.Foods.Add(food);
-
                 }
                 else
                 {

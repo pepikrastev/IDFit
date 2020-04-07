@@ -23,11 +23,12 @@
 
         public string Description { get; set; }
 
-        public DietViewModel Diet { get; set; }
-
+        // if user is coach
         public IEnumerable<string> TrainedPeopleUserName { get; set; }
 
-        // if user has user
+        // if user has coach
+        public DietViewModel Diet { get; set; }
+
         public string CoachId { get; set; }
 
         public string CoachUserName { get; set; }

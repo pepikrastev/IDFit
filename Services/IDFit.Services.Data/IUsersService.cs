@@ -14,6 +14,8 @@
 
         IEnumerable<T> GetAllUsers<T>();
 
+        IEnumerable<ApplicationUser> GetAllUsers();
+
         ApplicationUser GetUserById(string id);
 
         IEnumerable<T> GetAllUsersWithCoach<T>(string id);

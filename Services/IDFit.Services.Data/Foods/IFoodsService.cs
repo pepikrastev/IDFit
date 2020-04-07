@@ -17,5 +17,9 @@
         int DeleteFood(int id);
 
         Food GetFoodById(int id);
+
+        IEnumerable<Food> GetAllFoods();
+
+        IEnumerable<Food> GetAllFoodsForDiet(int dietId);
     }
 }
