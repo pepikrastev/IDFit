@@ -1,6 +1,7 @@
 ﻿@model IDFit.Web.ViewModels.Diets.AllDietsViewModel
 @{
-    this.ViewData["Title"] = $"All Diets";
+    var user = this.ViewBag.user;
+    this.ViewData["Title"] = $"Select Diet for {user.UserName}";
     var userId = this.ViewBag.userId;
 }
 
@@ -8,7 +9,8 @@
     <h1 class="display-4">@this.ViewData["Title"]</h1>
 </div>
 <div class="card-body">
-    <a class="btn btn-primary" asp-controller="Diets" asp-action="CreateDiet" role="button">Add Diet</a>
+    <a class="btn btn-primary badge-pill" asp-controller="Diets" asp-action="CreateDiet" role="button">Add Diet</a>
+    <a asp-controller="Coaches" asp-action="CoachUpdateHisUser" asp-route-userId="@user.Id" class="btn btn-secondary badge-pill" style="width:auto">Cancel</a>
 </div>
 <div>
     <table class="table">
@@ -32,15 +34,18 @@
                     <td>@diet.Days</td>
                     <td>@diet.Foods.Count()</td>
                     <td>
-                        <form asp-controller="Coaches" asp-action="AddDietToUser" asp-route-dietId="@diet.Id" asp-route-userId="@userId" method="post">
-                            <button type="submit" class="btn btn-primary">Add Diet</button>
-
-                            <form asp-controller="" asp-action="" asp-route-dietId="@diet.Id" asp-route-userId="" method="post">
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                        @if (user.DietId != diet.Id)
+                        {
+                            <form asp-controller="Coaches" asp-action="AddDietToUser" asp-route-dietId="@diet.Id" asp-route-userId="@userId" method="post">
+                                <button type="submit" class="btn btn-primary badge-pill">Select</button>
                             </form>
-
-                        </form>
-
+                        }
+                        else
+                        {
+                            <form asp-controller="Coaches" asp-action="" asp-route-dietId="@diet.Id" asp-route-userId="@userId" method="post">
+                                <button type="submit" disabled class="btn btn-secondary badge-pill">Selected</button>
+                            </form>
+                        }
                     </td>
                 </tr>
             </tbody>

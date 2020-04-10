@@ -6,12 +6,14 @@
 
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
+    using IDFit.Web.ViewModels.Diets;
+    using IDFit.Web.ViewModels.Trainings;
 
     public class UserProfilViewModel : IMapFrom<ApplicationUser>
     {
         public UserProfilViewModel()
         {
-            this.Trainings = new List<string>();
+            this.Trainings = new List<TrainingViewModel>();
             this.TrainedPeople = new List<UserWithCoachViewModel>();
         }
 
@@ -31,14 +33,18 @@
 
         public string Description { get; set; }
 
+        // if user is not a coach
         public int? DietId { get; set; }
 
-        public List<string> Trainings { get; set; }
+        public DietViewModel Diet { get; set; }
+
+        public List<TrainingViewModel> Trainings { get; set; }
 
         public string CoachId { get; set; }
 
         public string CoachUserName { get; set; }
 
+        // if user is a coach
         public List<UserWithCoachViewModel> TrainedPeople { get; set; }
     }
 }

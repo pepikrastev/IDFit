@@ -1,0 +1,62 @@
+﻿@model IDFit.Web.ViewModels.Users.UserProfilViewModel
+@{
+    this.ViewData["Title"] = "Your's Page";
+    var photoPath = "~/images/" + (Model.PhotoPath ?? "noimage.jpg");
+}
+
+@if (Model.CoachId == null)
+{
+    <center><h3 class="text-danger">@Model.FirstName @Model.LastName you need to pick a coach to give you a diet.</h3></center>
+}
+else
+{
+    if (Model.DietId == null)
+    {
+        <center>
+            <h3 class="text-danger">@Model.CoachUserName Is your coach.</h3>
+            <h3 class="text-danger">@Model.FirstName @Model.LastName you don't have a diet.</h3>
+        </center>
+    }
+    else
+    {
+        <center><h3>Diet for @Model.FirstName</h3></center>
+
+        <div class="card text-center">
+            <div class="card-header ">
+                @Model.Diet.Name
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Foods List</h5>
+                <p class="card-text">
+
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Grams</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            @foreach (var food in Model.Diet.Foods)
+                            {
+                                <tbody>
+                                    <tr class="table-striped">
+                                        <td>@food.Name</td>
+                                        <td>@food.Weight grams</td>
+                                        <td>@food.Quantity pieces</td>
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+                    </div>
+
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            <div class="card-footer text-muted">
+                @(Model.Diet.EndTime.Day - DateTime.UtcNow.Day) days left.
+            </div>
+        </div>
+    }
+}

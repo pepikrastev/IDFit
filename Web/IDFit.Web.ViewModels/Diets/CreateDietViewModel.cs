@@ -8,12 +8,14 @@
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
     using IDFit.Web.ViewModels.Foods;
+    using IDFit.Web.ViewModels.Users;
 
     public class CreateDietViewModel : IMapFrom<Diet>, IMapTo<Diet>
     {
         public CreateDietViewModel()
         {
             this.Foods = new List<FoodViewModel>();
+            this.Users = new List<EditUserViewModel>();
         }
 
         public int Id { get; set; }
@@ -30,5 +32,7 @@
         public int Days => (this.EndTime - this.StartTime).Days;
 
         public IEnumerable<FoodViewModel> Foods { get; set; }
+
+        public IEnumerable<EditUserViewModel> Users { get; set; }
     }
 }

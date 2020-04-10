@@ -40,7 +40,7 @@
 
         @if (!User.IsInRole("Coach") && !User.IsInRole("Administrator"))
         {
-            <a class="btn btn-outline-primary" href="#" role="button">See Your Diet</a>
+            <a class="btn btn-outline-primary" asp-controller="Users" asp-action="UsersDiet" asp-route-userId="@Model.Id" role="button">See Your Diet</a>
             @if (@Model.CoachId != null)
             {
                 <a asp-action="Coach" asp-controller="Coaches" asp-route-id="@Model.CoachId" class="btn  btn-outline-success" style="width:auto">My Coach : @Model.CoachUserName</a>

@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-2 col-md-2">
-            <img src="@photoPath"  width="200" height="150" alt="" class="img-rounded img-responsive" asp-append-version="true" />
+            <img src="@photoPath" width="200" height="150" alt="" class="img-rounded img-responsive" asp-append-version="true" />
         </div>
         <div class="col-sm-4 col-md-4">
             <blockquote>
@@ -23,14 +23,14 @@
 
         <div class="col-sm-2 col-md-4">
             @*<center>
-            <a class="btn btn-primary badge-pill">Edit Diet</a>
-        </center>*@
+                    <a class="btn btn-primary badge-pill">Edit Diet</a>
+                </center>*@
             <br />
             @if (Model.Diet != null)
             {
                 <p><a asp-controller="Coaches" asp-action="AddDietToUser" asp-route-userId="@Model.Id" class="btn-outline-primary"><strong>Edit It</strong></a></p>
                 <p>
-                    <i></i><strong style="color:blue">Diet Name:</strong> @Model.Diet.Name
+                    <i></i>Diet Name:<strong style="color:blue"> @Model.Diet.Name</strong> 
                     <br /> <i style="color:blue">@(Model.Diet.EndTime.Day - DateTime.UtcNow.Day)</i>  <i></i> Days Left
                     <br /> <i style="color:blue">@Model.Diet.Foods.Count</i>  <i></i> FoodsCount
                 </p>
@@ -45,6 +45,7 @@
     <br />
     <div class="card-body">
         <a class="btn btn-primary badge-pill">Add Training</a>
+        <a class="btn btn-secondary badge-pill" asp-area="" asp-controller="Users" asp-action="UserProfile">Cancel</a>
         <br />
         <br />
         <div class="card-header" style="background-color:lightblue">
@@ -68,5 +69,6 @@
             </li>
         </ul>
     </div>
-
 </div>
+
+

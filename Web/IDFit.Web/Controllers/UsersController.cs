@@ -92,7 +92,13 @@
 
                 foreach (var training in user.Trainings)
                 {
-                    model.Trainings.Add(training.Name);
+                    model.Trainings.Add(new ViewModels.Trainings.TrainingViewModel
+                    {
+                        Name = training.Name,
+                        TrainingTime = training.TrainingTime,
+                        Description = training.Description,
+                        UserId = training.UserId,
+                    });
                 }
             }
 
@@ -200,6 +206,14 @@
             }
 
             return this.RedirectToAction("Error");
+        }
+
+        [HttpGet]
+        public IActionResult UsersDiet(string userId)
+        {
+            var model = this.usersService.GetUserById<UserProfilViewModel>(userId);
+
+            return this.View(model);
         }
     }
 }

@@ -17,6 +17,8 @@
                 <th>Start Day</th>
                 <th>End Day</th>
                 <th>Days</th>
+                <th>Foods Count</th>
+                <th>Users Count</th>
                 <th>Options</th>
             </tr>
         </thead>
@@ -28,6 +30,8 @@
                     <td>@diet.StartTime.Date.ToShortDateString()</td>
                     <td>@diet.EndTime.Date.ToShortDateString()</td>
                     <td>@diet.Days</td>
+                    <td>@diet.Foods.Count()</td>
+                    <td>@diet.Users.Count()</td>
                     <td>
                         <form asp-controller="Diets" asp-action="DeleteDiet" asp-route-id="@diet.Id" method="post">
                             <a asp-controller="Diets" asp-action="EditDiet" asp-route-id="@diet.Id" class="btn btn-primary">Edit</a>

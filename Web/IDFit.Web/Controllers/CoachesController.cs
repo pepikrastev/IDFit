@@ -79,6 +79,7 @@
         public IActionResult AddDietToUser(string userId)
         {
             this.ViewBag.userId = userId;
+            this.ViewBag.user = this.usersService.GetUserById(userId);
             var viewModel = new AllDietsViewModel();
             var diets = this.dietsService.GetAllDiets<CreateDietViewModel>();
             viewModel.Diets = diets;

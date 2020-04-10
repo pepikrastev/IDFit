@@ -21,5 +21,8 @@
         public IFormFile Photo { get; set; }
 
         public string Description { get; set; }
+
+        public int? DietId { get; set; }
+
     }
 }

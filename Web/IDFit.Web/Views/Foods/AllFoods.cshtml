@@ -24,8 +24,8 @@
             <tbody>
                 <tr class="table-info">
                     <td>@food.Name</td>
-                    <td>@food.Weight</td>
-                    <td>@food.Quantity</td>
+                    <td>@food.Weight grams</td>
+                    <td>@food.Quantity pieces</td>
                     <td>
                         <form asp-controller="Foods" asp-action="DeleteFood" asp-route-id="@food.Id" method="post">
                             <a asp-controller="Foods" asp-action="EditFood" asp-route-id="@food.Id" class="btn btn-primary">Edit</a>
