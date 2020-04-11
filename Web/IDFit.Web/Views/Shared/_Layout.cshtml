@@ -56,12 +56,12 @@
                                     else if (User.IsInRole(GlobalConstants.CoachRoleName))
                                     {
                                         <a class="dropdown-item" asp-area="" asp-controller="Foods" asp-action="AllFoods">Foods</a>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Users" asp-action="AllUsers">Users</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Tools" asp-action="AllTools">Tools</a>
                                         <a class="dropdown-item" asp-area="" asp-controller="Diets" asp-action="AllDiets">Diets</a>
                                     }
 
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Users" asp-action="AllUsers">Users</a>
                                 </div>
                             </li>
 

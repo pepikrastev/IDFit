@@ -1,0 +1,42 @@
+﻿@using IDFit.Common
+@model List<IDFit.Web.ViewModels.Tools.ToolViewModel>
+@{
+    this.ViewData["Title"] = $"All Tools!";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@this.ViewData["Title"]</h1>
+</div>
+
+<div class="card-body">
+    <a class="btn btn-primary" asp-controller="Tools" asp-action="CreateTool" role="button">Add Tool</a>
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Details</th>
+                <th>Image</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        @foreach (var tool in Model)
+        {
+            <tbody>
+                <tr class="table-info">
+                    <td>@tool.Name</td>
+                    <td>@tool.Details</td>
+                    <td><img src="@tool.ImageUrl" width="50" class="mr-3"></td>
+                    <td>
+                        <form asp-controller="Tools" asp-action="DeleteTool" asp-route-id="@tool.Id" method="post">
+                            <a asp-controller="Tools" asp-action="EditTool" asp-route-id="@tool.Id" class="btn btn-primary">Edit</a>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>
+

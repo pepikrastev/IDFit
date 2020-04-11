@@ -1,4 +1,4 @@
-﻿namespace IDFit.Web.ViewModels.Tool
+﻿namespace IDFit.Web.ViewModels.Tools
 {
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
@@ -10,7 +10,5 @@
         public string ImageUrl { get; set; }
 
         public string Details { get; set; }
-
-        public string Url => $"/f/{this.Name.Replace(' ', '-')}";
     }
 }

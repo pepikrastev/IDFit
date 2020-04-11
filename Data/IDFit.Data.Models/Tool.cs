@@ -8,6 +8,7 @@
 
     public class Tool : BaseDeletableModel<int>
     {
+        // [Required] - change for next migration
         public string Name { get; set; }
 
         public string ImageUrl { get; set; }

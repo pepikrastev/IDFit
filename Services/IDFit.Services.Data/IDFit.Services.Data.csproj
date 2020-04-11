@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\Data\IDFit.Data.Common\IDFit.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\IDFit.Data.Models\IDFit.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\IDFit.Data\IDFit.Data.csproj" />
+    <ProjectReference Include="..\..\Web\IDFit.Web.ViewModels\IDFit.Web.ViewModels.csproj" />
     <ProjectReference Include="..\IDFit.Services.Mapping\IDFit.Services.Mapping.csproj" />
   </ItemGroup>
 

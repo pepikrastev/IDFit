@@ -1,4 +1,4 @@
-﻿namespace IDFit.Web.ViewModels.Tool
+﻿namespace IDFit.Web.ViewModels.Tools
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,6 @@
 
     public class IndexViewModel
     {
-        public IEnumerable<IndexToolViewModel> Tools { get; set; }
+        public IEnumerable<ToolViewModel> Tools { get; set; }
     }
 }
