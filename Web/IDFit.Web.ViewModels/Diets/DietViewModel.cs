@@ -22,6 +22,8 @@
 
         public DateTime EndTime { get; set; }
 
+        public string Description { get; set; }
+
         public ICollection<FoodViewModel> Foods { get; set; }
     }
 }

@@ -19,14 +19,16 @@ else
     }
     else
     {
-        <center><h3>Diet for @Model.FirstName</h3></center>
+        <center><h3 class="text-primary">Diet for @Model.FirstName</h3></center>
 
         <div class="card text-center">
             <div class="card-header ">
                 @Model.Diet.Name
             </div>
             <div class="card-body">
-                <h5 class="card-title">Foods List</h5>
+                <h5 class="card-title">Description:</h5>
+                <p class="card-text">@Model.Diet.Description</p>
+                <h5 class="card-title">Foods List:</h5>
                 <p class="card-text">
 
                     <div>

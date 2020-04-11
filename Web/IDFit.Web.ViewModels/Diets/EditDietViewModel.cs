@@ -14,7 +14,7 @@
         {
             this.Foods = new List<FoodViewModel>();
             this.UsersUsersname = new List<string>();
-            this.FoodsName = new List<string>();
+            // this.FoodsName = new List<string>();
         }
 
         public int Id { get; set; }
@@ -30,9 +30,12 @@
 
         public int Days => (this.EndTime - this.StartTime).Days;
 
+        public string Description { get; set; }
+
         public IEnumerable<FoodViewModel> Foods { get; set; }
 
-        public IEnumerable<string> FoodsName { get; set; }
+        // TODO: Remove it
+        // public IEnumerable<string> FoodsName { get; set; }
 
         public IEnumerable<string> UsersUsersname { get; set; }
     }

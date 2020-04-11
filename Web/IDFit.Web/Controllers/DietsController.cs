@@ -1,6 +1,7 @@
 ﻿
 namespace IDFit.Web.Controllers
 {
+    using System;
     using System.Collections.Generic;
 
     using IDFit.Common;
@@ -36,9 +37,9 @@ namespace IDFit.Web.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                if ((viewModel.EndTime - viewModel.StartTime).Days > 1)
+                if ((viewModel.EndTime - viewModel.StartTime).Days > 1 || (viewModel.EndTime - DateTime.UtcNow).Days > 1)
                 {
-                    var resutl = this.dietsService.CreateDiet(viewModel.Name, viewModel.StartTime, viewModel.EndTime);
+                    var resutl = this.dietsService.CreateDiet(viewModel.Name, viewModel.StartTime, viewModel.EndTime, viewModel.Description);
 
                     if (resutl > -1)
                     {
@@ -92,7 +93,7 @@ namespace IDFit.Web.Controllers
             }
             else
             {
-                var result = this.dietsService.EditDietInDb(diet, model.Name, model.StartTime, model.EndTime);
+                var result = this.dietsService.EditDiet(diet, model.Name, model.StartTime, model.EndTime, model.Description);
                 if (result >= 0)
                 {
                     return this.RedirectToAction("AllDiets");
@@ -132,7 +133,7 @@ namespace IDFit.Web.Controllers
                 {
                     foodViewModel.IsSelected = false;
                 }
-                else if(food.DietId == diet.Id)
+                else if (food.DietId == diet.Id)
                 {
                     foodViewModel.IsSelected = true;
                 }

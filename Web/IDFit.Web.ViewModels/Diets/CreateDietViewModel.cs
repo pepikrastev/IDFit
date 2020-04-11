@@ -31,6 +31,8 @@
 
         public int Days => (this.EndTime - this.StartTime).Days;
 
+        public string Description { get; set; }
+
         public IEnumerable<FoodViewModel> Foods { get; set; }
 
         public IEnumerable<EditUserViewModel> Users { get; set; }

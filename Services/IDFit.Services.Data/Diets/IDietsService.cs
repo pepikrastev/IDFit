@@ -8,7 +8,7 @@
 
     public interface IDietsService
     {
-        int CreateDiet(string name, DateTime startTime, DateTime endTime);
+        int CreateDiet(string name, DateTime startTime, DateTime endTime, string description);
 
         IEnumerable<T> GetAllDiets<T>();
 
@@ -18,7 +18,7 @@
 
         Diet GetDietById(int id);
 
-        int EditDietInDb(Diet diet, string name, DateTime startTime, DateTime endTime);
+        int EditDiet(Diet diet, string name, DateTime startTime, DateTime endTime, string description);
 
         void EditDietInDb(Diet diet);
     }

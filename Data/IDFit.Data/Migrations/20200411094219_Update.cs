@@ -15,6 +15,11 @@ namespace IDFit.Data.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddColumn<string>(
+                name: "Description",
+                table: "Diets",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
                 name: "CoachId",
                 table: "AspNetUsers",
                 nullable: true);
@@ -42,6 +47,10 @@ namespace IDFit.Data.Migrations
             migrationBuilder.DropIndex(
                 name: "IX_AspNetUsers_CoachId",
                 table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "Description",
+                table: "Diets");
 
             migrationBuilder.DropColumn(
                 name: "CoachId",

@@ -20,6 +20,8 @@
 
         public DateTime EndTime { get; set; }
 
+        public string Description { get; set; }
+
         public virtual ICollection<Food> Foods { get; set; }
 
         public virtual ICollection<ApplicationUser> Users { get; set; }

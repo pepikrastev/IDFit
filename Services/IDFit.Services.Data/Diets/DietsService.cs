@@ -26,22 +26,25 @@
             this.usersService = usersService;
         }
 
-        public int EditDietInDb(Diet diet, string name, DateTime startTime, DateTime endTime)
+        public int EditDiet(Diet diet, string name, DateTime startTime, DateTime endTime, string description)
         {
             diet.Name = name;
             diet.StartTime = startTime;
             diet.EndTime = endTime;
+            diet.Description = description;
 
+            this.db.Diets.Update(diet);
             return this.db.SaveChanges();
         }
 
-        public int CreateDiet(string name, DateTime startTime, DateTime endTime)
+        public int CreateDiet(string name, DateTime startTime, DateTime endTime, string description)
         {
             var diet = new Diet
             {
                 Name = name,
                 StartTime = startTime,
                 EndTime = endTime,
+                Description = description,
             };
 
             this.db.Diets.Add(diet);
