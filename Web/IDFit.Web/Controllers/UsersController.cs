@@ -90,16 +90,16 @@
                     model.CoachUserName = coach.UserName;
                 }
 
-                foreach (var training in user.Trainings)
-                {
-                    model.Trainings.Add(new ViewModels.Trainings.TrainingViewModel
-                    {
-                        Name = training.Name,
-                        TrainingTime = training.TrainingTime,
-                        Description = training.Description,
-                        UserId = training.UserId,
-                    });
-                }
+                // foreach (var training in user.Trainings)
+                // {
+                //    model.Trainings.Add(new ViewModels.Trainings.TrainingViewModel
+                //    {
+                //        Name = training.Name,
+                //        TrainingTime = training.TrainingTime,
+                //        Description = training.Description,
+                //        UserId = training.UserId,
+                //    });
+                // }
             }
 
             return this.View(model);

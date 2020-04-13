@@ -40,7 +40,7 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task DeleteFood(int id)
+        public async Task DeleteTool(int id)
         {
             var tool = this.toolsRepository.All()
                 .Where(x => x.Id == id)
@@ -78,12 +78,26 @@
             return query.To<T>().ToList();
         }
 
+        public IEnumerable<Tool> GetAllTools()
+        {
+            return this.toolsRepository.All().ToList();
+        }
+
         public async Task<T> GetToolById<T>(int id)
         {
             var tool = this.toolsRepository.All()
                  .Where(x => x.Id == id)
                  .To<T>()
                  .FirstOrDefault();
+
+            return tool;
+        }
+
+        public Tool GetToolById(int id)
+        {
+            var tool = this.toolsRepository.All()
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
 
             return tool;
         }

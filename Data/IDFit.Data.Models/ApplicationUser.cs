@@ -3,7 +3,7 @@ namespace IDFit.Data.Models
 {
     using System;
     using System.Collections.Generic;
-
+    using System.ComponentModel.DataAnnotations.Schema;
     using IDFit.Data.Common.Models;
 
     using Microsoft.AspNetCore.Identity;
@@ -17,7 +17,7 @@ namespace IDFit.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
 
-            this.Trainings = new List<Training>();
+            this.UsersTrainings = new List<UserTraining>();
             this.TrainedPeople = new List<ApplicationUser>();
         }
 
@@ -35,7 +35,7 @@ namespace IDFit.Data.Models
         public int? DietId { get; set; }
         public virtual Diet Diet { get; set; }
 
-        public virtual ICollection<Training> Trainings { get; set; }
+        public virtual ICollection<UserTraining> UsersTrainings { get; set; }
 
         // if user is user
         public string CoachId { get; set; }

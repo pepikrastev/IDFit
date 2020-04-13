@@ -8,7 +8,8 @@
     {
         public Training()
         {
-            this.Exercises = new List<Exercise>();
+            this.TrainingsExercises = new List<TrainingExercise>();
+            this.UsersTrainings = new List<UserTraining>();
         }
 
         public string Name { get; set; }
@@ -18,10 +19,8 @@
 
         public string Description { get; set; }
 
-        public string UserId { get; set; }
+        public virtual ICollection<UserTraining> UsersTrainings { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
-
-        public virtual ICollection<Exercise> Exercises { get; set; }
+        public virtual ICollection<TrainingExercise> TrainingsExercises { get; set; }
     }
 }

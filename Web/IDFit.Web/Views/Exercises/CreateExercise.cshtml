@@ -1,0 +1,44 @@
+﻿@model IDFit.Web.ViewModels.Exercises.CreateExerciseViewModel
+@{
+    this.ViewData["Title"] = $"Create Exercise";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"> </div>
+            <div class="form-group">
+                <label asp-for="@Model.Name"></label>
+                <input asp-for="@Model.Name" class="form-control" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Description"></label>
+                <input asp-for="@Model.Description" class="form-control" />
+                <span asp-validation-for="@Model.Description" class="text-danger"></span>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Select Tools</h2>
+                </div>
+                <div class="card-body">
+                    @foreach (var tool in Model.Tools)
+                    {
+                        <div class="form-check m-1">
+                            <input type="hidden" asp-for="@tool.Id" />
+                            <input type="hidden" asp-for="@tool.Name" />
+                            <input asp-for="@tool.IsSelected" class="form-check-input" />
+                            <label class="form-check-label" asp-for="@tool.IsSelected">
+                                @tool.Name - <i style="color:aqua">@tool.Id id</i>
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <br />
+            <button style="width:auto" type="submit" class="btn btn-primary">Create Exercise</button>
+        </form>
+    </div>
+</div>

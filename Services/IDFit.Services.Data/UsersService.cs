@@ -52,7 +52,7 @@
 
             user.Coach = null;
             user.CoachId = null;
-            user.Trainings = null;
+            // user.Trainings = null;
 
             this.db.Users.Update(user);
             this.db.Users.UpdateRange(coaches);

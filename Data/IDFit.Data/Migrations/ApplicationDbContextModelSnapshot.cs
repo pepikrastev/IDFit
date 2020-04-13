@@ -225,18 +225,29 @@ namespace IDFit.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TrainingId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
 
-                    b.HasIndex("TrainingId");
-
                     b.ToTable("Exercises");
+                });
+
+            modelBuilder.Entity("IDFit.Data.Models.ExercoseTool", b =>
+                {
+                    b.Property<int>("ExerciseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ToolId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ExerciseId", "ToolId");
+
+                    b.HasIndex("ToolId");
+
+                    b.ToTable("ExercosesTools");
                 });
 
             modelBuilder.Entity("IDFit.Data.Models.Food", b =>
@@ -328,9 +339,6 @@ namespace IDFit.Data.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ExerciseId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -341,11 +349,10 @@ namespace IDFit.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ExerciseId");
 
                     b.HasIndex("IsDeleted");
 
@@ -380,16 +387,41 @@ namespace IDFit.Data.Migrations
                     b.Property<int>("TrainingTime")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Trainings");
+                });
+
+            modelBuilder.Entity("IDFit.Data.Models.TrainingExercise", b =>
+                {
+                    b.Property<int>("TrainingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExerciseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TrainingId", "ExerciseId");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.ToTable("TrainingsExercises");
+                });
+
+            modelBuilder.Entity("IDFit.Data.Models.UserTraining", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("TrainingId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "TrainingId");
+
+                    b.HasIndex("TrainingId");
+
+                    b.ToTable("UsersTrainings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -507,11 +539,19 @@ namespace IDFit.Data.Migrations
                         .HasForeignKey("DietId");
                 });
 
-            modelBuilder.Entity("IDFit.Data.Models.Exercise", b =>
+            modelBuilder.Entity("IDFit.Data.Models.ExercoseTool", b =>
                 {
-                    b.HasOne("IDFit.Data.Models.Training", "Training")
-                        .WithMany("Exercises")
-                        .HasForeignKey("TrainingId");
+                    b.HasOne("IDFit.Data.Models.Exercise", "Exercise")
+                        .WithMany("ExercosesTools")
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("IDFit.Data.Models.Tool", "Tool")
+                        .WithMany("ExercosesTools")
+                        .HasForeignKey("ToolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IDFit.Data.Models.Food", b =>
@@ -521,18 +561,34 @@ namespace IDFit.Data.Migrations
                         .HasForeignKey("DietId");
                 });
 
-            modelBuilder.Entity("IDFit.Data.Models.Tool", b =>
+            modelBuilder.Entity("IDFit.Data.Models.TrainingExercise", b =>
                 {
                     b.HasOne("IDFit.Data.Models.Exercise", "Exercise")
-                        .WithMany("Tools")
-                        .HasForeignKey("ExerciseId");
+                        .WithMany("TrainingsTools")
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("IDFit.Data.Models.Training", "Training")
+                        .WithMany("TrainingsExercises")
+                        .HasForeignKey("TrainingId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("IDFit.Data.Models.Training", b =>
+            modelBuilder.Entity("IDFit.Data.Models.UserTraining", b =>
                 {
+                    b.HasOne("IDFit.Data.Models.Training", "Training")
+                        .WithMany("UsersTrainings")
+                        .HasForeignKey("TrainingId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("IDFit.Data.Models.ApplicationUser", "User")
-                        .WithMany("Trainings")
-                        .HasForeignKey("UserId");
+                        .WithMany("UsersTrainings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

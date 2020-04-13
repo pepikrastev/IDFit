@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using IDFit.Common;
     using IDFit.Data;
     using IDFit.Services.Data.Tools;
@@ -96,7 +97,7 @@
         [HttpPost]
         public async Task<IActionResult> DeleteTool(int id)
         {
-            await this.toolsService.DeleteFood(id);
+            await this.toolsService.DeleteTool(id);
             return this.RedirectToAction("AllTools");
         }
     }

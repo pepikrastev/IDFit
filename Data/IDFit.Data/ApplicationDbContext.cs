@@ -36,6 +36,12 @@
 
         public DbSet<Training> Trainings { get; set; }
 
+        public DbSet<ExercoseTool> ExercosesTools { get; set; }
+
+        public DbSet<TrainingExercise> TrainingsExercises { get; set; }
+
+        public DbSet<UserTraining> UsersTrainings { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -64,6 +70,15 @@
                 .HasOne(x => x.Coach)
                 .WithMany(x => x.TrainedPeople)
                 .HasForeignKey(x => x.CoachId);
+
+            builder.Entity<ExercoseTool>()
+                .HasKey(et => new { et.ExerciseId, et.ToolId });
+
+            builder.Entity<TrainingExercise>()
+                .HasKey(et => new { et.TrainingId, et.ExerciseId });
+
+            builder.Entity<UserTraining>()
+                .HasKey(et => new { et.UserId, et.TrainingId });
 
             this.ConfigureUserIdentityRelations(builder);
 

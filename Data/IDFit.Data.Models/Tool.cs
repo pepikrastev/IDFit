@@ -2,21 +2,25 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     using IDFit.Data.Common.Models;
 
     public class Tool : BaseDeletableModel<int>
     {
-        // [Required] - change for next migration
+        public Tool()
+        {
+           this.ExercosesTools = new List<ExercoseTool>();
+        }
+
+        [Required]
         public string Name { get; set; }
 
         public string ImageUrl { get; set; }
 
         public string Details { get; set; }
 
-        public int? ExerciseId { get; set; }
-
-        public virtual Exercise Exercise { get; set; }
+        public virtual ICollection<ExercoseTool> ExercosesTools { get; set; }
     }
 }

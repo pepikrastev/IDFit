@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     using IDFit.Data.Common.Models;
@@ -10,17 +11,17 @@
     {
         public Exercise()
         {
-            this.Tools = new List<Tool>();
+            this.ExercosesTools = new List<ExercoseTool>();
+            this.TrainingsTools = new List<TrainingExercise>();
         }
 
+        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public virtual ICollection<Tool> Tools { get; set; }
+        public virtual ICollection<ExercoseTool> ExercosesTools { get; set; }
 
-        public int? TrainingId { get; set; }
-
-        public virtual Training Training { get; set; }
+        public virtual ICollection<TrainingExercise> TrainingsTools { get; set; }
     }
 }
