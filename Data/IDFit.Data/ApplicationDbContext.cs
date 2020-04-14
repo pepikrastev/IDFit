@@ -36,7 +36,7 @@
 
         public DbSet<Training> Trainings { get; set; }
 
-        public DbSet<ExercoseTool> ExercosesTools { get; set; }
+        public DbSet<ExerciseTool> ExercisesTools { get; set; }
 
         public DbSet<TrainingExercise> TrainingsExercises { get; set; }
 
@@ -71,7 +71,7 @@
                 .WithMany(x => x.TrainedPeople)
                 .HasForeignKey(x => x.CoachId);
 
-            builder.Entity<ExercoseTool>()
+            builder.Entity<ExerciseTool>()
                 .HasKey(et => new { et.ExerciseId, et.ToolId });
 
             builder.Entity<TrainingExercise>()

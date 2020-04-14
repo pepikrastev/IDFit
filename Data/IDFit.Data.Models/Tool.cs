@@ -11,7 +11,7 @@
     {
         public Tool()
         {
-           this.ExercosesTools = new List<ExercoseTool>();
+           this.ExercisesTools = new List<ExerciseTool>();
         }
 
         [Required]
@@ -21,6 +21,6 @@
 
         public string Details { get; set; }
 
-        public virtual ICollection<ExercoseTool> ExercosesTools { get; set; }
+        public virtual ICollection<ExerciseTool> ExercisesTools { get; set; }
     }
 }

@@ -24,14 +24,14 @@
                     <h2>Select Tools</h2>
                 </div>
                 <div class="card-body">
-                    @foreach (var tool in Model.Tools)
+                    @for (int i = 0; i < Model.Tools.Count; i++)
                     {
                         <div class="form-check m-1">
-                            <input type="hidden" asp-for="@tool.Id" />
-                            <input type="hidden" asp-for="@tool.Name" />
-                            <input asp-for="@tool.IsSelected" class="form-check-input" />
-                            <label class="form-check-label" asp-for="@tool.IsSelected">
-                                @tool.Name - <i style="color:aqua">@tool.Id id</i>
+                            <input type="hidden" asp-for="@Model.Tools[i].Id" />
+                            <input type="hidden" asp-for="@Model.Tools[i].Name" />
+                            <input asp-for="@Model.Tools[i].IsSelected" class="form-check-input" />
+                            <label class="form-check-label" asp-for="@Model.Tools[i].IsSelected">
+                                @Model.Tools[i].Name - <i style="color:aqua">@Model.Tools[i].Id id</i>
                             </label>
                         </div>
                     }

@@ -30,15 +30,21 @@
             var viewModel = new CreateExerciseViewModel();
             var toolsViewModel = new List<ToolsListViewModel>();
 
-            var tools = this.toolsService.GetAllTools();
-            foreach (var toolModel in toolsViewModel)
+            var tools = this.toolsService.GetAllTools().ToList();
+
+            for (int i = 0; i < tools.Count(); i++)
             {
-                if (toolModel.IsSelected)
+                var toolView = new ToolsListViewModel
                 {
-                }
+                    Id = tools[i].Id,
+                    Name = tools[i].Name,
+                    Details = tools[i].Details,
+                };
+                toolsViewModel.Add(toolView);
             }
 
-            viewModel.Tools = toolsViewModel;
+            viewModel.Tools = toolsViewModel.ToList();
+  
             return this.View(viewModel);
         }
 
@@ -50,7 +56,18 @@
                 await this.exercisesService.CreateExercise(inputModel);
                 return this.Redirect("/");
             }
-            return this.View();
+            return this.View(inputModel);
+        }
+
+        [HttpGet]
+        public IActionResult AllExercises()
+        {
+            var viewModel = new List<ExerciseViewModel>();
+            // var exercises = this.exercisesService.GetAllExercise<ExerciseViewModel>().ToList();
+
+            var exersise = this.exercisesService.GetAllExercise();
+            viewModel = exersise.ToList();
+            return this.View(viewModel);
         }
     }
 }

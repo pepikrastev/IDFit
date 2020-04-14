@@ -1,6 +1,6 @@
 ﻿namespace IDFit.Data.Models
 {
-    public class ExercoseTool
+    public class ExerciseTool
     {
         public int ExerciseId { get; set; }
         public Exercise Exercise { get; set; }
