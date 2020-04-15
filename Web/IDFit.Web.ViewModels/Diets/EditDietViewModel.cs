@@ -34,9 +34,6 @@
 
         public IEnumerable<FoodViewModel> Foods { get; set; }
 
-        // TODO: Remove it
-        // public IEnumerable<string> FoodsName { get; set; }
-
         public IEnumerable<string> UsersUsersname { get; set; }
     }
 }

@@ -7,13 +7,16 @@
 
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
-    using IDFit.Web.ViewModels.Tools;
 
-    public class CreateExerciseViewModel : IMapFrom<Exercise>
+    public class EditExerciseViewModel : IMapFrom<Exercise>
     {
+        public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public ICollection<ToolsListViewModel> Tools { get; set; }
     }
 }

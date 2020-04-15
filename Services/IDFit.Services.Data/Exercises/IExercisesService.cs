@@ -14,5 +14,17 @@
         IEnumerable<T> GetAllExercise<T>();
 
         IEnumerable<ExerciseViewModel> GetAllExercise();
+
+        int DeleteExercise(int id);
+
+        T GetExerciseById<T>(int id);
+
+        Exercise GetExerciseById (int id);
+
+        IEnumerable<T> GetAllToolsForExercise<T>(int exerciseId);
+
+        IEnumerable<Tool> GetAllToolsForExercise(int exerciseId);
+
+       Task<int> EditExercise(EditExerciseViewModel viewModel);
     }
 }

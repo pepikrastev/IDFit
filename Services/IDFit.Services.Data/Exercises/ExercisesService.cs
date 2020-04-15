@@ -12,6 +12,7 @@
     using IDFit.Services.Data.Tools;
     using IDFit.Services.Mapping;
     using IDFit.Web.ViewModels.Exercises;
+    using Microsoft.EntityFrameworkCore;
 
     public class ExercisesService : IExercisesService
     {
@@ -35,32 +36,40 @@
             };
             await this.db.Exercises.AddAsync(exercise);
             await this.db.SaveChangesAsync();
+        }
 
-            for (int i = 0; i < inputModel.Tools.Count; i++)
+        public int DeleteExercise(int id)
+        {
+            var exercise = this.exercisesRepository.All()
+                .FirstOrDefault(x => x.Id == id);
+
+            foreach (var item in this.db.ExercisesTools)
             {
-                if (inputModel.Tools[i].IsSelected)
+                if (item.ExerciseId == id)
                 {
-                    var toolId = inputModel.Tools[i].Id;
-                    var tool = this.toolsService.GetToolById(toolId);
-                    ExerciseTool exerciseTool = new ExerciseTool
-                    {
-                        ExerciseId = exercise.Id,
-                        Exercise = exercise,
-                        ToolId = toolId,
-                        Tool = tool,
-                    };
-                    this.db.ExercisesTools.Add(exerciseTool);
-
-                    var currentExerciseTool = this.db.ExercisesTools.Where(x => x.ExerciseId == exercise.Id && x.ToolId == tool.Id).FirstOrDefault();
-
-                    exercise.ExercisesTools.Add(currentExerciseTool);
-                    tool.ExercisesTools.Add(currentExerciseTool);
+                    this.db.Entry(item).State = EntityState.Deleted;
                 }
             }
 
+            this.db.Exercises.Remove(exercise);
+
+           // set property IsDeleted to true
+           // this.exercisesRepository.Delete(exercise);
+
+            return this.db.SaveChanges();
+        }
+
+        public async Task<int> EditExercise(EditExerciseViewModel viewModel)
+        {
+            var exercise = this.exercisesRepository.All()
+                 .Where(x => x.Id == viewModel.Id)
+                 .FirstOrDefault();
+
+            exercise.Name = viewModel.Name;
+            exercise.Description = viewModel.Description;
+
             this.db.Exercises.Update(exercise);
-            this.db.Exercises.Update(exercise);
-            await this.db.SaveChangesAsync();
+            return await this.db.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetAllExercise<T>()
@@ -75,20 +84,56 @@
         public IEnumerable<ExerciseViewModel> GetAllExercise()
         {
             var exercises = this.exercisesRepository.All().ToList();
-            var model = new List<ExerciseViewModel>();
+            var viewModel = new List<ExerciseViewModel>();
+
             foreach (var exercise in exercises)
             {
-                var viewModel = new ExerciseViewModel
+                var toolsCount = this.db.Tools.Where(x => x.ExercisesTools.Any(x => x.ExerciseId == exercise.Id)).Count();
+
+                var exerciseModel = new ExerciseViewModel
                 {
                     Id = exercise.Id,
                     Name = exercise.Name,
                     Description = exercise.Description,
-                    ToolsCount = exercise.ExercisesTools.Count(),
+                    ToolsCount = toolsCount,
                 };
-                model.Add(viewModel);
+                viewModel.Add(exerciseModel);
             }
 
-            return model;
+            return viewModel
+                .OrderBy(x => x.Name);
+        }
+
+        public IEnumerable<T> GetAllToolsForExercise<T>(int exerciseId)
+        {
+            // var tools = this.toolsService.GetAllTools<T>();
+
+            var tools = this.db.Tools.Where(x => x.ExercisesTools.Any(x => x.ExerciseId == exerciseId));
+
+            return tools.To<T>().ToList();
+        }
+
+        public IEnumerable<Tool> GetAllToolsForExercise(int exerciseId)
+        {
+            var tools = this.db.Tools.Where(x => x.ExercisesTools.Any(x => x.ExerciseId == exerciseId));
+
+            return tools.ToList();
+        }
+
+        public T GetExerciseById<T>(int id)
+        {
+            var exercise = this.exercisesRepository.All()
+               .Where(x => x.Id == id)
+               .To<T>()
+               .FirstOrDefault();
+
+            return exercise;
+        }
+
+        public Exercise GetExerciseById(int id)
+        {
+            return this.exercisesRepository.All()
+                 .FirstOrDefault(x => x.Id == id);
         }
     }
 }
