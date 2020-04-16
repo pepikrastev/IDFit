@@ -14,7 +14,6 @@
         {
             this.Foods = new List<FoodViewModel>();
             this.UsersUsersname = new List<string>();
-            // this.FoodsName = new List<string>();
         }
 
         public int Id { get; set; }

@@ -8,7 +8,7 @@
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
 
-    public class TrainingViewModel : IMapFrom<Training>
+    public class EditTrainingViewModel : IMapFrom<Training>
     {
         public int Id { get; set; }
 
@@ -21,8 +21,6 @@
 
         public string Description { get; set; }
 
-        public int UsersCount { get; set; }
-
-        public int ExercisesCount { get; set; }
+        public ICollection<ExercisesListViewModel> Exercises { get; set; }
     }
 }

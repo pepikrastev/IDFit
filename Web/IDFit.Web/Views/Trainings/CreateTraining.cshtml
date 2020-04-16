@@ -1,0 +1,30 @@
+﻿@model IDFit.Web.ViewModels.Trainings.CreateTrainingViewModel
+@{
+    this.ViewData["Title"] = $"Create Training";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"> </div>
+            <div class="form-group">
+                <label asp-for="@Model.Name"></label>
+                <input asp-for="@Model.Name" class="form-control" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Description"></label>
+                <input asp-for="@Model.Description" class="form-control" />
+                <span asp-validation-for="@Model.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.TrainingTime"></label>
+                <input asp-for="@Model.TrainingTime" placeholder="Add the training time in minutes." class="form-control" />
+                <span asp-validation-for="@Model.TrainingTime" class="text-danger"></span>
+            </div>
+            <button style="width:auto" type="submit" class="btn btn-primary">Create Training</button>
+        </form>
+    </div>
+</div>

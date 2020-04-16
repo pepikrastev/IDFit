@@ -13,6 +13,7 @@
     using IDFit.Services.Data.Exercises;
     using IDFit.Services.Data.Foods;
     using IDFit.Services.Data.Tools;
+    using IDFit.Services.Data.Trainings;
     using IDFit.Services.Mapping;
     using IDFit.Services.Messaging;
     using IDFit.Web.ViewModels;
@@ -74,6 +75,7 @@
             services.AddTransient<IDietsService, DietsService>();
             services.AddTransient<IToolsService, ToolsService>();
             services.AddTransient<IExercisesService, ExercisesService>();
+            services.AddTransient<ITrainingsService, TrainingsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

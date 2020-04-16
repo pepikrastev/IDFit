@@ -12,7 +12,7 @@
         public Exercise()
         {
             this.ExercisesTools = new List<ExerciseTool>();
-            this.TrainingsTools = new List<TrainingExercise>();
+            this.TrainingsExercises = new List<TrainingExercise>();
         }
 
         [Required]
@@ -22,6 +22,6 @@
 
         public virtual ICollection<ExerciseTool> ExercisesTools { get; set; }
 
-        public virtual ICollection<TrainingExercise> TrainingsTools { get; set; }
+        public virtual ICollection<TrainingExercise> TrainingsExercises { get; set; }
     }
 }
