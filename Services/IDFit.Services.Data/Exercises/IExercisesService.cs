@@ -12,7 +12,9 @@
 
         IEnumerable<T> GetAllExercise<T>();
 
-        IEnumerable<ExerciseViewModel> GetAllExercise();
+        IEnumerable<Exercise> GetAllExercise();
+
+        IEnumerable<ExerciseViewModel> GetAllExerciseViewModel();
 
         int DeleteExercise(int id);
 

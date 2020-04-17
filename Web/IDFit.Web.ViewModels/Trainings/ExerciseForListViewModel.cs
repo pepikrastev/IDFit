@@ -11,7 +11,7 @@
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
 
-    public class ExercisesListViewModel : IMapFrom<Exercise>, IHaveCustomMappings
+    public class ExerciseForListViewModel : IMapFrom<Exercise>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -26,7 +26,7 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Exercise, ExercisesListViewModel>()
+            configuration.CreateMap<Exercise, ExerciseForListViewModel>()
                  .ForMember(x => x.ToolsCount, t => t.MapFrom(e => e.ExercisesTools.Where(x => x.ExerciseId == e.Id).Count()));
         }
     }

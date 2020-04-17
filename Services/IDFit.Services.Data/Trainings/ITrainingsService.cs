@@ -19,5 +19,11 @@
         Training GetTrainingById(int id);
 
         IEnumerable<T> GetAllExerciseForTraining<T>(int trainingId);
+
+        Task<int> EditTraining(EditTrainingViewModel viewModel);
+
+        IEnumerable<ExerciseForListViewModel> GetExrciseListForTraining(int trainingId);
+
+        Task<int> AddOrRemoveExerciseForTrainingAsync(int trainingId, List<ExerciseForListViewModel> viewModels);
     }
 }

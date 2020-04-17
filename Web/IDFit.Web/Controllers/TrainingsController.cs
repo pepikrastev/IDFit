@@ -70,7 +70,7 @@
                 return this.RedirectToAction("Error");
             }
 
-            var exerciseListViewModel = this.trainingsService.GetAllExerciseForTraining<ExercisesListViewModel>(id).ToList();
+            var exerciseListViewModel = this.trainingsService.GetAllExerciseForTraining<ExerciseForListViewModel>(id).ToList();
 
             var trainingViewModel = new EditTrainingViewModel
             {
@@ -81,6 +81,57 @@
                 Exercises = exerciseListViewModel,
             };
             return this.View(trainingViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult EditTraining(EditTrainingViewModel viewModel)
+        {
+            var result = this.trainingsService.EditTraining(viewModel);
+            if (result.Result > 0)
+            {
+                return this.Redirect("/Trainings/AllTrainings");
+            }
+
+            return this.View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult AddExerciseToTraining(int trainingId)
+        {
+            this.ViewBag.trainingId = trainingId;
+            var training = this.trainingsService.GetTrainingById(trainingId);
+
+            if (training == null)
+            {
+                this.ViewBag.ErrorMessage = $"Training with id = {trainingId} connot be found";
+                return this.View("NotFound");
+            }
+
+            this.ViewBag.trainingName = training.Name;
+
+            var viewModel = this.trainingsService.GetExrciseListForTraining(trainingId).ToList();
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddExerciseToTraining(List<ExerciseForListViewModel> viewModel, int trainingId)
+        {
+            var training = this.trainingsService.GetTrainingById(trainingId);
+            if (training == null)
+            {
+                this.ViewBag.ErrorMessage = $"Training with id = {training} connot be found";
+                return this.View("NotFound");
+            }
+
+            var result = await this.trainingsService.AddOrRemoveExerciseForTrainingAsync(trainingId, viewModel);
+
+            if (result > 0)
+            {
+                return this.Redirect("/Trainings/AllTrainings");
+            }
+
+            return this.View(viewModel);
         }
     }
 }

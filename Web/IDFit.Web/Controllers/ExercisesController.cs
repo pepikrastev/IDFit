@@ -53,8 +53,8 @@
             var viewModel = new List<ExerciseViewModel>();
             // var exercises = this.exercisesService.GetAllExercise<ExerciseViewModel>().ToList();
 
-            var exersise = this.exercisesService.GetAllExercise();
-            viewModel = exersise.ToList();
+            var exersiseModel = this.exercisesService.GetAllExerciseViewModel();
+            viewModel = exersiseModel.ToList();
             return this.View(viewModel);
         }
 

@@ -81,7 +81,12 @@
             return query.To<T>().ToList();
         }
 
-        public IEnumerable<ExerciseViewModel> GetAllExercise()
+        public IEnumerable<Exercise> GetAllExercise()
+        {
+            return this.exercisesRepository.All().ToList();
+        }
+
+        public IEnumerable<ExerciseViewModel> GetAllExerciseViewModel()
         {
             var exercises = this.exercisesRepository.All().ToList();
             var viewModel = new List<ExerciseViewModel>();

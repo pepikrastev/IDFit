@@ -21,6 +21,6 @@
 
         public string Description { get; set; }
 
-        public ICollection<ExercisesListViewModel> Exercises { get; set; }
+        public ICollection<ExerciseForListViewModel> Exercises { get; set; }
     }
 }
