@@ -77,6 +77,14 @@
                 }
             }
 
+            foreach (var item in this.db.UsersTrainings)
+            {
+                if (item.TrainingId == id)
+                {
+                    this.db.Entry(item).State = EntityState.Deleted;
+                }
+            }
+
             this.db.Trainings.Remove(training);
             return this.db.SaveChanges();
         }
@@ -103,7 +111,12 @@
             return exercises.To<T>().ToList();
         }
 
-        public IEnumerable<TrainingViewModel> GetAllTrainings()
+        public IEnumerable<Training> GetAllTrainings()
+        {
+            return this.trainingRepository.All().ToList();
+        }
+
+        public IEnumerable<TrainingViewModel> GetAllTrainingsViewModel()
         {
             var trainings = this.trainingRepository.All()
                 .OrderBy(x => x.Name)

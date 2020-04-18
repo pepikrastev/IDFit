@@ -1,0 +1,50 @@
+﻿@model IDFit.Web.ViewModels.Users.UserTrainingDetails
+@{
+    this.ViewData["Title"] = "Your's Trainig";
+}
+
+
+<div class="card-body">
+    <center><h5 class="card-title">@Model.UserName</h5></center>
+    <center><p class="card-text">@Model.Name</p></center>
+</div>
+
+<ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Destricption
+        <span class="badge badge-primary badge-pill">@Model.Description</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Training Time
+        <span class="badge badge-primary badge-pill">@Model.TrainingTime</span>
+    </li>
+</ul>
+
+
+<div class="card-body">
+    <center>
+        <a class="btn btn-primary" asp-controller="" asp-action="">Exercise List</a>
+    </center>
+
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Tools Count</th>
+                </tr>
+            </thead>
+            @foreach (var exercise in Model.Exercises)
+            {
+                <tbody>
+                    <tr class="table-info">
+                        <td>@exercise.Name</td>
+                        <td>@exercise.Description</td>
+                        <td>@exercise.ToolsCount</td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+</div>

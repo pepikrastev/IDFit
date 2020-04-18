@@ -1,11 +1,15 @@
 ﻿namespace IDFit.Web.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
+
     using IDFit.Common;
     using IDFit.Data.Models;
     using IDFit.Services.Data;
+    using IDFit.Web.ViewModels.Trainings;
     using IDFit.Web.ViewModels.Users;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
@@ -64,6 +68,10 @@
                 CoachId = user.CoachId,
                 DietId = user.DietId,
             };
+
+            var trainingsForUserModel = this.usersService.GetAllTrainingsForUser<TrainingViewModel>(model.Id).ToList();
+
+            model.Trainings = trainingsForUserModel;
 
             if (await this.userManager.IsInRoleAsync(user, GlobalConstants.CoachRoleName))
             {
@@ -213,6 +221,13 @@
         {
             var model = this.usersService.GetUserById<UserProfilViewModel>(userId);
 
+            return this.View(model);
+        }
+
+        [HttpGet]
+        public IActionResult UserTrainingDetails(string userId, int trainingId)
+        {
+            var model = this.usersService.GetUserTrainingDetails(userId, trainingId);
             return this.View(model);
         }
     }

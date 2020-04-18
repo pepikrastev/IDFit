@@ -46,7 +46,7 @@
 
     <br />
     <div class="card-body">
-        <a class="btn btn-primary badge-pill">Add Training</a>
+        <a class="btn btn-primary badge-pill" asp-controller="Coaches" asp-action="AddOrRemoveTrainigForUser" asp-route-userId="@Model.Id" >Add or remove trainings</a>
         <a class="btn btn-secondary badge-pill" asp-area="" asp-controller="Users" asp-action="UserProfile">Cancel</a>
         <br />
         <br />
@@ -57,18 +57,23 @@
         </div>
 
         <ul class="list-group">
-            <li class="list-group-item list-group-item-light">
-                some
-                <span>
-                    <a asp-controller="Coaches" asp-action="CoachUpdateHisUser" class="badge badge-primary badge-pill" style="width:auto">Update</a>
-                </span>
-            </li>
-            <li class="list-group-item list-group-item-light">
-                some 2
-                <span>
-                    <a asp-controller="Coaches" asp-action="CoachUpdateHisUser" class="badge badge-primary badge-pill" style="width:auto">Update</a>
-                </span>
-            </li>
+
+            @if (Model.Trainings.Any())
+            {
+                foreach (var item in Model.Trainings)
+                {
+                    <li class="list-group-item list-group-item-light">
+                      - Trainig Id: @item.Id - Name: @item.Name - Description: @item.Description - Exercises Count: @item.ExercisesCount
+                        <span>
+                            <a asp-controller="Coaches" asp-action="CoachUpdateHisUser" class="badge badge-primary badge-pill disabled" style="width:auto">Update</a>
+                        </span>
+                    </li>
+                }
+            }
+            else
+            {
+               <li class="list-group-item list-group-item-light">There is no trainings</li>
+            }
         </ul>
     </div>
 </div>

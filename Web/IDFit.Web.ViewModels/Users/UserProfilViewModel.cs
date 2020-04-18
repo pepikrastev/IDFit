@@ -2,14 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
-
+    using AutoMapper;
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
     using IDFit.Web.ViewModels.Diets;
     using IDFit.Web.ViewModels.Trainings;
 
-    public class UserProfilViewModel : IMapFrom<ApplicationUser>
+    public class UserProfilViewModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
     {
         public UserProfilViewModel()
         {
@@ -46,5 +47,11 @@
 
         // if user is a coach
         public List<UserWithCoachViewModel> TrainedPeople { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<ApplicationUser, UserProfilViewModel>()
+                 .ForMember(x => x.Trainings, t => t.MapFrom(e => e.UsersTrainings.Where(x => x.UserId == e.Id).Select(x => x.Training)));
+        }
     }
 }

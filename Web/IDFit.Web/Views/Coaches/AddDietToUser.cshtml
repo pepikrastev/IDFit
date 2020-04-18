@@ -42,8 +42,8 @@
                         }
                         else
                         {
-                            <form asp-controller="Coaches" asp-action="" asp-route-dietId="@diet.Id" asp-route-userId="@userId" method="post">
-                                <button type="submit" disabled class="btn btn-secondary badge-pill">Selected</button>
+                            <form asp-controller="Coaches" asp-action="RemoveDietFromUser" asp-route-dietId="@diet.Id" asp-route-userId="@userId" method="post">
+                                <button type="submit" class="btn btn-secondary badge-pill">Selected</button>
                             </form>
                         }
                     </td>

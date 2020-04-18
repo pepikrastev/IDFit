@@ -112,5 +112,71 @@
 
             return this.RedirectToAction("CoachUpdateHisUser", new { userId = user.Id });
         }
+
+        [HttpPost]
+        [Authorize(Roles = GlobalConstants.CoachRoleName)]
+        public async Task<IActionResult> RemoveDietFromUser(int dietId, string userId)
+        {
+            var diet = this.dietsService.GetDietById(dietId);
+            if (diet == null)
+            {
+                return this.RedirectToAction("Error");
+            }
+
+            var user = this.usersService.GetUserById(userId);
+            if (diet == null)
+            {
+                return this.RedirectToAction("Error");
+            }
+
+            var result = await this.coachesService.RemoveDietAsync(diet, user);
+            if (result < 0)
+            {
+                return this.RedirectToAction("Error");
+            }
+
+            return this.RedirectToAction("CoachUpdateHisUser", new { userId = user.Id });
+        }
+
+        [HttpGet]
+        [Authorize(Roles = GlobalConstants.CoachRoleName)]
+        public IActionResult AddOrRemoveTrainigForUser(string userId)
+        {
+            this.ViewBag.userId = userId;
+            var user = this.usersService.GetUserById(userId);
+
+            if (userId == null)
+            {
+                this.ViewBag.ErrorMessage = $"Users with id = {userId} connot be found";
+                return this.View("NotFound");
+            }
+
+            this.ViewBag.userUsername = user.UserName;
+
+            var viewModel = this.coachesService.GetListOfTrainigsForUser(userId).ToList();
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = GlobalConstants.CoachRoleName)]
+        public async Task<IActionResult> AddOrRemoveTrainigForUser(List<TrainigForListViewModel> viewModel, string userId)
+        {
+            var user = this.usersService.GetUserById(userId);
+            if (user == null)
+            {
+                this.ViewBag.ErrorMessage = $"User with id = {userId} connot be found";
+                return this.View("NotFound");
+            }
+
+            var result = await this.coachesService.AddOrRemoveTrainingFromUserAsync(userId, viewModel);
+
+            if (result > 0)
+            {
+                return this.RedirectToAction("CoachUpdateHisUser", new { userId = user.Id });
+            }
+
+            return this.View(viewModel);
+        }
     }
 }

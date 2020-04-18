@@ -43,7 +43,7 @@
         public IActionResult AllTrainings()
         {
             var viewModel = new List<TrainingViewModel>();
-            var trainings = this.trainingsService.GetAllTrainings();
+            var trainings = this.trainingsService.GetAllTrainingsViewModel();
             viewModel = trainings.ToList();
             return this.View(viewModel);
         }
@@ -120,7 +120,7 @@
             var training = this.trainingsService.GetTrainingById(trainingId);
             if (training == null)
             {
-                this.ViewBag.ErrorMessage = $"Training with id = {training} connot be found";
+                this.ViewBag.ErrorMessage = $"Training with id = {trainingId} connot be found";
                 return this.View("NotFound");
             }
 

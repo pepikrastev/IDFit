@@ -5,6 +5,7 @@
     using System.Text;
 
     using IDFit.Data.Models;
+    using IDFit.Web.ViewModels.Users;
 
     public interface IUsersService
     {
@@ -13,6 +14,10 @@
         T GetUserById<T>(string id);
 
         IEnumerable<T> GetAllUsers<T>();
+
+        IEnumerable<T> GetAllTrainingsForUser<T>(string userId);
+
+        UserTrainingDetails GetUserTrainingDetails(string userId, int trainingId);
 
         IEnumerable<ApplicationUser> GetAllUsers();
 

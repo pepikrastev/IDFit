@@ -10,7 +10,9 @@
 
     public interface ITrainingsService
     {
-        IEnumerable<TrainingViewModel> GetAllTrainings();
+        IEnumerable<TrainingViewModel> GetAllTrainingsViewModel();
+
+        IEnumerable<Training> GetAllTrainings();
 
         Task CreateTraining(CreateTrainingViewModel inputModel);
 
