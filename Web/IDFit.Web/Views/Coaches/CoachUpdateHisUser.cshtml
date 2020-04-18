@@ -23,19 +23,21 @@
 
         <div class="col-sm-2 col-md-4">
             @*<center>
-                    <a class="btn btn-primary badge-pill">Edit Diet</a>
-                </center>*@
+            <a class="btn btn-primary badge-pill">Edit Diet</a>
+        </center>*@
             <br />
             @if (Model.Diet != null)
             {
-                <p><a asp-controller="Coaches" asp-action="AddDietToUser" asp-route-userId="@Model.Id" class="btn-outline-primary"><strong>Edit It</strong></a></p>
                 <p>
-                    <i></i>Diet Name:<strong style="color:blue"> @Model.Diet.Name</strong>
+                    <strong style="color:blue"> @Model.Diet.Name</strong>
                     <br />
                     <i></i>Diet Description:<i style="color:blue"> @Model.Diet.Description</i>
                     <br /> <i style="color:blue">@(Model.Diet.EndTime.Day - DateTime.UtcNow.Day)</i>  <i></i> Days Left
                     <br /> <i style="color:blue">@Model.Diet.Foods.Count</i>  <i></i> FoodsCount
                 </p>
+                <center>
+                    <p><a asp-controller="Coaches" asp-action="AddDietToUser" asp-route-userId="@Model.Id" class="btn btn-primary badge-pill">Edit Diet</a></p>
+                </center>
             }
             else
             {
@@ -46,7 +48,7 @@
 
     <br />
     <div class="card-body">
-        <a class="btn btn-primary badge-pill" asp-controller="Coaches" asp-action="AddOrRemoveTrainigForUser" asp-route-userId="@Model.Id" >Add or remove trainings</a>
+        <a class="btn btn-primary badge-pill" asp-controller="Coaches" asp-action="AddOrRemoveTrainigForUser" asp-route-userId="@Model.Id" >Select Trainings</a>
         <a class="btn btn-secondary badge-pill" asp-area="" asp-controller="Users" asp-action="UserProfile">Cancel</a>
         <br />
         <br />
@@ -63,10 +65,10 @@
                 foreach (var item in Model.Trainings)
                 {
                     <li class="list-group-item list-group-item-light">
-                      - Trainig Id: @item.Id - Name: @item.Name - Description: @item.Description - Exercises Count: @item.ExercisesCount
-                        <span>
+                       @item.Name -  @item.Description - Exercises (@item.ExercisesCount)
+                        @*<span>
                             <a asp-controller="Coaches" asp-action="CoachUpdateHisUser" class="badge badge-primary badge-pill disabled" style="width:auto">Update</a>
-                        </span>
+                        </span>*@
                     </li>
                 }
             }

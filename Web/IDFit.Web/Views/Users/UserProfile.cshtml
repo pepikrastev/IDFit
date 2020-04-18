@@ -36,18 +36,18 @@
 
 <center>
     <div class="card-body">
-        <a class="btn btn-outline-primary" asp-action="EditUser" asp-controller="Users" asp-route-id="@Model.Id" role="button">Edit Your Profil</a>
+        <a class="btn btn-outline-primary badge-pill" asp-action="EditUser" asp-controller="Users" asp-route-id="@Model.Id" role="button">Edit Your Profil</a>
 
         @if (!User.IsInRole("Coach") && !User.IsInRole("Administrator"))
         {
-            <a class="btn btn-outline-primary" asp-controller="Users" asp-action="UsersDiet" asp-route-userId="@Model.Id" role="button">See Your Diet</a>
+            <a class="btn btn-outline-primary badge-pill" asp-controller="Users" asp-action="UsersDiet" asp-route-userId="@Model.Id" role="button">See Your Diet</a>
             @if (@Model.CoachId != null)
             {
-                <a asp-action="Coach" asp-controller="Coaches" asp-route-id="@Model.CoachId" class="btn  btn-outline-success" style="width:auto">My Coach : @Model.CoachUserName</a>
+                <a asp-action="Coach" asp-controller="Coaches" asp-route-id="@Model.CoachId" class="btn  btn-outline-success badge-pill" style="width:auto">My Coach : @Model.CoachUserName</a>
             }
             else
             {
-                <a asp-action="All" asp-controller="Coaches" class="btn  btn-outline-success" style="width:auto">Find Coach</a>
+                <a asp-action="All" asp-controller="Coaches" class="btn  btn-outline-success badge-pill" style="width:auto">Find Coach</a>
             }
         }
     </div>
@@ -78,7 +78,7 @@
             @if (!User.IsInRole("Administrator"))
             {
                 <div class="card-header">
-                    <h3>My training list</h3>
+                    <h3>My trainings</h3>
                 </div>
                 foreach (var training in Model.Trainings)
                 {
@@ -86,16 +86,12 @@
                         <li class="list-group-item list-group-item-light">
                             @training.Name - @training.Description
                             <span>
-                                <a asp-controller="Users" asp-action="UserTrainingDetails" asp-route-userId="@Model.Id" asp-route-trainingId="@training.Id" class="badge badge-primary badge-pill" style="width:auto">Update</a>
+                                <a asp-controller="Users" asp-action="UserTrainingDetails" asp-route-userId="@Model.Id" asp-route-trainingId="@training.Id" class="badge badge-primary badge-pill" style="width:auto">See It</a>
                             </span>
                         </li>
                     </ul>
                 }
-                <center>
-                    <div class="card-footer">
-                        <a asp-action="MyTrainings" asp-controller="Users" class="btn  btn-outline-primary" style="width:auto">View My Trainings</a>
-                    </div>
-                </center>
+                
             }
 
         }

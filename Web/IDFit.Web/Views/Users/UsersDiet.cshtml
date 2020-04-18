@@ -19,7 +19,7 @@ else
     }
     else
     {
-        <center><h3 class="text-primary">Diet for @Model.FirstName</h3></center>
+        <center><h3 class="text-primary">Your Diet @Model.FirstName</h3></center>
 
         <div class="card text-center">
             <div class="card-header ">
@@ -28,9 +28,8 @@ else
             <div class="card-body">
                 <h5 class="card-title">Description:</h5>
                 <p class="card-text">@Model.Diet.Description</p>
-                <h5 class="card-title">Foods List:</h5>
+                <h5 class="card-title">Foods:</h5>
                 <p class="card-text">
-
                     <div>
                         <table class="table">
                             <thead>
@@ -54,7 +53,7 @@ else
                     </div>
 
                 </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a asp-controller="Users" asp-action="UserProfile" class="btn btn-secondary badge-pill">Cancel</a>
             </div>
             <div class="card-footer text-muted">
                 @(Model.Diet.EndTime.Day - DateTime.UtcNow.Day) days left.
