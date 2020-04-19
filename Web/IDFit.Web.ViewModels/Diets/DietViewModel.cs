@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
 
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
@@ -18,8 +19,10 @@
 
         public string Name { get; set; }
 
+        [DisplayName("Start Date")]
         public DateTime StartTime { get; set; }
 
+        [DisplayName("End Date")]
         public DateTime EndTime { get; set; }
 
         public string Description { get; set; }

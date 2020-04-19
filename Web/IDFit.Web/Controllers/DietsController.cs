@@ -46,6 +46,10 @@ namespace IDFit.Web.Controllers
                         return this.RedirectToAction("AllDiets");
                     }
                 }
+                else
+                {
+                    this.ModelState.AddModelError(" ", "Start Date must be earlier than End Date");
+                }
             }
 
             return this.View(viewModel);

@@ -59,10 +59,10 @@
             var users = this.usersService.GetAllUsers();
             foreach (var user in users)
             {
-                if (user.DietId != null)
+                if (user.DietId == id)
                 {
                     user.DietId = null;
-                    user.Diet = null;
+                   // user.Diet = null;
                     this.db.Users.Update(user);
                 }
             }
@@ -70,16 +70,16 @@
             var foods = this.foodsService.GetAllFoods();
             foreach (var food in foods)
             {
-                if (food.DietId != null)
+                if (food.DietId == id)
                 {
                     food.DietId = null;
-                    food.Diet = null;
+                    // food.Diet = null;
                     this.db.Foods.Update(food);
                 }
             }
 
-            diet.Foods = null;
-            diet.Users = null;
+            // diet.Foods = null;
+            // diet.Users = null;
 
             this.db.Diets.Remove(diet);
             return this.db.SaveChanges();
@@ -87,6 +87,27 @@
 
         public IEnumerable<T> GetAllDiets<T>()
         {
+            var isExpiredDietsId = new List<int>();
+            foreach (var diet in this.db.Diets)
+            {
+                if (diet.EndTime < DateTime.UtcNow)
+                {
+                    isExpiredDietsId.Add(diet.Id);
+                }
+            }
+
+            foreach (var dietId in isExpiredDietsId)
+            {
+                var diet = this.db.Diets.Where(x => x.Id == dietId).FirstOrDefault();
+
+                // delete diet from db
+                // this.DeleteDiet(diet.Id);
+
+                // diet.IsDeleted = true
+                this.dietsRepository.Delete(diet);
+                this.db.SaveChanges();
+            }
+
             IQueryable<Diet> query = this.dietsRepository.All();
             return query.To<T>().ToList();
         }

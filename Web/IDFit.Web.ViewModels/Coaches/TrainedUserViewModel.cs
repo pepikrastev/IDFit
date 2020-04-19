@@ -1,6 +1,7 @@
 ﻿namespace IDFit.Web.ViewModels.Coaches
 {
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Linq;
 
     using AutoMapper;
@@ -13,8 +14,10 @@
     {
         public string Id { get; set; }
 
+        [DisplayName("First Name")]
         public string FirstName { get; set; }
 
+        [DisplayName("Last Name")]
         public string LastName { get; set; }
 
         public string UserName { get; set; }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     using IDFit.Data.Common.Models;
@@ -14,6 +15,7 @@
             this.Users = new HashSet<ApplicationUser>();
         }
 
+        [Required]
         public string Name { get; set; }
 
         public DateTime StartTime { get; set; }

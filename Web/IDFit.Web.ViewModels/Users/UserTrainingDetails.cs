@@ -1,13 +1,12 @@
 ﻿namespace IDFit.Web.ViewModels.Users
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
 
     using AutoMapper;
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
+    using IDFit.Web.ViewModels.Exercises;
     using IDFit.Web.ViewModels.Trainings;
 
     public class UserTrainingDetails : IMapFrom<Training>, IHaveCustomMappings
@@ -20,7 +19,7 @@
 
         public string Description { get; set; }
 
-        public virtual ICollection<ExerciseForListViewModel> Exercises { get; set; }
+        public ICollection<ExerciseForListViewModel> Exercises { get; set; }
 
         // TODO: to start using them
         public void CreateMappings(IProfileExpression configuration)

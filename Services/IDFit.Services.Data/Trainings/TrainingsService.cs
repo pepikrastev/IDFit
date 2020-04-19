@@ -160,7 +160,7 @@
                     Id = exercise.Id,
                     Name = exercise.Name,
                     Description = exercise.Description,
-                    ToolsCount = toolsCount,
+                    // ToolsCount = toolsCount,
                 };
 
                 if (this.db.TrainingsExercises.Any(x => x.TrainingId == trainingId && x.ExerciseId == exercise.Id))

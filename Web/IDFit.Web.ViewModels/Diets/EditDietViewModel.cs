@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     using IDFit.Data.Models;
@@ -22,9 +23,11 @@
         public string Name { get; set; }
 
         [DataType(DataType.Date)]
+        [DisplayName("Start Date")]
         public DateTime StartTime { get; set; }
 
         [DataType(DataType.Date)]
+        [DisplayName("End Date")]
         public DateTime EndTime { get; set; }
 
         public int Days => (this.EndTime - this.StartTime).Days;

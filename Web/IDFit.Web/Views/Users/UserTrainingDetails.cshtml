@@ -34,7 +34,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
-                    <th>Tools Count</th>
+                    <th>Tools </th>
                 </tr>
             </thead>
             @foreach (var exercise in Model.Exercises)
@@ -43,13 +43,29 @@
                     <tr class="table-info">
                         <td>@exercise.Name</td>
                         <td>@exercise.Description</td>
-                        <td>@exercise.ToolsCount</td>
+                       
+                        <td>
+                            <p>
+                                <a class="btn btn-primary badge-pill" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    @exercise.ToolsCount
+                                </a>
+                            </p>
+                            @foreach (var item in exercise.Tools)
+                            {
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card card-text">
+                                        <p>@item.Name - @item.Details</p>
+                                    </div>
+                                </div>
+                            }
+                        </td>
                     </tr>
                 </tbody>
             }
         </table>
     </div>
 </div>
+
 
 <br />
 <div class="form-group row">

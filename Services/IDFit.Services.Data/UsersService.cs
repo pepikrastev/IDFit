@@ -8,8 +8,10 @@
     using IDFit.Data;
     using IDFit.Data.Common.Repositories;
     using IDFit.Data.Models;
+    using IDFit.Services.Data.Exercises;
     using IDFit.Services.Data.Trainings;
     using IDFit.Services.Mapping;
+    using IDFit.Web.ViewModels.Exercises;
     using IDFit.Web.ViewModels.Trainings;
     using IDFit.Web.ViewModels.Users;
     using Microsoft.AspNetCore.Identity;
@@ -21,7 +23,11 @@
         private readonly ApplicationDbContext db;
         private readonly ITrainingsService trainingsService;
 
-        public UsersService(IDeletableEntityRepository<ApplicationUser> userRepository, UserManager<ApplicationUser> userManager, ApplicationDbContext db, ITrainingsService trainingsService)
+        public UsersService(
+            IDeletableEntityRepository<ApplicationUser> userRepository,
+            UserManager<ApplicationUser> userManager,
+            ApplicationDbContext db,
+            ITrainingsService trainingsService)
         {
             this.userRepository = userRepository;
             this.userManager = userManager;
@@ -129,11 +135,11 @@
         {
             var training = this.db.Trainings.FirstOrDefault(x => x.Id == trainingId && x.UsersTrainings.Any(x => x.UserId == userId));
 
-            var userName = this.userRepository.All()
+            var user = this.userRepository.All()
                 .Where(x => x.Id == userId)
                 .FirstOrDefault();
 
-            var trainingExercise = this.trainingsService.GetAllExerciseForTraining<ExerciseForListViewModel>(trainingId)
+            var trainingExercises = this.trainingsService.GetAllExerciseForTraining<ExerciseForListViewModel>(trainingId)
                 .ToList();
 
             var model = new UserTrainingDetails
@@ -141,8 +147,8 @@
                 Name = training.Name,
                 Description = training.Description,
                 TrainingTime = training.TrainingTime,
-                UserName = userName.UserName,
-                Exercises = trainingExercise,
+                UserName = user.UserName,
+                Exercises = trainingExercises,
             };
 
             return model;

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Text;
 
@@ -17,6 +18,7 @@
 
         // in minutes
         [Range(10, 200)]
+        [DisplayName("Training Time")]
         public int TrainingTime { get; set; }
 
         public string Description { get; set; }
