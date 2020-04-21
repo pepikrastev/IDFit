@@ -121,7 +121,8 @@
 
             if (model.Id != userId && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
-                return this.RedirectToAction("Error");
+                // return this.RedirectToAction("Error");
+                return this.RedirectToAction("MyError", "Home");
             }
 
             return this.View(model);
