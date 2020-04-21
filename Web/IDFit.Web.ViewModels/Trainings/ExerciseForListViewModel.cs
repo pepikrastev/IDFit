@@ -26,12 +26,12 @@
         public ICollection<ToolsListViewModel> Tools { get; set; }
 
         [DisplayName("Tools Count")]
-        public int ToolsCount => this.Tools.Count();
+        public int ToolsCount { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            //configuration.CreateMap<Exercise, ExerciseForListViewModel>()
-            //     .ForMember(x => x.ToolsCount, t => t.MapFrom(e => e.ExercisesTools.Where(x => x.ExerciseId == e.Id).Count()));
+            configuration.CreateMap<Exercise, ExerciseForListViewModel>()
+                 .ForMember(x => x.ToolsCount, t => t.MapFrom(e => e.ExercisesTools.Where(x => x.ExerciseId == e.Id).Count()));
 
             configuration.CreateMap<Exercise, ExerciseForListViewModel>()
                  .ForMember(x => x.Tools, t => t.MapFrom(e => e.ExercisesTools.Where(x => x.ExerciseId == e.Id).Select(t => t.Tool)));

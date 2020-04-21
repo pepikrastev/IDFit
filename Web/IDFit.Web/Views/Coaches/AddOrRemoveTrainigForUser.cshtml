@@ -2,7 +2,7 @@
 @{
     var userId = ViewBag.userId;
     var userUsername = ViewBag.userUsername;
-    this.ViewData["Title"] = $"Add or remove trainings for user {userUsername} ";
+    this.ViewData["Title"] = $"Add or remove trainings for user - {userUsername} ";
 }
 
 <form method="post">
@@ -24,8 +24,8 @@
             }
         </div>
         <div class="card-footer">
-            <input type="submit" value="Update" class="btn btn-primary" style="width:auto" />
-            <a asp-action="CoachUpdateHisUser" asp-controller="Coaches" asp-route-userId="@userId" class="btn  btn-primary" style="width:auto">Cancel</a>
+            <input type="submit" value="Update" class="btn btn-primary badge-pill" style="width:auto" />
+            <a asp-action="CoachUpdateHisUser" asp-controller="Coaches" asp-route-userId="@userId" class="btn  btn-secondary badge-pill" style="width:auto">Cancel</a>
         </div>
     </div>
 </form>

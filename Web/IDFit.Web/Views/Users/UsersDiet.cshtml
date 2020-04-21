@@ -30,27 +30,36 @@ else
                 <p class="card-text">@Model.Diet.Description</p>
                 <h5 class="card-title">Foods:</h5>
                 <p class="card-text">
-                    <div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Grams</th>
-                                    <th>Quantity</th>
-                                </tr>
-                            </thead>
-                            @foreach (var food in Model.Diet.Foods)
-                            {
-                                <tbody>
-                                    <tr class="table-striped">
-                                        <td>@food.Name</td>
-                                        <td>@food.Weight grams</td>
-                                        <td>@food.Quantity pieces</td>
+                    @if (Model.Diet.Foods.Any())
+                    {
+                        <div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Grams</th>
+                                        <th>Quantity</th>
                                     </tr>
-                                </tbody>
-                            }
-                        </table>
-                    </div>
+                                </thead>
+
+                                @foreach (var food in Model.Diet.Foods)
+                                {
+                                    <tbody>
+                                        <tr class="table-striped">
+                                            <td>@food.Name</td>
+                                            <td>@food.Weight grams</td>
+                                            <td>@food.Quantity pieces</td>
+                                        </tr>
+                                    </tbody>
+                                }
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>There is no foods</div>
+                    }
+
 
                 </p>
                 <a asp-controller="Users" asp-action="UserProfile" class="btn btn-secondary badge-pill">Cancel</a>

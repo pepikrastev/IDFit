@@ -34,7 +34,11 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
-                    <th>Tools </th>
+                    <th>
+                        <a class="btn badge-pill" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <strong>Tools</strong>
+                        </a>
+                    </th>
                 </tr>
             </thead>
             @foreach (var exercise in Model.Exercises)
@@ -43,17 +47,14 @@
                     <tr class="table-info">
                         <td>@exercise.Name</td>
                         <td>@exercise.Description</td>
-                       
+
                         <td>
-                            <p>
-                                <a class="btn btn-primary badge-pill" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                    @exercise.ToolsCount
-                                </a>
-                            </p>
+                            <p>@exercise.ToolsCount</p>
+
                             @foreach (var item in exercise.Tools)
                             {
                                 <div class="collapse" id="collapseExample">
-                                    <div class="card card-text">
+                                    <div class="card card-text" style="background-color:whitesmoke">
                                         <p>@item.Name - @item.Details</p>
                                     </div>
                                 </div>
@@ -64,6 +65,7 @@
             }
         </table>
     </div>
+
 </div>
 
 
@@ -73,3 +75,6 @@
         <a asp-controller="Users" asp-action="UserProfile" class="btn btn-secondary badge-pill">Cancel</a>
     </div>
 </div>
+
+
+

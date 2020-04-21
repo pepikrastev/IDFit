@@ -37,7 +37,7 @@ namespace IDFit.Web.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                if ((viewModel.EndTime - viewModel.StartTime).Days > 1 || (viewModel.EndTime - DateTime.UtcNow).Days > 1)
+                if ((viewModel.EndTime - viewModel.StartTime).Days > 1 && (viewModel.EndTime - DateTime.UtcNow).Days > 1)
                 {
                     var resutl = this.dietsService.CreateDiet(viewModel.Name, viewModel.StartTime, viewModel.EndTime, viewModel.Description);
 
@@ -81,6 +81,7 @@ namespace IDFit.Web.Controllers
         [HttpGet]
         public IActionResult EditDiet(int id)
         {
+
             var viewModel = this.dietsService.GetDietById<EditDietViewModel>(id);
 
             return this.View(viewModel);
@@ -97,14 +98,22 @@ namespace IDFit.Web.Controllers
             }
             else
             {
-                var result = this.dietsService.EditDiet(diet, model.Name, model.StartTime, model.EndTime, model.Description);
-                if (result >= 0)
+                if (this.ModelState.IsValid)
                 {
-                    return this.RedirectToAction("AllDiets");
-                }
+                    if ((model.EndTime - model.StartTime).Days > 1 && (model.EndTime - DateTime.UtcNow).Days > 1)
+                    {
+                        this.dietsService.EditDiet(diet, model.Name, model.StartTime, model.EndTime, model.Description);
 
-                return this.View(model);
+                        return this.RedirectToAction("AllDiets");
+                    }
+                    else
+                    {
+                        this.ModelState.AddModelError(" ", "Start Date must be earlier than End Date");
+                    }
+                }
             }
+
+            return this.View(model);
         }
 
         [HttpGet]
@@ -118,6 +127,7 @@ namespace IDFit.Web.Controllers
                 this.ViewBag.ErrorMessage = $"Diet with id = {dietId} connot be found";
                 return this.View("NotFound");
             }
+            this.ViewBag.dietName = diet.Name;
 
             var viewModel = new List<FoodViewModel>();
             var foods = this.foodsService.GetAllFoodsForDiet(diet.Id);

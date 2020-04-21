@@ -117,6 +117,7 @@
                 this.ViewBag.ErrorMessage = $"Exercise with id = {exerciseId} connot be found";
                 return this.View("NotFound");
             }
+            this.ViewBag.exerciseName = exercise.Name;
 
             var viewModel = new List<ToolsListViewModel>();
 

@@ -72,6 +72,11 @@
 
             var exerciseListViewModel = this.trainingsService.GetAllExerciseForTraining<ExerciseForListViewModel>(id).ToList();
 
+            foreach (var item in exerciseListViewModel)
+            {
+                item.ToolsCount = item.Tools.Count();
+            }
+
             var trainingViewModel = new EditTrainingViewModel
             {
                 Id = training.Id,

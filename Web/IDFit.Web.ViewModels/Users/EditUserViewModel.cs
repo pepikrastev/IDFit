@@ -1,5 +1,7 @@
 ﻿namespace IDFit.Web.ViewModels.Users
 {
+    using System.ComponentModel;
+
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
     using Microsoft.AspNetCore.Http;
@@ -8,12 +10,15 @@
     {
         public string Id { get; set; }
 
+        [DisplayName("First Name")]
         public string FirstName { get; set; }
 
+        [DisplayName("Last Name")]
         public string LastName { get; set; }
 
         public string UserName { get; set; }
 
+        [DisplayName("Phone Number")]
         public string PhoneNumber { get; set; }
 
         public int? Age { get; set; }

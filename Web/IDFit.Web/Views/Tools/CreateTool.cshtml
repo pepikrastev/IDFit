@@ -24,7 +24,8 @@
                 <input asp-for="@Model.ImageUrl" class="form-control" />
                 <span asp-validation-for="@Model.ImageUrl" class="text-danger"></span>
             </div>
-            <button style="width:auto" type="submit" class="btn btn-primary">Create Tool</button>
+            <button style="width:auto" type="submit" class="btn btn-primary badge-pill">Create Tool</button>
+            <a class="btn btn-secondary badge-pill" asp-controller="Tools" asp-action="AllTools" role="button">Cancel</a>
         </form>
     </div>
 </div>

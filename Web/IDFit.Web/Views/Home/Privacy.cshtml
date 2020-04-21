@@ -5,26 +5,3 @@
 
 <p>Use this page to detail your site's privacy policy.</p>
 
-@if (User.IsInRole("Coach"))
-{
-
-    <div>
-        <a asp-area="" asp-controller="Foods" asp-action="AllFoods">See list of foods</a>
-    </div>
-    <div>
-        <a asp-area="Coach" asp-controller="Test" asp-action="Index">Go Coach Area Test Controller</a>
-    </div>
-}
-
-@if (User.IsInRole("Administrator"))
-{
-    <div>
-        <a asp-area="Administration" asp-controller="Administration" asp-action="AllRoles">All Roles</a>
-    </div>
-    <div>
-        <a asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Go Administration Area Dashboard Controller</a>
-    </div>
-    <div>
-        <a asp-area="Administration" asp-controller="Coaches" asp-action="Index">Go Administration Area Coaches Controller</a>
-    </div>
-}

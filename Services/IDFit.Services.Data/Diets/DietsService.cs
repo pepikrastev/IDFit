@@ -99,6 +99,25 @@
             foreach (var dietId in isExpiredDietsId)
             {
                 var diet = this.db.Diets.Where(x => x.Id == dietId).FirstOrDefault();
+                foreach (var food in this.db.Foods)
+                {
+                    if (food.DietId == diet.Id)
+                    {
+                        food.DietId = null;
+                    }
+
+                    this.db.Foods.Update(food);
+                }
+
+                foreach (var user in this.db.Users)
+                {
+                    if (user.DietId == diet.Id)
+                    {
+                        user.DietId = null;
+                    }
+                    this.db.Users.Update(user);
+
+                }
 
                 // delete diet from db
                 // this.DeleteDiet(diet.Id);

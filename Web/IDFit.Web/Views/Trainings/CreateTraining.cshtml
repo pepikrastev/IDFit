@@ -24,7 +24,8 @@
                 <input asp-for="@Model.TrainingTime" placeholder="Add the training time in minutes." class="form-control" />
                 <span asp-validation-for="@Model.TrainingTime" class="text-danger"></span>
             </div>
-            <button style="width:auto" type="submit" class="btn btn-primary">Create Training</button>
+            <button style="width:auto" type="submit" class="btn btn-primary badge-pill">Create Training</button>
+            <a class="btn btn-secondary badge-pill" asp-controller="Trainings" asp-action="AllTrainings" role="button">Cancel</a>
         </form>
     </div>
 </div>

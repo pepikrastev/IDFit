@@ -28,8 +28,8 @@
                     <td>@exercise.ToolsCount</td>
                     <td>
                         <form asp-controller="Exercises" asp-action="DeleteExercise" asp-route-id="@exercise.Id" method="post">
-                            <a asp-controller="Exercises" asp-action="EditExercise" asp-route-id="@exercise.Id" class="btn btn-primary">Edit</a>
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <a asp-controller="Exercises" asp-action="EditExercise" asp-route-id="@exercise.Id" class="btn btn-primary badge-pill">Edit</a>
+                            <button type="submit" class="btn btn-danger badge-pill">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -37,3 +37,4 @@
         }
     </table>
 </div>
+<a asp-controller="Home" asp-action="Index" class="btn btn-secondary badge-pill">Cancel</a>

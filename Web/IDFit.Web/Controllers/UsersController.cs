@@ -119,7 +119,7 @@
             var model = this.usersService.GetUserById<EditUserViewModel>(id);
             var userId = this.userManager.GetUserId(this.HttpContext.User);
 
-            if (model.Id != userId)
+            if (model.Id != userId && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
                 return this.RedirectToAction("Error");
             }
@@ -228,6 +228,12 @@
         public IActionResult UserTrainingDetails(string userId, int trainingId)
         {
             var model = this.usersService.GetUserTrainingDetails(userId, trainingId);
+
+            foreach (var item in model.Exercises)
+            {
+                item.ToolsCount = item.Tools.Count();
+            }
+
             return this.View(model);
         }
     }

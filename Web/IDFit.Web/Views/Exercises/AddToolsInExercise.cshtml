@@ -1,7 +1,8 @@
 ﻿@model List<IDFit.Web.ViewModels.Exercises.ToolsListViewModel>
 @{
     var exerciseId = ViewBag.exerciseId;
-    this.ViewData["Title"] = "Add or remove tools from exercise";
+    var exerciseName = ViewBag.exerciseName;
+    this.ViewData["Title"] = $"Add or remove tools from exercise {exerciseName}";
 }
 
 
@@ -24,8 +25,8 @@
             }
         </div>
         <div class="card-footer">
-            <input type="submit" value="Update" class="btn btn-primary" style="width:auto" />
-            <a asp-action="EditExercise" asp-controller="Exercises" asp-route-id="@exerciseId" class="btn  btn-primary" style="width:auto">Cancel</a>
+            <input type="submit" value="Update" class="btn btn-primary badge-pill" style="width:auto" />
+            <a asp-action="EditExercise" asp-controller="Exercises" asp-route-id="@exerciseId" class="btn  btn-secondary badge-pill" style="width:auto">Cancel</a>
         </div>
     </div>
 </form>

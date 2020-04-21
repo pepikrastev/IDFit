@@ -1,7 +1,8 @@
 ﻿@model List<IDFit.Web.ViewModels.Foods.FoodViewModel>
 @{
     var dietId = ViewBag.dietId;
-    this.ViewData["Title"] = "Add or remove food from diet";
+    var dietName = ViewBag.dietName;
+    this.ViewData["Title"] = $"Add or remove food from diet {dietName}";
 }
 
 
@@ -24,8 +25,8 @@
             }
         </div>
         <div class="card-footer">
-            <input type="submit" value="Update" class="btn btn-primary" style="width:auto" />
-            <a asp-action="EditDiet" asp-controller="Diets" asp-route-id="@dietId" class="btn  btn-primary" style="width:auto">Cancel</a>
+            <input type="submit" value="Update" class="btn btn-primary badge-pill" style="width:auto" />
+            <a asp-action="EditDiet" asp-controller="Diets" asp-route-id="@dietId" class="btn  btn-secondary badge-pill" style="width:auto">Cancel</a>
         </div>
     </div>
 </form>

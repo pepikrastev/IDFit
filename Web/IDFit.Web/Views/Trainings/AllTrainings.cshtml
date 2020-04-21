@@ -7,7 +7,7 @@
     <h1 class="display-4">@this.ViewData["Title"]</h1>
 </div>
 <div class="card-body">
-    <a class="btn btn-primary" asp-controller="Trainings" asp-action="CreateTraining" role="button">Add Training</a>
+    <a class="btn btn-primary badge-pill" asp-controller="Trainings" asp-action="CreateTraining" role="button">Add Training</a>
 </div>
 <div>
     <table class="table">
@@ -32,8 +32,8 @@
                     <td>@training.UsersCount</td>
                     <td>
                         <form asp-controller="Trainings" asp-action="DeleteTraining" asp-route-id="@training.Id" method="post">
-                            <a asp-controller="Trainings" asp-action="EditTraining" asp-route-id="@training.Id" class="btn btn-primary">Edit</a>
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <a asp-controller="Trainings" asp-action="EditTraining" asp-route-id="@training.Id" class="btn btn-primary badge-pill">Edit</a>
+                            <button type="submit" class="btn btn-danger badge-pill">Delete</button>
                         </form>
                     </td>
                 </tr>
