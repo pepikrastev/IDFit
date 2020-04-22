@@ -21,10 +21,10 @@
             </div>
 
             @*<div class="form-group">
-            <label asp-for="@Model.ImageUrl"></label>
-            <input asp-for="@Model.ImageUrl" class="form-control" />
-            <span asp-validation-for="@Model.ImageUrl" class="text-danger"></span>
-        </div>*@
+                    <label asp-for="@Model.ImageUrl"></label>
+                    <input asp-for="@Model.ImageUrl" class="form-control" />
+                    <span asp-validation-for="@Model.ImageUrl" class="text-danger"></span>
+                </div>*@
 
             <div class="form-group row">
                 <label asp-for="@Model.Photo" class="col-sm-3 col-form-label"></label>
@@ -41,3 +41,14 @@
         </form>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+            })
+        });
+    </script>
+}

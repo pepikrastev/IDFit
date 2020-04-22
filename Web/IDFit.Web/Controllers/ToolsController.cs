@@ -76,16 +76,17 @@
         {
             if (this.ModelState.IsValid)
             {
-                byte[] destinationImage;
-
-                using (var memoryStream = new MemoryStream())
+                if (inputModel.Photo != null)
                 {
-                    await inputModel.Photo.CopyToAsync(memoryStream);
-                    destinationImage = memoryStream.ToArray();
-                }
+                    byte[] destinationImage;
 
-                using (var destinationStream = new MemoryStream(destinationImage))
-                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await inputModel.Photo.CopyToAsync(memoryStream);
+                        destinationImage = memoryStream.ToArray();
+                    }
+
+                    using var destinationStream = new MemoryStream(destinationImage);
                     var uploadParams = new ImageUploadParams()
                     {
                         File = new FileDescription(inputModel.Photo.FileName, destinationStream),
@@ -96,6 +97,11 @@
 
                     await this.toolsService.CreateTool(inputModel, path);
                     return this.Redirect("/Tools/AllTools");
+                }
+                else
+                {
+                    await this.toolsService.CreateTool(inputModel, null);
+                    return this.RedirectToAction("AllTools");
                 }
             }
 
@@ -114,16 +120,17 @@
         {
             if (this.ModelState.IsValid)
             {
-                byte[] destinationImage;
-
-                using (var memoryStream = new MemoryStream())
+                if (viewModel.Photo != null)
                 {
-                    await viewModel.Photo.CopyToAsync(memoryStream);
-                    destinationImage = memoryStream.ToArray();
-                }
+                    byte[] destinationImage;
 
-                using (var destinationStream = new MemoryStream(destinationImage))
-                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await viewModel.Photo.CopyToAsync(memoryStream);
+                        destinationImage = memoryStream.ToArray();
+                    }
+
+                    using var destinationStream = new MemoryStream(destinationImage);
                     var uploadParams = new ImageUploadParams()
                     {
                         File = new FileDescription(viewModel.Photo.FileName, destinationStream),
@@ -136,6 +143,12 @@
 
                     return this.RedirectToAction("AllTools");
                 }
+                else
+                {
+                    await this.toolsService.EditTool(viewModel.Id, viewModel.Name, viewModel.Details, null);
+
+                    return this.RedirectToAction("AllTools");
+                }
             }
 
             return this.View(viewModel);
@@ -145,9 +158,6 @@
         public async Task<IActionResult> DeleteTool(int id)
         {
             // TODO: delete from cloudinary
-            // var tool = this.toolsService.GetToolById(id);
-            // this.cloudinary.DestroyAsync();
-
             await this.toolsService.DeleteTool(id);
             return this.RedirectToAction("AllTools");
         }

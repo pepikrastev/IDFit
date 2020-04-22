@@ -33,8 +33,12 @@
             {
                 Name = inputModel.Name,
                 Details = inputModel.Details,
-                ImageUrl = path,
             };
+
+            if (path != null)
+            {
+                tool.ImageUrl = path;
+            }
 
             await this.db.Tools.AddAsync(tool);
             await this.db.SaveChangesAsync();
@@ -46,7 +50,7 @@
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
-            // TODO: fix it
+            // TODO
             if (tool == null)
             {
                 throw new Exception($"There is no tool with this id {id}");
@@ -64,7 +68,10 @@
 
             tool.Name = name;
             tool.Details = details;
-            tool.ImageUrl = imageUrl;
+            if (imageUrl != null)
+            {
+                tool.ImageUrl = imageUrl;
+            }
 
             await this.db.SaveChangesAsync();
         }
@@ -85,7 +92,7 @@
 
         public async Task<T> GetToolById<T>(int id)
         {
-            var tool = this.toolsRepository.All()
+            var tool =  this.toolsRepository.All()
                  .Where(x => x.Id == id)
                  .To<T>()
                  .FirstOrDefault();

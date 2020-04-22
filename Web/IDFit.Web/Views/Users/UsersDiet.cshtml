@@ -6,16 +6,23 @@
 
 @if (Model.CoachId == null)
 {
-    <center><h3 class="text-danger">@Model.FirstName @Model.LastName you need to pick a coach to give you a diet.</h3></center>
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">You don't have a diet !</h4>
+        <p>@Model.UserName you need to pick a coach to give you a diet.</p>
+        <hr>
+        <a asp-controller="Coaches" asp-action="All" class="btn btn-success badge-pill">Select Coach</a>
+    </div>
 }
 else
 {
     if (Model.DietId == null)
     {
-        <center>
-            <h3 class="text-danger">@Model.CoachUserName Is your coach.</h3>
-            <h3 class="text-danger">@Model.FirstName @Model.LastName you don't have a diet.</h3>
-        </center>
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">@Model.CoachUserName is your coach.</h4>
+            <p>@Model.UserName wait your coach to pick you a diet</p>
+            <hr>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-success badge-pill">Go Home</a>
+        </div>
     }
     else
     {

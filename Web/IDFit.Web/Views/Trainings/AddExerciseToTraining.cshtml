@@ -16,11 +16,22 @@
                 <div class="form-check m-1">
                     <input type="hidden" asp-for="@Model[i].Id" />
                     <input type="hidden" asp-for="@Model[i].Name" />
-                    <input asp-for="@Model[i].IsSelected" class="form-check-input" />
-                    <label class="form-check-label" asp-for="@Model[i].IsSelected">
-                       name: @Model[i].Name - @Model[i].Description - @Model[i].ToolsCount tools
-                    </label>
+                    @if (Model[i].Description != null)
+                    {
+                        <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                        <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                            <strong>@Model[i].Name</strong> - @Model[i].Description - @Model[i].ToolsCount tools
+                        </label>
+                    }
+                    else
+                    {
+                        <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                        <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                            <strong>@Model[i].Name</strong> - @Model[i].ToolsCount tools
+                        </label>
+                    }
                 </div>
+
             }
         </div>
         <div class="card-footer">

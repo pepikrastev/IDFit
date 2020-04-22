@@ -31,7 +31,7 @@
                 <p>
                     <strong style="color:blue"> @Model.Diet.Name</strong>
                     <br />
-                    <i></i>Diet Description:<i style="color:blue"> @Model.Diet.Description</i>
+                    <i></i><i style="color:blue"> @Model.Diet.Description</i>
                     <br /> <i style="color:blue">@(Model.Diet.EndTime.Day - DateTime.UtcNow.Day)</i>  <i></i> Days Left
                     <br /> <i style="color:blue">@Model.Diet.Foods.Count</i>  <i></i> FoodsCount
                 </p>
@@ -41,7 +41,7 @@
             }
             else
             {
-                <p>@Model.FirstName @Model.LastName has no <a asp-controller="Coaches" asp-action="AddDietToUser" asp-route-userId="@Model.Id" class="btn-outline-primary">diet !</a></p>
+                <p>@Model.UserName has no <a asp-controller="Coaches" asp-action="AddDietToUser" asp-route-userId="@Model.Id" class="btn-outline-primary">diet !</a></p>
             }
         </div>
     </div>
@@ -64,17 +64,23 @@
             {
                 foreach (var item in Model.Trainings)
                 {
-                    <li class="list-group-item list-group-item-light">
-                       @item.Name -  @item.Description - Exercises (@item.ExercisesCount)
-                        @*<span>
-                            <a asp-controller="Coaches" asp-action="CoachUpdateHisUser" class="badge badge-primary badge-pill disabled" style="width:auto">Update</a>
-                        </span>*@
-                    </li>
+                    if (item.Description != null)
+                    {
+                        <li class="list-group-item list-group-item-light">
+                            <strong>@item.Name</strong> -  @item.Description - Exercises (@item.ExercisesCount)
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="list-group-item list-group-item-light">
+                            <strong>@item.Name</strong> - Exercises (@item.ExercisesCount)
+                        </li>
+                    }
                 }
             }
             else
             {
-               <li class="list-group-item list-group-item-light">There is no trainings</li>
+                <li class="list-group-item list-group-item-light">There is no trainings</li>
             }
         </ul>
     </div>

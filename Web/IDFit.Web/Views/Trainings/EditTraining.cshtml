@@ -51,7 +51,15 @@
             {
                 foreach (var exercise in Model.Exercises)
                 {
-                    <h5 class="card-title">Exercise: <i style="color:lightskyblue">@exercise.Name</i> - Description: <i style="color:lightskyblue">@exercise.Description</i> - Takes <i style="color:lightskyblue">@exercise.ToolsCount</i> tools</h5>
+                    if (exercise.Description != null)
+                    {
+                        <h5 class="card-title"><strong>@exercise.Name</strong> - <i style="color:black">@exercise.Description</i> - <strong>@exercise.ToolsCount</strong> tools</h5>
+                    }
+                    else
+                    {
+                        <h5 class="card-title"><strong>@exercise.Name</strong> - <strong>@exercise.ToolsCount</strong> tools</h5>
+                    }
+
                 }
             }
             else
