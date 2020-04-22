@@ -4,6 +4,7 @@
 
     using IDFit.Data.Models;
     using IDFit.Services.Mapping;
+    using Microsoft.AspNetCore.Http;
 
     public class ToolViewModel : IMapFrom<Tool>, IMapTo<Tool>
     {
@@ -12,7 +13,7 @@
         [Required]
         public string Name { get; set; }
 
-        public string ImageUrl { get; set; }
+        public IFormFile Photo { get; set; }
 
         public string Details { get; set; }
     }

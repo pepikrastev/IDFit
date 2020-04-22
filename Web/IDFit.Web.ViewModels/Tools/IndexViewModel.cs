@@ -6,6 +6,6 @@
 
     public class IndexViewModel
     {
-        public IEnumerable<ToolViewModel> Tools { get; set; }
+        public IEnumerable<IndexToolViewModel> Tools { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 {
     using System.Reflection;
 
+    using CloudinaryDotNet;
     using IDFit.Data;
     using IDFit.Data.Common;
     using IDFit.Data.Common.Repositories;
@@ -17,7 +18,6 @@
     using IDFit.Services.Mapping;
     using IDFit.Services.Messaging;
     using IDFit.Web.ViewModels;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -76,6 +76,16 @@
             services.AddTransient<IToolsService, ToolsService>();
             services.AddTransient<IExercisesService, ExercisesService>();
             services.AddTransient<ITrainingsService, TrainingsService>();
+
+            // Cloudinary
+            Account account = new Account(
+                           this.configuration["Cloudinary:AppName"],
+                           this.configuration["Cloudinary:AppKey"],
+                           this.configuration["Cloudinary:AppSecret"]);
+
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            services.AddSingleton(cloudinary);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -120,8 +130,8 @@
                 endpoints =>
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                        endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}"); 
-                        endpoints.MapControllerRoute("coachPage", "t/{name:minlength(3)}", new { controller = "Coaches", action = "Coach"});
+                        endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                        endpoints.MapControllerRoute("coachPage", "t/{name:minlength(3)}", new { controller = "Coaches", action = "Coach" });
                         endpoints.MapRazorPages();
                     });
         }

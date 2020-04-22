@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
+
     using IDFit.Data.Models;
     using IDFit.Web.ViewModels.Tools;
 
@@ -13,7 +14,7 @@
 
         IEnumerable<Tool> GetAllTools();
 
-        Task CreateTool(ToolViewModel inputModel);
+        Task CreateTool(ToolViewModel inputModel, string path);
 
         Task<T> GetToolById<T>(int id);
 

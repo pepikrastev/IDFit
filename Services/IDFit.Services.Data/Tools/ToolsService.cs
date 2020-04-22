@@ -26,14 +26,14 @@
             this.db = db;
         }
 
-        public async Task CreateTool(ToolViewModel inputModel)
+        public async Task CreateTool(ToolViewModel inputModel, string path)
         {
             // var tool = this.mapper.Map<Tool>(inputModel);
             var tool = new Tool
             {
                 Name = inputModel.Name,
                 Details = inputModel.Details,
-                ImageUrl = inputModel.ImageUrl,
+                ImageUrl = path,
             };
 
             await this.db.Tools.AddAsync(tool);
@@ -49,7 +49,7 @@
             // TODO: fix it
             if (tool == null)
             {
-                throw new Exception("there is no tool with this id");
+                throw new Exception($"There is no tool with this id {id}");
             }
 
             this.toolsRepository.Delete(tool);

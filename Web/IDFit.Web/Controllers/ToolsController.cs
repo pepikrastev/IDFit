@@ -2,9 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
     using IDFit.Common;
     using IDFit.Data;
     using IDFit.Services.Data.Tools;
@@ -18,18 +20,20 @@
     {
         private readonly ApplicationDbContext db;
         private readonly IToolsService toolsService;
+        private readonly Cloudinary cloudinary;
 
-        public ToolsController(ApplicationDbContext db, IToolsService toolsService)
+        public ToolsController(ApplicationDbContext db, IToolsService toolsService, Cloudinary cloudinary)
         {
             this.db = db;
             this.toolsService = toolsService;
+            this.cloudinary = cloudinary;
         }
 
         public IActionResult Index()
         {
             var viewModel = new IndexViewModel();
 
-            var tools = this.db.Tools.Select(t => new ToolViewModel
+            var tools = this.db.Tools.Select(t => new IndexToolViewModel
             {
                 Name = t.Name,
                 Details = t.Details,
@@ -44,7 +48,7 @@
 
         public IActionResult AllTools()
         {
-            var viewModel = new List<ToolViewModel>();
+            var viewModel = new List<IndexToolViewModel>();
 
             // var tools = this.db.Tools.Select(t => new ToolViewModel
             // {
@@ -54,7 +58,7 @@
             // })
             // .ToList();
 
-            var tools = this.toolsService.GetAllTools<ToolViewModel>();
+            var tools = this.toolsService.GetAllTools<IndexToolViewModel>();
 
             viewModel = tools.ToList();
 
@@ -72,8 +76,27 @@
         {
             if (this.ModelState.IsValid)
             {
-                await this.toolsService.CreateTool(inputModel);
-                return this.Redirect("/Tools/AllTools");
+                byte[] destinationImage;
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    await inputModel.Photo.CopyToAsync(memoryStream);
+                    destinationImage = memoryStream.ToArray();
+                }
+
+                using (var destinationStream = new MemoryStream(destinationImage))
+                {
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(inputModel.Photo.FileName, destinationStream),
+                    };
+
+                    var resutl = await this.cloudinary.UploadAsync(uploadParams);
+                    var path = resutl.Uri.AbsoluteUri;
+
+                    await this.toolsService.CreateTool(inputModel, path);
+                    return this.Redirect("/Tools/AllTools");
+                }
             }
 
             return this.View(inputModel);
@@ -89,14 +112,42 @@
         [HttpPost]
         public async Task<IActionResult> EditTool(ToolViewModel viewModel)
         {
-            await this.toolsService.EditTool(viewModel.Id, viewModel.Name, viewModel.Details, viewModel.ImageUrl);
+            if (this.ModelState.IsValid)
+            {
+                byte[] destinationImage;
 
-            return this.RedirectToAction("AllTools");
+                using (var memoryStream = new MemoryStream())
+                {
+                    await viewModel.Photo.CopyToAsync(memoryStream);
+                    destinationImage = memoryStream.ToArray();
+                }
+
+                using (var destinationStream = new MemoryStream(destinationImage))
+                {
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(viewModel.Photo.FileName, destinationStream),
+                    };
+
+                    var resutl = await this.cloudinary.UploadAsync(uploadParams);
+                    var path = resutl.Uri.AbsoluteUri;
+
+                    await this.toolsService.EditTool(viewModel.Id, viewModel.Name, viewModel.Details, path);
+
+                    return this.RedirectToAction("AllTools");
+                }
+            }
+
+            return this.View(viewModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> DeleteTool(int id)
         {
+            // TODO: delete from cloudinary
+            // var tool = this.toolsService.GetToolById(id);
+            // this.cloudinary.DestroyAsync();
+
             await this.toolsService.DeleteTool(id);
             return this.RedirectToAction("AllTools");
         }
