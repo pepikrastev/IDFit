@@ -8,7 +8,5 @@
         public const string AdministratorUserName = "elnino@abv.bg";
 
         public const string CoachRoleName = "Coach";
-
-        public const string CoachUserName = "krum@abv.bg";
     }
 }

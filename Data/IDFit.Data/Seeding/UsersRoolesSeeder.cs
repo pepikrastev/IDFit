@@ -19,9 +19,9 @@
 
             var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
-            await SeedUserAsync(dbContext, userManager);
+            await this.SeedUserAsync(userManager);
 
-            await UserToRoleAsync(roleManager, userManager, dbContext);
+            await this.UserToRoleAsync(roleManager, userManager, dbContext);
         }
 
         private async Task UserToRoleAsync(RoleManager<ApplicationRole> roleManager, UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext)
@@ -51,7 +51,7 @@
             await dbContext.SaveChangesAsync();
         }
 
-        private async Task SeedUserAsync(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager)
+        private async Task SeedUserAsync(UserManager<ApplicationUser> userManager)
         {
             var user = await userManager.FindByNameAsync(GlobalConstants.AdministratorUserName);
 
