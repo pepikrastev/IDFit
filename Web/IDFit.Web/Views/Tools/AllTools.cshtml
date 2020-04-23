@@ -23,19 +23,39 @@
         </thead>
         @foreach (var tool in Model)
         {
-            <tbody>
-                <tr class="table-info">
-                    <td>@tool.Name</td>
-                    <td>@tool.Details</td>
-                    <td><img src="@tool.ImageUrl" width="50" class="mr-3"></td>
-                    <td>
-                        <form asp-controller="Tools" asp-action="DeleteTool" asp-route-id="@tool.Id" method="post">
-                            <a asp-controller="Tools" asp-action="EditTool" asp-route-id="@tool.Id" class="btn btn-primary">Edit</a>
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
+            if (tool.Details != null)
+            {
+                <tbody>
+                    <tr class="table-info">
+                        <td>@tool.Name</td>
+                        <td>@tool.Details</td>
+                        <td><img src="@tool.ImageUrl" width="50" class="mr-3"></td>
+                        <td>
+                            <form asp-controller="Tools" asp-action="DeleteTool" asp-route-id="@tool.Id" method="post">
+                                <a asp-controller="Tools" asp-action="EditTool" asp-route-id="@tool.Id" class="btn btn-primary">Edit</a>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            }
+            else
+            {
+                <tbody>
+                    <tr class="table-info">
+                        <td>@tool.Name</td>
+                        <td>There is no details.</td>
+                        <td><img src="@tool.ImageUrl" width="50" class="mr-3"></td>
+                        <td>
+                            <form asp-controller="Tools" asp-action="DeleteTool" asp-route-id="@tool.Id" method="post">
+                                <a asp-controller="Tools" asp-action="EditTool" asp-route-id="@tool.Id" class="btn btn-primary">Edit</a>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            }
+
         }
     </table>
 </div>

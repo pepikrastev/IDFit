@@ -44,7 +44,14 @@
             {
                 foreach (var tool in Model.Tools)
                 {
-                    <h5 class="card-title">@tool.Name - @tool.Details</h5>
+                    if (tool.Details != null)
+                    {
+                        <h5 class="card-title">@tool.Name - @tool.Details</h5>
+                    }
+                    else
+                    {
+                        <h5 class="card-title">@tool.Name</h5>
+                    }
                 }
             }
             else

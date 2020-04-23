@@ -23,10 +23,18 @@
         </thead>
         @foreach (var training in Model)
         {
+            
             <tbody>
                 <tr class="table-info">
                     <td>@training.Name</td>
-                    <td>@training.Description</td>
+                    @if (training.Description != null)
+                    {
+                        <td>@training.Description</td>
+                    }
+                    else
+                    {
+                        <td>There is no description.</td>
+                    }
                     <td>@training.TrainingTime</td>
                     <td>@training.ExercisesCount</td>
                     <td>@training.UsersCount</td>

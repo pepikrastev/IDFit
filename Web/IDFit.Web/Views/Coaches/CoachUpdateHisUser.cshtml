@@ -32,7 +32,7 @@
                     <strong style="color:blue"> @Model.Diet.Name</strong>
                     <br />
                     <i></i><i style="color:blue"> @Model.Diet.Description</i>
-                    <br /> <i style="color:blue">@(Model.Diet.EndTime.Day - DateTime.UtcNow.Day)</i>  <i></i> Days Left
+                    <br /> <i style="color:blue">@((Model.Diet.EndTime - DateTime.UtcNow).Days)</i>  <i></i> Days Left
                     <br /> <i style="color:blue">@Model.Diet.Foods.Count</i>  <i></i> FoodsCount
                 </p>
                 <center>

@@ -54,9 +54,19 @@
                             @foreach (var item in exercise.Tools)
                             {
                                 <div class="collapse" id="collapseExample">
-                                    <div class="card card-text" style="background-color:whitesmoke">
-                                        <p>@item.Name - @item.Details</p>
-                                    </div>
+                                    @if (item.Details != null)
+                                    {
+                                        <div class="card card-text" style="background-color:whitesmoke">
+                                            <p>@item.Name - @item.Details</p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="card card-text" style="background-color:whitesmoke">
+                                            <p>@item.Name </p>
+                                        </div>
+                                    }
+
                                 </div>
                             }
                         </td>
