@@ -31,6 +31,12 @@
     <Compile Remove="Migrations\20200411094219_Update.Designer.cs" />
     <Compile Remove="Migrations\20200413124718_Update.cs" />
     <Compile Remove="Migrations\20200413124718_Update.Designer.cs" />
+    <Compile Remove="Migrations\20200413125223_UpdateManyToMany.cs" />
+    <Compile Remove="Migrations\20200413125223_UpdateManyToMany.Designer.cs" />
+    <Compile Remove="Migrations\20200414191142_Update.cs" />
+    <Compile Remove="Migrations\20200414191142_Update.Designer.cs" />
+    <Compile Remove="Migrations\20200424120230_Update.cs" />
+    <Compile Remove="Migrations\20200424120230_Update.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

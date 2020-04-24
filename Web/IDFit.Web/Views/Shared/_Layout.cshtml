@@ -48,7 +48,6 @@
                                     @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
                                     {
                                         <a class="dropdown-item" asp-area="Administration" asp-controller="Administration" asp-action="AllRoles">Role</a>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Users" asp-action="AllUsers">Users</a>
                                     }
                                     else if (User.IsInRole(GlobalConstants.CoachRoleName))
                                     {

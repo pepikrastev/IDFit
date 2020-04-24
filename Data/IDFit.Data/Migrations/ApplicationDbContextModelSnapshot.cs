@@ -190,6 +190,7 @@ namespace IDFit.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartTime")
@@ -382,6 +383,7 @@ namespace IDFit.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TrainingTime")
@@ -564,7 +566,7 @@ namespace IDFit.Data.Migrations
             modelBuilder.Entity("IDFit.Data.Models.TrainingExercise", b =>
                 {
                     b.HasOne("IDFit.Data.Models.Exercise", "Exercise")
-                        .WithMany("TrainingsTools")
+                        .WithMany("TrainingsExercises")
                         .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

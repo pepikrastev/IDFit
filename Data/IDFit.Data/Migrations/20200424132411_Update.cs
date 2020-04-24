@@ -2,7 +2,7 @@
 
 namespace IDFit.Data.Migrations
 {
-    public partial class UpdateManyToMany : Migration
+    public partial class Update : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,6 +44,14 @@ namespace IDFit.Data.Migrations
 
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
+                table: "Trainings",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
                 table: "Tools",
                 nullable: false,
                 oldClrType: typeof(string),
@@ -66,6 +74,14 @@ namespace IDFit.Data.Migrations
                 oldType: "nvarchar(max)",
                 oldNullable: true);
 
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
+                table: "Diets",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)",
+                oldNullable: true);
+
             migrationBuilder.AddColumn<string>(
                 name: "Description",
                 table: "Diets",
@@ -77,7 +93,7 @@ namespace IDFit.Data.Migrations
                 nullable: true);
 
             migrationBuilder.CreateTable(
-                name: "ExercosesTools",
+                name: "ExercisesTools",
                 columns: table => new
                 {
                     ExerciseId = table.Column<int>(nullable: false),
@@ -85,15 +101,15 @@ namespace IDFit.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExercosesTools", x => new { x.ExerciseId, x.ToolId });
+                    table.PrimaryKey("PK_ExercisesTools", x => new { x.ExerciseId, x.ToolId });
                     table.ForeignKey(
-                        name: "FK_ExercosesTools_Exercises_ExerciseId",
+                        name: "FK_ExercisesTools_Exercises_ExerciseId",
                         column: x => x.ExerciseId,
                         principalTable: "Exercises",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ExercosesTools_Tools_ToolId",
+                        name: "FK_ExercisesTools_Tools_ToolId",
                         column: x => x.ToolId,
                         principalTable: "Tools",
                         principalColumn: "Id",
@@ -154,8 +170,8 @@ namespace IDFit.Data.Migrations
                 column: "CoachId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExercosesTools_ToolId",
-                table: "ExercosesTools",
+                name: "IX_ExercisesTools_ToolId",
+                table: "ExercisesTools",
                 column: "ToolId");
 
             migrationBuilder.CreateIndex(
@@ -184,7 +200,7 @@ namespace IDFit.Data.Migrations
                 table: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "ExercosesTools");
+                name: "ExercisesTools");
 
             migrationBuilder.DropTable(
                 name: "TrainingsExercises");
@@ -203,6 +219,13 @@ namespace IDFit.Data.Migrations
             migrationBuilder.DropColumn(
                 name: "CoachId",
                 table: "AspNetUsers");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
+                table: "Trainings",
+                type: "nvarchar(max)",
+                nullable: true,
+                oldClrType: typeof(string));
 
             migrationBuilder.AddColumn<string>(
                 name: "UserId",
@@ -242,6 +265,13 @@ namespace IDFit.Data.Migrations
                 table: "Exercises",
                 type: "int",
                 nullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
+                table: "Diets",
+                type: "nvarchar(max)",
+                nullable: true,
+                oldClrType: typeof(string));
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trainings_UserId",

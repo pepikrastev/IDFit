@@ -1,9 +1,11 @@
 ﻿namespace IDFit.Web.Areas.Administration.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using IDFit.Common;
+    using IDFit.Data;
     using IDFit.Data.Models;
     using IDFit.Web.Controllers;
     using IDFit.Web.ViewModels.Administration.Administration;
@@ -17,12 +19,14 @@
     {
         private readonly RoleManager<ApplicationRole> roleManager;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly ApplicationDbContext db;
 
         // RoleManager<IdentityUser> roleManager - is not working !!
-        public AdministrationController(RoleManager<ApplicationRole> roleManager, UserManager<ApplicationUser> userManager)
+        public AdministrationController(RoleManager<ApplicationRole> roleManager, UserManager<ApplicationUser> userManager, ApplicationDbContext db)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
+            this.db = db;
         }
 
         [HttpGet]
@@ -76,13 +80,21 @@
                 RoleName = role.Name,
             };
 
-            foreach (var user in this.userManager.Users)
+            var users = this.db.Users.Where(x => x.Roles.Any(x => x.RoleId == role.Id));
+
+            foreach (var item in users)
             {
-                if (await this.userManager.IsInRoleAsync(user, role.Name))
-                {
-                    model.Users.Add(user.UserName);
-                }
+                model.Users.Add(item.UserName);
             }
+
+            // is not working in azure
+            // foreach (var user in this.userManager.Users)
+            // {
+            //    if (await this.userManager.IsInRoleAsync(user, role.Name))
+            //    {
+            //        model.Users.Add(user.UserName);
+            //    }
+            // }
 
             return this.View(model);
         }
@@ -130,25 +142,52 @@
 
             var viewModel = new List<UserRoleViewModel>();
 
-            foreach (var user in this.userManager.Users)
+            var users = this.db.Users.Where(x => x.Roles.Any(x => x.RoleId == role.Id)).ToList();
+
+            foreach (var user in users)
             {
                 var userRoleViewModel = new UserRoleViewModel
                 {
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IsSelected = true,
                 };
-
-                if (await this.userManager.IsInRoleAsync(user, role.Name))
-                {
-                    userRoleViewModel.IsSelected = true;
-                }
-                else
-                {
-                    userRoleViewModel.IsSelected = false;
-                }
-
                 viewModel.Add(userRoleViewModel);
             }
+
+            var usersUnselected = this.db.Users.Where(x => x.Roles.Any(x => x.RoleId != role.Id) || !x.Roles.Any()).ToList();
+
+            foreach (var user in usersUnselected)
+            {
+                var userRoleViewModel = new UserRoleViewModel
+                {
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IsSelected = false,
+                };
+                viewModel.Add(userRoleViewModel);
+            }
+            
+            // is not working in azure
+            // foreach (var user in this.userManager.Users)
+            // {
+            //    var userRoleViewModel = new UserRoleViewModel
+            //    {
+            //        UserId = user.Id,
+            //        UserName = user.UserName,
+            //    };
+
+            //    if (await this.userManager.IsInRoleAsync(user, role.Name))
+            //    {
+            //        userRoleViewModel.IsSelected = true;
+            //    }
+            //    else
+            //    {
+            //        userRoleViewModel.IsSelected = false;
+            //    }
+
+            //    viewModel.Add(userRoleViewModel);
+            // }
 
             return this.View(viewModel);
         }

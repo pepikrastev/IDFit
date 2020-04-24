@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IDFit.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200413125223_UpdateManyToMany")]
-    partial class UpdateManyToMany
+    [Migration("20200424132411_Update")]
+    partial class Update
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -192,6 +192,7 @@ namespace IDFit.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartTime")
@@ -237,7 +238,7 @@ namespace IDFit.Data.Migrations
                     b.ToTable("Exercises");
                 });
 
-            modelBuilder.Entity("IDFit.Data.Models.ExercoseTool", b =>
+            modelBuilder.Entity("IDFit.Data.Models.ExerciseTool", b =>
                 {
                     b.Property<int>("ExerciseId")
                         .HasColumnType("int");
@@ -249,7 +250,7 @@ namespace IDFit.Data.Migrations
 
                     b.HasIndex("ToolId");
 
-                    b.ToTable("ExercosesTools");
+                    b.ToTable("ExercisesTools");
                 });
 
             modelBuilder.Entity("IDFit.Data.Models.Food", b =>
@@ -384,6 +385,7 @@ namespace IDFit.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TrainingTime")
@@ -541,16 +543,16 @@ namespace IDFit.Data.Migrations
                         .HasForeignKey("DietId");
                 });
 
-            modelBuilder.Entity("IDFit.Data.Models.ExercoseTool", b =>
+            modelBuilder.Entity("IDFit.Data.Models.ExerciseTool", b =>
                 {
                     b.HasOne("IDFit.Data.Models.Exercise", "Exercise")
-                        .WithMany("ExercosesTools")
+                        .WithMany("ExercisesTools")
                         .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("IDFit.Data.Models.Tool", "Tool")
-                        .WithMany("ExercosesTools")
+                        .WithMany("ExercisesTools")
                         .HasForeignKey("ToolId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -566,7 +568,7 @@ namespace IDFit.Data.Migrations
             modelBuilder.Entity("IDFit.Data.Models.TrainingExercise", b =>
                 {
                     b.HasOne("IDFit.Data.Models.Exercise", "Exercise")
-                        .WithMany("TrainingsTools")
+                        .WithMany("TrainingsExercises")
                         .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
