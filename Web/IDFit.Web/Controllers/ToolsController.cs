@@ -1,10 +1,10 @@
 ﻿namespace IDFit.Web.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
+
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
     using IDFit.Common;
@@ -12,7 +12,6 @@
     using IDFit.Services.Data.Tools;
     using IDFit.Web.ViewModels.Tools;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize(Roles = GlobalConstants.CoachRoleName)]
@@ -57,7 +56,6 @@
             //    ImageUrl = t.ImageUrl,
             // })
             // .ToList();
-
             var tools = this.toolsService.GetAllTools<IndexToolViewModel>();
 
             viewModel = tools.ToList();
@@ -109,9 +107,9 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditTool(int id)
+        public IActionResult EditTool(int id)
         {
-            var viewModel = await this.toolsService.GetToolById<ToolViewModel>(id);
+            var viewModel = this.toolsService.GetToolById<ToolViewModel>(id);
             return this.View(viewModel);
         }
 

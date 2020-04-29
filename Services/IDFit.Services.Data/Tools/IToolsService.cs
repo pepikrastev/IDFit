@@ -16,7 +16,7 @@
 
         Task CreateTool(ToolViewModel inputModel, string path);
 
-        Task<T> GetToolById<T>(int id);
+        T GetToolById<T>(int id);
 
         Tool GetToolById(int id);
 

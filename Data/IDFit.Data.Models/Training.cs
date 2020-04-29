@@ -12,11 +12,11 @@
             this.UsersTrainings = new List<UserTraining>();
         }
 
-        [Required] // for next update
+        [Required]
         public string Name { get; set; }
 
         // in minutes
-        [Range(10, 200)] // for next update
+        [Range(10, 200)]
         public int TrainingTime { get; set; }
 
         public string Description { get; set; }

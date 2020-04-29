@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace IDFit.Data.Migrations
+﻿namespace IDFit.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class UpdateDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,7 +45,7 @@ namespace IDFit.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     StartTime = table.Column<DateTime>(nullable: false),
-                    EndTime = table.Column<DateTime>(nullable: false)
+                    EndTime = table.Column<DateTime>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -64,7 +65,7 @@ namespace IDFit.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     TrainingTime = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -90,7 +91,7 @@ namespace IDFit.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     Quantity = table.Column<int>(nullable: false),
                     Weight = table.Column<double>(nullable: false),
-                    DietId = table.Column<int>(nullable: true)
+                    DietId = table.Column<int>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -115,7 +116,7 @@ namespace IDFit.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    TrainingId = table.Column<int>(nullable: true)
+                    TrainingId = table.Column<int>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -141,7 +142,7 @@ namespace IDFit.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: true),
                     Details = table.Column<string>(nullable: true),
-                    ExerciseId = table.Column<int>(nullable: true)
+                    ExerciseId = table.Column<int>(nullable: true),
                 },
                 constraints: table =>
                 {

@@ -1,17 +1,13 @@
 ﻿namespace IDFit.Web.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using IDFit.Common;
-    using IDFit.Data;
-    using IDFit.Data.Common.Repositories;
     using IDFit.Data.Models;
     using IDFit.Services.Data;
     using IDFit.Services.Data.Diets;
-    using IDFit.Services.Mapping;
     using IDFit.Web.ViewModels.Coaches;
     using IDFit.Web.ViewModels.Diets;
     using Microsoft.AspNetCore.Authorization;

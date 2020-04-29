@@ -90,9 +90,9 @@
             return this.toolsRepository.All().ToList();
         }
 
-        public async Task<T> GetToolById<T>(int id)
+        public T GetToolById<T>(int id)
         {
-            var tool =  this.toolsRepository.All()
+            var tool = this.toolsRepository.All()
                  .Where(x => x.Id == id)
                  .To<T>()
                  .FirstOrDefault();

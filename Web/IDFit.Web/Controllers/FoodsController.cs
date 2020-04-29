@@ -1,9 +1,6 @@
 ﻿namespace IDFit.Web.Controllers
 {
-    using System.Threading.Tasks;
-
     using IDFit.Common;
-    using IDFit.Data.Models;
     using IDFit.Services.Data.Foods;
     using IDFit.Web.ViewModels.Foods;
     using Microsoft.AspNetCore.Authorization;
@@ -39,18 +36,19 @@
         }
 
         [HttpPost]
-        public IActionResult CreateFood(FoodViewModel viewModel)
+        public IActionResult CreateFood(FoodViewModel inputModel)
         {
             if (this.ModelState.IsValid)
             {
-                var resutl = this.foodsService.CreateFood(viewModel.Name, viewModel.Quantity, viewModel.Weight);
+                var resutl = this.foodsService.CreateFood(inputModel.Name, inputModel.Quantity, inputModel.Weight);
 
                 if (resutl > -1)
                 {
                     return this.RedirectToAction("AllFoods", "Foods");
                 }
             }
-            return this.View(viewModel);
+
+            return this.View(inputModel);
         }
 
         [HttpGet]

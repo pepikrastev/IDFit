@@ -1,5 +1,4 @@
-﻿
-namespace IDFit.Web.Controllers
+﻿namespace IDFit.Web.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -7,11 +6,9 @@ namespace IDFit.Web.Controllers
     using IDFit.Common;
     using IDFit.Services.Data.Diets;
     using IDFit.Services.Data.Foods;
-    using IDFit.Services.Mapping;
     using IDFit.Web.ViewModels.Diets;
     using IDFit.Web.ViewModels.Foods;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize(Roles = GlobalConstants.CoachRoleName)]
@@ -33,13 +30,13 @@ namespace IDFit.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateDiet(CreateDietViewModel viewModel)
+        public IActionResult CreateDiet(CreateDietViewModel inputModel)
         {
             if (this.ModelState.IsValid)
             {
-                if ((viewModel.EndTime - viewModel.StartTime).Days > 1 && (viewModel.EndTime - DateTime.UtcNow).Days > 1)
+                if ((inputModel.EndTime - inputModel.StartTime).Days > 1 && (inputModel.EndTime - DateTime.UtcNow).Days > 1)
                 {
-                    var resutl = this.dietsService.CreateDiet(viewModel.Name, viewModel.StartTime, viewModel.EndTime, viewModel.Description);
+                    var resutl = this.dietsService.CreateDiet(inputModel.Name, inputModel.StartTime, inputModel.EndTime, inputModel.Description);
 
                     if (resutl > -1)
                     {
@@ -52,7 +49,7 @@ namespace IDFit.Web.Controllers
                 }
             }
 
-            return this.View(viewModel);
+            return this.View(inputModel);
         }
 
         [HttpGet]
@@ -81,16 +78,15 @@ namespace IDFit.Web.Controllers
         [HttpGet]
         public IActionResult EditDiet(int id)
         {
-
             var viewModel = this.dietsService.GetDietById<EditDietViewModel>(id);
 
             return this.View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult EditDiet(EditDietViewModel model)
+        public IActionResult EditDiet(EditDietViewModel viewModel)
         {
-            var diet = this.dietsService.GetDietById(model.Id);
+            var diet = this.dietsService.GetDietById(viewModel.Id);
 
             if (diet == null)
             {
@@ -100,9 +96,9 @@ namespace IDFit.Web.Controllers
             {
                 if (this.ModelState.IsValid)
                 {
-                    if ((model.EndTime - model.StartTime).Days > 1 && (model.EndTime - DateTime.UtcNow).Days > 1)
+                    if ((viewModel.EndTime - viewModel.StartTime).Days > 1 && (viewModel.EndTime - DateTime.UtcNow).Days > 1)
                     {
-                        this.dietsService.EditDiet(diet, model.Name, model.StartTime, model.EndTime, model.Description);
+                        this.dietsService.EditDiet(diet, viewModel.Name, viewModel.StartTime, viewModel.EndTime, viewModel.Description);
 
                         return this.RedirectToAction("AllDiets");
                     }
@@ -113,7 +109,7 @@ namespace IDFit.Web.Controllers
                 }
             }
 
-            return this.View(model);
+            return this.View(viewModel);
         }
 
         [HttpGet]
@@ -127,6 +123,7 @@ namespace IDFit.Web.Controllers
                 this.ViewBag.ErrorMessage = $"Diet with id = {dietId} connot be found";
                 return this.View("NotFound");
             }
+
             this.ViewBag.dietName = diet.Name;
 
             var viewModel = new List<FoodViewModel>();

@@ -51,7 +51,6 @@
         public IActionResult AllExercises()
         {
             var viewModel = new List<ExerciseViewModel>();
-            // var exercises = this.exercisesService.GetAllExercise<ExerciseViewModel>().ToList();
 
             var exersiseModel = this.exercisesService.GetAllExerciseViewModel();
             viewModel = exersiseModel.ToList();
@@ -117,6 +116,7 @@
                 this.ViewBag.ErrorMessage = $"Exercise with id = {exerciseId} connot be found";
                 return this.View("NotFound");
             }
+
             this.ViewBag.exerciseName = exercise.Name;
 
             var viewModel = new List<ToolsListViewModel>();

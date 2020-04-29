@@ -95,7 +95,6 @@
             //        model.Users.Add(user.UserName);
             //    }
             // }
-
             return this.View(model);
         }
 
@@ -167,7 +166,7 @@
                 };
                 viewModel.Add(userRoleViewModel);
             }
-            
+
             // is not working in azure
             // foreach (var user in this.userManager.Users)
             // {
@@ -177,7 +176,7 @@
             //        UserName = user.UserName,
             //    };
 
-            //    if (await this.userManager.IsInRoleAsync(user, role.Name))
+            // if (await this.userManager.IsInRoleAsync(user, role.Name))
             //    {
             //        userRoleViewModel.IsSelected = true;
             //    }
@@ -186,9 +185,8 @@
             //        userRoleViewModel.IsSelected = false;
             //    }
 
-            //    viewModel.Add(userRoleViewModel);
+            // viewModel.Add(userRoleViewModel);
             // }
-
             return this.View(viewModel);
         }
 

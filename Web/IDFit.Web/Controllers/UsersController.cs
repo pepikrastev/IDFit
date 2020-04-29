@@ -21,9 +21,9 @@
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUsersService usersService;
-        private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
-        public UsersController(UserManager<ApplicationUser> userManager, IUsersService usersService, IHostingEnvironment hostingEnvironment)
+        public UsersController(UserManager<ApplicationUser> userManager, IUsersService usersService, IWebHostEnvironment hostingEnvironment)
         {
             this.userManager = userManager;
             this.usersService = usersService;
@@ -118,9 +118,9 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUser(EditUserViewModel model)
+        public async Task<IActionResult> EditUser(EditUserViewModel viewModel)
         {
-            var user = await this.userManager.FindByIdAsync(model.Id);
+            var user = await this.userManager.FindByIdAsync(viewModel.Id);
 
             if (user == null)
             {
@@ -130,20 +130,20 @@
             if (this.ModelState.IsValid)
             {
                 string uniqueFileName = null;
-                if (model.Photo != null)
+                if (viewModel.Photo != null)
                 {
                     string uploadsFolder = Path.Combine(this.hostingEnvironment.WebRootPath, "images");
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + viewModel.Photo.FileName;
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                    viewModel.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
                 }
 
                 user.ImageUrl = uniqueFileName;
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.Age = model.Age;
-                user.Description = model.Description;
-                user.PhoneNumber = model.PhoneNumber;
+                user.FirstName = viewModel.FirstName;
+                user.LastName = viewModel.LastName;
+                user.Age = viewModel.Age;
+                user.Description = viewModel.Description;
+                user.PhoneNumber = viewModel.PhoneNumber;
 
                 var result = await this.userManager.UpdateAsync(user);
 
@@ -158,7 +158,7 @@
                 }
             }
 
-            return this.View(model);
+            return this.View(viewModel);
         }
 
         [HttpPost]

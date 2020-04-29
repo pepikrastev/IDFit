@@ -12,12 +12,7 @@
         {
         }
 
-        public async Task<IActionResult> Index()
-        {
-            return this.View();
-        }
-
-        public IActionResult Privacy()
+        public IActionResult Index()
         {
             return this.View();
         }

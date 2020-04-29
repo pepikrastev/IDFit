@@ -4,8 +4,8 @@ namespace IDFit.Data.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
-    using IDFit.Data.Common.Models;
 
+    using IDFit.Data.Common.Models;
     using Microsoft.AspNetCore.Identity;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
@@ -33,12 +33,14 @@ namespace IDFit.Data.Models
         public string Description { get; set; }
 
         public int? DietId { get; set; }
+
         public virtual Diet Diet { get; set; }
 
         public virtual ICollection<UserTraining> UsersTrainings { get; set; }
 
-        // if user is user
+        // if user is  not coach
         public string CoachId { get; set; }
+
         public virtual ApplicationUser Coach { get; set; }
 
         // if user is coach

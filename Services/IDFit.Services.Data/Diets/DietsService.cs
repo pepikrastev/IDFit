@@ -62,7 +62,6 @@
                 if (user.DietId == id)
                 {
                     user.DietId = null;
-                   // user.Diet = null;
                     this.db.Users.Update(user);
                 }
             }
@@ -73,14 +72,12 @@
                 if (food.DietId == id)
                 {
                     food.DietId = null;
-                    // food.Diet = null;
                     this.db.Foods.Update(food);
                 }
             }
 
             // diet.Foods = null;
             // diet.Users = null;
-
             this.db.Diets.Remove(diet);
             return this.db.SaveChanges();
         }
@@ -115,13 +112,12 @@
                     {
                         user.DietId = null;
                     }
-                    this.db.Users.Update(user);
 
+                    this.db.Users.Update(user);
                 }
 
                 // delete diet from db
                 // this.DeleteDiet(diet.Id);
-
                 // diet.IsDeleted = true
                 this.dietsRepository.Delete(diet);
                 this.db.SaveChanges();

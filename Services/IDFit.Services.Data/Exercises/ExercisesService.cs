@@ -18,13 +18,11 @@
     {
         private readonly IDeletableEntityRepository<Exercise> exercisesRepository;
         private readonly ApplicationDbContext db;
-        private readonly IToolsService toolsService;
 
-        public ExercisesService(IDeletableEntityRepository<Exercise> exercisesRepository, ApplicationDbContext db, IToolsService toolsService)
+        public ExercisesService(IDeletableEntityRepository<Exercise> exercisesRepository, ApplicationDbContext db)
         {
             this.exercisesRepository = exercisesRepository;
             this.db = db;
-            this.toolsService = toolsService;
         }
 
         public async Task CreateExercise(CreateExerciseViewModel inputModel)
@@ -53,9 +51,8 @@
 
             this.db.Exercises.Remove(exercise);
 
-           // set property IsDeleted to true
-           // this.exercisesRepository.Delete(exercise);
-
+            // set property IsDeleted to true
+            // this.exercisesRepository.Delete(exercise);
             return this.db.SaveChanges();
         }
 
@@ -112,7 +109,6 @@
         public IEnumerable<T> GetAllToolsForExercise<T>(int exerciseId)
         {
             // var tools = this.toolsService.GetAllTools<T>();
-
             var tools = this.db.Tools.Where(x => x.ExercisesTools.Any(x => x.ExerciseId == exerciseId));
 
             return tools.To<T>().ToList();

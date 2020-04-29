@@ -1,9 +1,7 @@
 ﻿namespace IDFit.Services.Data.Trainings
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using IDFit.Data;
@@ -107,7 +105,6 @@
         {
             var exercises = this.db.Exercises.Where(x => x.TrainingsExercises.Any(x => x.TrainingId == trainingId));
 
-            // with custom mapping for one entity
             return exercises.To<T>().ToList();
         }
 

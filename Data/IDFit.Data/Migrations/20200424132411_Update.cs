@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace IDFit.Data.Migrations
+﻿namespace IDFit.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class Update : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -97,7 +97,7 @@ namespace IDFit.Data.Migrations
                 columns: table => new
                 {
                     ExerciseId = table.Column<int>(nullable: false),
-                    ToolId = table.Column<int>(nullable: false)
+                    ToolId = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -121,7 +121,7 @@ namespace IDFit.Data.Migrations
                 columns: table => new
                 {
                     TrainingId = table.Column<int>(nullable: false),
-                    ExerciseId = table.Column<int>(nullable: false)
+                    ExerciseId = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -145,7 +145,7 @@ namespace IDFit.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    TrainingId = table.Column<int>(nullable: false)
+                    TrainingId = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {

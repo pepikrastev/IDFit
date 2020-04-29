@@ -3,15 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
 
     using IDFit.Data;
     using IDFit.Data.Common.Repositories;
     using IDFit.Data.Models;
-    using IDFit.Services.Data.Exercises;
     using IDFit.Services.Data.Trainings;
     using IDFit.Services.Mapping;
-    using IDFit.Web.ViewModels.Exercises;
     using IDFit.Web.ViewModels.Trainings;
     using IDFit.Web.ViewModels.Users;
     using Microsoft.AspNetCore.Identity;
@@ -64,7 +61,6 @@
 
             user.Coach = null;
             user.CoachId = null;
-            // user.Trainings = null;
 
             this.db.Users.Update(user);
             this.db.Users.UpdateRange(coaches);
@@ -93,7 +89,6 @@
 
         public IEnumerable<T> GetAllUsersWithCoach<T>(string id)
         {
-
             IQueryable<ApplicationUser> query = this.userRepository.All()
                 .Where(x => x.CoachId == id && !x.Roles.Any())
                .OrderBy(x => x.UserName);
