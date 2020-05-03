@@ -80,21 +80,16 @@
                 RoleName = role.Name,
             };
 
-            var users = this.db.Users.Where(x => x.Roles.Any(x => x.RoleId == role.Id));
-
-            foreach (var item in users)
+            var users = this.userManager.Users.ToList();
+            foreach (var user in users)
             {
-                model.Users.Add(item.UserName);
+                var isInRole = await this.userManager.IsInRoleAsync(user, role.Name);
+                if (isInRole)
+                {
+                    model.Users.Add(user.UserName);
+                }
             }
 
-            // is not working in azure
-            // foreach (var user in this.userManager.Users)
-            // {
-            //    if (await this.userManager.IsInRoleAsync(user, role.Name))
-            //    {
-            //        model.Users.Add(user.UserName);
-            //    }
-            // }
             return this.View(model);
         }
 
@@ -141,52 +136,27 @@
 
             var viewModel = new List<UserRoleViewModel>();
 
-            var users = this.db.Users.Where(x => x.Roles.Any(x => x.RoleId == role.Id)).ToList();
-
+            var users = this.userManager.Users.ToList();
             foreach (var user in users)
             {
                 var userRoleViewModel = new UserRoleViewModel
                 {
                     UserId = user.Id,
                     UserName = user.UserName,
-                    IsSelected = true,
                 };
-                viewModel.Add(userRoleViewModel);
-            }
 
-            var usersUnselected = this.db.Users.Where(x => x.Roles.Any(x => x.RoleId != role.Id) || !x.Roles.Any()).ToList();
-
-            foreach (var user in usersUnselected)
-            {
-                var userRoleViewModel = new UserRoleViewModel
+                if (await this.userManager.IsInRoleAsync(user, role.Name))
                 {
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IsSelected = false,
-                };
+                    userRoleViewModel.IsSelected = true;
+                }
+                else
+                {
+                    userRoleViewModel.IsSelected = false;
+                }
+
                 viewModel.Add(userRoleViewModel);
             }
 
-            // is not working in azure
-            // foreach (var user in this.userManager.Users)
-            // {
-            //    var userRoleViewModel = new UserRoleViewModel
-            //    {
-            //        UserId = user.Id,
-            //        UserName = user.UserName,
-            //    };
-
-            // if (await this.userManager.IsInRoleAsync(user, role.Name))
-            //    {
-            //        userRoleViewModel.IsSelected = true;
-            //    }
-            //    else
-            //    {
-            //        userRoleViewModel.IsSelected = false;
-            //    }
-
-            // viewModel.Add(userRoleViewModel);
-            // }
             return this.View(viewModel);
         }
 
@@ -247,6 +217,7 @@
                 return this.View("NotFound");
             }
 
+            // works for roles without users.
             var result = await this.roleManager.DeleteAsync(role);
 
             if (result.Succeeded)
