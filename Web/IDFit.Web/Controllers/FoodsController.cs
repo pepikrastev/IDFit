@@ -57,7 +57,6 @@
             var viewModel = new AllFoodsViewModel();
             var foods = this.foodsService.GetAllFoods<FoodViewModel>();
             viewModel.Foods = foods;
-
             return this.View(viewModel);
         }
 

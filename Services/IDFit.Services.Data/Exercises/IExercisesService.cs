@@ -8,6 +8,10 @@
 
     public interface IExercisesService
     {
+        Task<int> AddOrRemoveToolsForExerciseAsync(int exerciseId, List<ToolsListViewModel> viewModels);
+
+        IEnumerable<ToolsListViewModel> GetToolsListForExercise(int exerciseId);
+
         Task CreateExercise(CreateExerciseViewModel inputModel);
 
         IEnumerable<T> GetAllExercise<T>();

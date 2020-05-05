@@ -1,8 +1,6 @@
 ﻿namespace IDFit.Services.Data.Trainings
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
     using System.Threading.Tasks;
 
     using IDFit.Data.Models;

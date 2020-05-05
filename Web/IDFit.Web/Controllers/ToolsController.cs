@@ -8,7 +8,6 @@
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
     using IDFit.Common;
-    using IDFit.Data;
     using IDFit.Services.Data.Tools;
     using IDFit.Web.ViewModels.Tools;
     using Microsoft.AspNetCore.Authorization;
@@ -17,49 +16,20 @@
     [Authorize(Roles = GlobalConstants.CoachRoleName)]
     public class ToolsController : BaseController
     {
-        private readonly ApplicationDbContext db;
         private readonly IToolsService toolsService;
         private readonly Cloudinary cloudinary;
 
-        public ToolsController(ApplicationDbContext db, IToolsService toolsService, Cloudinary cloudinary)
+        public ToolsController(IToolsService toolsService, Cloudinary cloudinary)
         {
-            this.db = db;
             this.toolsService = toolsService;
             this.cloudinary = cloudinary;
-        }
-
-        public IActionResult Index()
-        {
-            var viewModel = new IndexViewModel();
-
-            var tools = this.db.Tools.Select(t => new IndexToolViewModel
-            {
-                Name = t.Name,
-                Details = t.Details,
-                ImageUrl = t.ImageUrl,
-            })
-            .ToList();
-
-            viewModel.Tools = tools;
-
-            return this.View(viewModel);
         }
 
         public IActionResult AllTools()
         {
             var viewModel = new List<IndexToolViewModel>();
-
-            // var tools = this.db.Tools.Select(t => new ToolViewModel
-            // {
-            //    Name = t.Name,
-            //    Details = t.Details,
-            //    ImageUrl = t.ImageUrl,
-            // })
-            // .ToList();
             var tools = this.toolsService.GetAllTools<IndexToolViewModel>();
-
             viewModel = tools.ToList();
-
             return this.View(viewModel);
         }
 

@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using IDFit.Data;
@@ -18,11 +17,38 @@
     {
         private readonly IDeletableEntityRepository<Exercise> exercisesRepository;
         private readonly ApplicationDbContext db;
+        private readonly IToolsService toolsService;
 
-        public ExercisesService(IDeletableEntityRepository<Exercise> exercisesRepository, ApplicationDbContext db)
+        public ExercisesService(IDeletableEntityRepository<Exercise> exercisesRepository, ApplicationDbContext db, IToolsService toolsService)
         {
             this.exercisesRepository = exercisesRepository;
             this.db = db;
+            this.toolsService = toolsService;
+        }
+
+        public Task<int> AddOrRemoveToolsForExerciseAsync(int exerciseId, List<ToolsListViewModel> viewModels)
+        {
+            foreach (var item in this.db.ExercisesTools)
+            {
+                if (item.ExerciseId == exerciseId)
+                {
+                    this.db.Entry(item).State = EntityState.Deleted;
+                }
+            }
+
+            foreach (var tool in viewModels)
+            {
+                if (tool.IsSelected)
+                {
+                    this.db.ExercisesTools.Add(new ExerciseTool
+                    {
+                        ExerciseId = exerciseId,
+                        ToolId = tool.Id,
+                    });
+                }
+            }
+
+            return this.db.SaveChangesAsync();
         }
 
         public async Task CreateExercise(CreateExerciseViewModel inputModel)
@@ -135,6 +161,35 @@
         {
             return this.exercisesRepository.All()
                  .FirstOrDefault(x => x.Id == id);
+        }
+
+        public IEnumerable<ToolsListViewModel> GetToolsListForExercise(int exerciseId)
+        {
+            var tools = this.toolsService.GetAllTools();
+            var viewModel = new List<ToolsListViewModel>();
+
+            foreach (var tool in tools)
+            {
+                var toolsListViewModel = new ToolsListViewModel
+                {
+                    Id = tool.Id,
+                    Name = tool.Name,
+                    Details = tool.Details,
+                };
+
+                if (this.db.ExercisesTools.Any(x => x.ExerciseId == exerciseId && x.ToolId == tool.Id))
+                {
+                    toolsListViewModel.IsSelected = true;
+                }
+                else
+                {
+                    toolsListViewModel.IsSelected = false;
+                }
+
+                viewModel.Add(toolsListViewModel);
+            }
+
+            return viewModel.ToList();
         }
     }
 }

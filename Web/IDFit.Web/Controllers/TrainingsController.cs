@@ -115,7 +115,6 @@
             this.ViewBag.trainingName = training.Name;
 
             var viewModel = this.trainingsService.GetExrciseListForTraining(trainingId).ToList();
-
             return this.View(viewModel);
         }
 

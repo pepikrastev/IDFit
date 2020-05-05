@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
 
     using IDFit.Common;
-    using IDFit.Data;
     using IDFit.Data.Models;
     using IDFit.Web.Controllers;
     using IDFit.Web.ViewModels.Administration.Administration;
@@ -19,14 +18,11 @@
     {
         private readonly RoleManager<ApplicationRole> roleManager;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly ApplicationDbContext db;
 
-        // RoleManager<IdentityUser> roleManager - is not working !!
-        public AdministrationController(RoleManager<ApplicationRole> roleManager, UserManager<ApplicationUser> userManager, ApplicationDbContext db)
+        public AdministrationController(RoleManager<ApplicationRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
-            this.db = db;
         }
 
         [HttpGet]

@@ -41,9 +41,8 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Coach(string id)
+        public async Task<IActionResult> Coach(string id)   
         {
-            // take user.CoachId for buttons to users to pick or remove coach
             var user = await this.userManager.GetUserAsync(this.HttpContext.User);
             this.ViewBag.userCoachId = user.CoachId;
 
